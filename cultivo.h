@@ -1,7 +1,8 @@
-* cultivo.h
+/*
+ * cultivo.h
  *
- *  Created on: 28/04/2018
- *      Author: Ahre-manga2
+ *  Created on: 24/03/2018
+ *      Author: Matias Figueroa
  */
 
 #ifndef CULTIVO_H_
