@@ -2,27 +2,16 @@
 
 using namespace std;
 
+const int TURNOS = 10;
+
 int main() {
 
-    int cantidadJugadores = 0;
-    Jugador* jugadores = NULL;
-    dificultad nivelElegido = NO_ASIGNADA;
+    int cantidadJugadores;
+    Jugador* jugadores;
 
-    ingresarCantidadJugadores(cantidadJugadores);
-    crearArregloJugadores(jugadores, cantidadJugadores);
-    ingresarNombres(jugadores, cantidadJugadores);
-    elegirDificultad(nivelElegido);
-    cargarAtributosIniciales(jugadores, cantidadJugadores, nivelElegido);
+    system("clear");
 
-    // Para ver que onda
-    mostrarInformacionJugadores(jugadores, cantidadJugadores);
-
-    /*
-
-    Y BUE ACA HABRIA QUE HACER LO QUE TIENE QUE PASAR EN CADA
-    TURNO
-
-    */
+    configurarJuego(jugadores, cantidadJugadores);
 
     delete[] jugadores;
 

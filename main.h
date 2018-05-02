@@ -8,6 +8,6 @@
 #include <fstream>
 #include <iomanip>
 #include "jugador.h"
-#include "setup.h"
+#include "configuracion.h"
 
 #endif
