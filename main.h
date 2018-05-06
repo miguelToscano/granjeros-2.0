@@ -9,5 +9,6 @@
 #include <iomanip>
 #include "jugador.h"
 #include "configuracion.h"
+#include "setup.h"
 
 #endif

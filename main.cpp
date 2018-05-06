@@ -12,8 +12,6 @@ int main() {
     system("clear");
 
     configurarJuego(jugadores, cantidadJugadores);
-
-    delete[] jugadores;
-
+  
     return 0;
 }
