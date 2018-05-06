@@ -35,6 +35,11 @@ Cultivo::Cultivo(char tipoParametro){
 		return *this;
 	}
 
+	Cultivo &Cultivo::setearCostoRiego(int costoArg){
+		costoRiego = costoArg;
+		return *this;
+}
+
 	Cultivo &Cultivo::setearCosto(int costoArg){
 		costoSemilla = costoArg;
 		return *this;
@@ -73,6 +78,10 @@ Cultivo::Cultivo(char tipoParametro){
 
 	int Cultivo::obtenerTIempoDeRecuperacion(){
 		return tiempoDeRecuperacion;
+	}
+
+	int Cultivo::obtenerCostoRiego(){
+		return costoRiego;
 	}
 
 	void Cultivo::cambiarCultivo(Cultivo* cultivoArg){
