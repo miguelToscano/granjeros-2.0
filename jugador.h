@@ -5,6 +5,10 @@
 #include <string>
 #include <cstdlib>
 #include <fstream>
+#include "parcela.h"
+#include "lista.h"
+#include "almacen.h"
+
 
 class Jugador {
 
@@ -14,24 +18,15 @@ private:
 
     int creditos;
 
-    int cantidadTerrenos;
+    TanqueDeAgua miTanque;
 
-    int unidadesRiego;
+    Lista<Parcela*> miTerreno;
 
-    // Arreglo de matrices que representa la cantidad de terrenos
-    char*** terreno;
-
-    // Parcela*** terreno;
-    //
-    // Tanque tanqueDeAgua;
-    //
-    // Almacen miAlmacen;
+    Almacen miAlmacen;
 
 public:
 
     Jugador();
-
-    void imprimirInformacion();
 
     // Pre: -
     // Post: Pide el nombre del jugador y lo asigna a nombre
@@ -46,39 +41,56 @@ public:
     std::string obtenerNombre();
 
     // Pre: El argumento debe ser positivo
-    // Post: Asigna a creditos el valor pasado como argumento
+    // Post: agrega creditos.
     void establecerCreditos(int creditos);
+
+    void sumarCreditos(int creditos);
 
     // Pre: -
     // Post: Devuelve la cantidad de creditos del jugador
     int obtenerCreditos();
 
-    // Pre: El argumento debe ser positivo
-    // Post: Redimensiona el arreglo de terrenos del jugador
-    void establecerCantidadTerrenos(int cantidadTerrenos);
+    /*
+     * pre: El jugador debe tener los creditos necesario para hacer la compra
+     * post: agrega una cantidad de parcelas nxm al terreno.
+     */
+    void comprarTerreno(Dificultad dificultad);
 
-    // Pre: -
-    // Post: Devuelve la cantidad de terrenos del jugador (coincide
-    // con la primer dimension del arreglo de terrenos)
-    int obtenerCantidadTerrenos();
+    /*
+     * pre: El jugador debe tener un terreno.
+     * post: Se eliminan las parcelas del ultimo terreno que compro
+     * y recibe la cantidad de creditos correspondientes
+     */
+    void venderTerreno(Dificultad dificultad);
 
-    // Pre: El argumento debe ser positivo
-    // Post: Asigna a unidadesRiego el valor pasado como argumento
+
+    /*
+     * pre: Se debe entregar una coordenada y numero de terreno validos.
+     * post: obtiene el puntero a la parcela indicada.
+     */
+    Parcela* obtenerParcela(int nTerreno, int fila,
+    		int columna, Dificultad dificultad);
+
+    /*
+     * post: devuelve la cantidad de terrenos del jugador.
+     */
+    int obtenerCantidadTerrenos(Dificultad dificultad);
+
+    /*
+     * post: aumenta la capacidad de las unidades de riego del tanque
+     */
     void establecerUnidadesRiego(int unidadesRiego);
 
-    // Pre: -
-    // Post: Devuelve el valor de unidadesRiego
+    /*
+     * post: obtiene las unidades de riego del jugador
+     */
     int obtenerUnidadesRiego();
 
-    // Pre: El archivo recibido como argumento y los datos en el mismo deben
-    // estar cada uno en una linea separada en el siguiente orden:
-    // - creditos
-    // - cantidadTerrenos
-    // - unidadesRiego
-
-    // Post: deja los atributos iniciales del jugador con los valores definidos
-    // en el archivo pasado como argumento
-    void cargarAtributos(std::ifstream& archivo);
+    /*
+     * pre: Los parametros de dificultad deben estar inicializados.
+     * post: Asigna los valores iniciales del jugador.
+     */
+    void cargarAtributos(Dificultad dificultad);
 };
 
 #endif
