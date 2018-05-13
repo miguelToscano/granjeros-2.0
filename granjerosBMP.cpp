@@ -95,7 +95,7 @@ void GranjerosBMP::pintarBordesInternos (BMP imagen, int fila, int columna){
 	int n=1;
 
 
-	while (n<6){
+	while (n<fila){
 
 		for (int i=0; i<imagen.TellHeight();i++){
 
@@ -114,7 +114,7 @@ void GranjerosBMP::pintarBordesInternos (BMP imagen, int fila, int columna){
 
 	int pixelesParcelaColumna= imagen.TellWidth()/ columna;
 
-	while (n<6){
+	while (n<columna){
 
 		for (int i=0; i<imagen.TellWidth();i++){
 
