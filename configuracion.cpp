@@ -9,6 +9,7 @@ void ingresarCantidadJugadores(int& cantidadJugadores) {
 
         throw string("Error, cantidad de jugadores invalida");
     }
+
     cin.clear();
 }
 
@@ -36,9 +37,11 @@ void ingresarNombres(Jugador* jugadores, int cantidad) {
 
     string nombre;
 
+    cout << endl;
+
     for (int i = 1; i <= cantidad; i++) {
 
-        cout << "Jugador " << i << ": ";
+        cout << "Nombre jugador " << i << ": ";
         cin >> nombre;
         jugadores[i-1].establecerNombre(nombre);
     }
@@ -51,10 +54,15 @@ void elegirDificultad(dificultad& nivelElegido) {
         throw string("Dificultad ya elegida");
     }
 
-    cout << "\nIngrese la dificultad del juego, mientras mas dificil,"
-        "menos seran los recursos con los que arranca cada jugador"
-        << endl << "1. Facil" << endl << "2. Media" << endl
-        << "3. Dificil" << endl;
+    
+        cout << endl << "Dificultad" << setw(30) << "Filas x Columnas"
+        << endl << "1. Facil" << setw(21) << diccionarioFilas[0] << 
+        " x " << diccionarioColumnas[0] << endl << "2. Media" << setw(21) << diccionarioFilas[1] << 
+        " x " << diccionarioColumnas[1]<< endl
+        << "3. Dificil" << setw(19) << diccionarioFilas[2] << 
+        " x " << diccionarioColumnas[2] << endl;
+
+        cout << "\nIngrese la dificultad: ";
 
         int dificultadIngresada = 0;
 
@@ -94,42 +102,26 @@ void cargarAtributosIniciales(Jugador* jugadores, int cantidad, dificultad dific
         throw string("El arreglo de jugadores no fue creado");
     }
 
-    static string diccionarioArchivos[DIFICULTADES] = {
+    for (int i = 0; i < cantidad; i ++) {
 
-        ARCHIVO_FACIL,
-        ARCHIVO_MEDIA,
-        ARCHIVO_DIFICIL
-    };
-
-    ifstream archivo;
-
-    archivo.open(diccionarioArchivos[dificultadElegida-1], ios::in);
-
-    if (archivo.eof() || !archivo.is_open()) {
-
-        throw string ("Error al abrir el archivo de dificultades");
-    }
-
-    // Carga los atributos del archivo para cada jugador
-    for (int i = 0; i < cantidad; i++) {
-
-        jugadores[i].cargarAtributos(archivo);
-    }
-
-    archivo.close();
+        jugadores[i].establecerFilas(diccionarioFilas[dificultadElegida - 1]);
+        jugadores[i].establecerColumnas(diccionarioColumnas[dificultadElegida - 1]);
+        jugadores[i].crearCampo();
+        jugadores[i].establecerCreditos();
+    }    
 }
 
 void mostrarInformacionJugadores(Jugador* jugadores, int cantidadJugadores) {
 
+    cout << endl << setw(10) << "Jugador" << setw(20) << "Creditos" << setw(30)
+         << "Unidades de riego" << endl << endl;
+
     for (int i = 0; i < cantidadJugadores; i++) {
 
-        jugadores[i].imprimirInformacion();
+        cout << setw(10) << jugadores[i].obtenerNombre() << setw(20) <<
+            jugadores[i].obtenerCreditos() << setw(30) <<
+            jugadores[i].obtenerUnidadesRiego() << endl;
     }
-}
-
-void procesarTurno(Jugador* jugadores, int turno) {
-
-    cout << "Acciones del turno: "<< turno << endl;
 }
 
 void configurarJuego(Jugador*& jugadores, int& cantidadJugadores) {

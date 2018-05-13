@@ -5,6 +5,7 @@
 #include <string>
 #include <cstdlib>
 #include <fstream>
+#include "Campo.h"
 
 class Jugador {
 
@@ -14,24 +15,19 @@ private:
 
     int creditos;
 
-    int cantidadTerrenos;
-
     int unidadesRiego;
-
-    // Arreglo de matrices que representa la cantidad de terrenos
-    char*** terreno;
-
-    // Parcela*** terreno;
-    //
-    // Tanque tanqueDeAgua;
-    //
-    // Almacen miAlmacen;
-
+    
+    Campo campoJugador;
+    
 public:
 
     Jugador();
 
     void imprimirInformacion();
+
+    void mostrarCampo();
+
+    void comprarTerreno();
 
     // Pre: -
     // Post: Pide el nombre del jugador y lo asigna a nombre
@@ -45,17 +41,26 @@ public:
     // Post: Devuelve el nombre del jugador
     std::string obtenerNombre();
 
-    // Pre: El argumento debe ser positivo
-    // Post: Asigna a creditos el valor pasado como argumento
-    void establecerCreditos(int creditos);
+    // Pre: Esta funcion se debe llamar solo en la configuracion del juego, cuando se elige la dificultad del juego
+    // Post: Asigna un valor a filas segun la dificultad elegida
+    void establecerFilas(int filas);
+
+    // Pre: Esta funcion se debe llamar solo en la configuracion del juego, cuando se elige la dificultad del juego
+    // Post: Asigna un valor a columnas segun la dificultad elegida
+    void establecerColumnas(int columnas);
+
+    // Pre: Las filas y columnas del jugador deben haber sido establecidas previamente
+    // Post: Asigna a creditos el valor segun las filas y columnas del jugador
+    void establecerCreditos();
 
     // Pre: -
     // Post: Devuelve la cantidad de creditos del jugador
     int obtenerCreditos();
 
+    void crearCampo();
+
     // Pre: El argumento debe ser positivo
     // Post: Redimensiona el arreglo de terrenos del jugador
-    void establecerCantidadTerrenos(int cantidadTerrenos);
 
     // Pre: -
     // Post: Devuelve la cantidad de terrenos del jugador (coincide
@@ -70,15 +75,11 @@ public:
     // Post: Devuelve el valor de unidadesRiego
     int obtenerUnidadesRiego();
 
-    // Pre: El archivo recibido como argumento y los datos en el mismo deben
-    // estar cada uno en una linea separada en el siguiente orden:
-    // - creditos
-    // - cantidadTerrenos
-    // - unidadesRiego
+private:
 
-    // Post: deja los atributos iniciales del jugador con los valores definidos
-    // en el archivo pasado como argumento
-    void cargarAtributos(std::ifstream& archivo);
+    bool hayCreditosDisponibles();
+
+    void descontarCreditos(int valor);
 };
 
 #endif

@@ -7,8 +7,18 @@ Jugador :: Jugador() {
     this->nombre = "Nombre no asignado";
     this->creditos = 0;
     this->unidadesRiego = 0;
-    this->cantidadTerrenos = 0;
-    this->terreno = NULL;
+}
+
+void Jugador :: mostrarCampo() {
+
+    if (this->obtenerCantidadTerrenos() == 0) {
+
+        cout << endl << this->obtenerNombre() << " no posee terrenos actualmente" << endl;
+    }
+  
+    else
+
+        this->campoJugador.mostrarCampo();
 }
 
 void Jugador :: imprimirInformacion() {
@@ -17,6 +27,11 @@ void Jugador :: imprimirInformacion() {
         << "Creditos: " << this->obtenerCreditos() << endl
         << "Cantidad de terrenos: " << this->obtenerCantidadTerrenos() << endl
         << "Unidades de riego: " << obtenerUnidadesRiego() << endl;
+}
+
+int Jugador :: obtenerCantidadTerrenos() {
+
+    this->campoJugador.obtenerCantidadTerrenos();
 }
 
 void Jugador :: establecerNombre(string nombre) {
@@ -36,24 +51,14 @@ string Jugador :: obtenerNombre() {
     return this->nombre;
 }
 
-void Jugador :: establecerCreditos(int creditos) {
+void Jugador :: establecerCreditos() {
 
-    this->creditos = creditos;
+    this->creditos = 2 * (this->campoJugador.obtenerFilas()) * (this->campoJugador.obtenerColumnas());
 }
 
 int Jugador :: obtenerCreditos() {
 
     return this->creditos;
-}
-
-void Jugador :: establecerCantidadTerrenos(int cantidadTerrenos) {
-
-    this->cantidadTerrenos = cantidadTerrenos;
-}
-
-int Jugador :: obtenerCantidadTerrenos() {
-
-    return this->cantidadTerrenos;
 }
 
 int Jugador :: obtenerUnidadesRiego() {
@@ -63,14 +68,42 @@ int Jugador :: obtenerUnidadesRiego() {
 
 void Jugador :: establecerUnidadesRiego(int unidadesRiego) {
 
+    if (unidadesRiego < 0) {
+
+        throw string("Se intentaron asignar unidades de riego negativas");
+    }
+
     this->unidadesRiego = unidadesRiego;
 }
 
-void Jugador :: cargarAtributos(ifstream& archivo) {
+void Jugador :: establecerFilas(int filas) {
 
-    archivo >> this->creditos;
-    archivo >> this->cantidadTerrenos;
-    archivo >> this->unidadesRiego;
+    this->campoJugador.establecerFilas(filas);
+}
 
-    archivo.seekg(0, archivo.beg);
+void Jugador :: establecerColumnas(int columnas) {
+
+    this->campoJugador.establecerColumnas(columnas);
+}
+
+void Jugador :: crearCampo() {
+
+    this->campoJugador.crearCampo();
+}
+
+bool Jugador :: hayCreditosDisponibles() {
+
+    return this->creditos > 0;
+}
+
+void Jugador :: descontarCreditos(int valor) {
+
+    this->creditos -= valor;
+}
+
+void Jugador :: comprarTerreno() {
+
+    this->descontarCreditos(this->campoJugador.obtenerPrecioTerreno());
+    this->campoJugador.agregarTerreno();
+    this->campoJugador.actualizarPrecioTerreno();
 }

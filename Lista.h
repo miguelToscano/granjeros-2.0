@@ -1,5 +1,5 @@
-#ifndef SRC_LISTA_H_
-#define SRC_LISTA_H_
+#ifndef LISTA_H_
+#define LISTA_H_
 
 #include <iostream>
 #include "Nodo.h"

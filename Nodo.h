@@ -1,5 +1,5 @@
-#ifndef SRC_NODO_H_
-#define SRC_NODO_H_
+#ifndef NODO_H_
+#define NODO_H_
 
 template < typename dato >
 class Nodo {
