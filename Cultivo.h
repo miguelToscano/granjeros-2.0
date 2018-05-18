@@ -1,5 +1,5 @@
 /*
- * cultivo.h
+ * Cultivo.h
  *
  *  Created on: 24/03/2018
  *      Author: Matias Figueroa
