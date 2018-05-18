@@ -5,7 +5,7 @@
  *      Author: Matias Figueroa
  */
 
-#include "cultivo.h"
+#include "Cultivo.h"
 
 Cultivo::Cultivo(){
 	setearTipo('V');
