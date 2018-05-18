@@ -1,5 +1,5 @@
 /*
- * parcela.cpp
+ * Parcela.cpp
  *
  *  Created on: 28/04/2018
  *      Author: Ahre-manga2
