@@ -8,7 +8,7 @@
 #ifndef PARCELA_H_
 #define PARCELA_H_
 
-#include "cultivo.h"
+#include "Cultivo.h"
 
 class Parcela{
 	private:
