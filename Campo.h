@@ -8,7 +8,7 @@
 #ifndef CAMPO_H_
 #define CAMPO_H_
 
-#include "parcela.h"
+#include "Parcela.h"
 #include "Lista.h"
 #include <iostream>
 
