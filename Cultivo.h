@@ -8,6 +8,13 @@
 #ifndef CULTIVO_H_
 #define CULTIVO_H_
 
+#include <iostream>
+#include <sstream>
+#include <fstream>
+#include <string>
+
+static const char RUTA_CULTIVOS[] = "cultivos.txt";
+
 
 class Cultivo{
 	private:
@@ -17,6 +24,7 @@ class Cultivo{
 		int tiempoCosecha;
 		int rentabilidad;
 		int tiempoDeRecuperacion;
+		int consumoDeAgua;
 
 	public:
 

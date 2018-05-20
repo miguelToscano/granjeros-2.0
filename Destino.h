@@ -10,11 +10,12 @@
 
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <string>
 
-const std::string RUTA_DESTINOS = "destinos.txt";
-const std::string DESTINO_INEXISTENTE = "DESTINO INVALIDO";
-const std::string STRING_INVALIDO = "*****";
+static const char RUTA_DESTINOS[] = "destinos.txt";
+static const std::string DESTINO_INEXISTENTE = "DESTINO INVALIDO";
+static const std::string STRING_INVALIDO = "*****";
 
 class Destino {
 
