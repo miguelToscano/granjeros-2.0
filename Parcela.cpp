@@ -1,4 +1,4 @@
-#include "parcela.h"
+#include "Parcela.h"
 
 Parcela :: Parcela() {
 
