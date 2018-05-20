@@ -26,15 +26,13 @@ string Destino::leerInformacionDeArchivo(){
 
 	if(!archivo.is_open())
 		throw string("ERROR APERTURA DE ARCHIVO");
-	else{
-		while(!archivo.eof() && !encontrado){
+	while(!archivo.eof() && !encontrado){
 
-			getline(archivo, lineaLeida);
-			size_t tamanio = lineaLeida.size();
-			if(lineaLeida[tamanio - 1] == this->cultivo){
+		getline(archivo, lineaLeida);
+		size_t tamanio = lineaLeida.size();
+		if(lineaLeida[tamanio - 1] == this->cultivo){
 
-				encontrado = true;
-			}
+			encontrado = true;
 		}
 	}
 
@@ -47,22 +45,30 @@ string Destino::leerInformacionDeArchivo(){
 
 }
 
-void Destino::guardarInformacionDeArchivo(string informacion){
+void Destino::guardarInformacionDeArchivo(const string informacion){
 	if(informacion != STRING_INVALIDO ){
+
+		string aux;
+
 		this->nombreDestino = informacion.substr(0, informacion.find(','));
 
 		size_t posicionInicial = informacion.find(',') + 2;
 		size_t desplazamiento = informacion.find(',', posicionInicial) - posicionInicial;
 
-		this->distancia = stoi(informacion.substr(posicionInicial, desplazamiento));
+		aux = informacion.substr(posicionInicial, desplazamiento);
+
+		istringstream buffer(aux);
+		buffer >> this->distancia;
 
 		posicionInicial = posicionInicial + 2 + desplazamiento;
 		desplazamiento = informacion.find(',', posicionInicial) - posicionInicial;
 
-		this->costoEnvio = stoi(informacion.substr(posicionInicial, desplazamiento));
+		aux = informacion.substr(posicionInicial, desplazamiento);
+
+		istringstream buffer2(aux);
+		buffer2 >> this->costoEnvio;
 	}
 }
-
 
 char Destino::mostrarCultivo(){
 	return this->cultivo;

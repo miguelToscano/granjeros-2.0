@@ -7,6 +7,8 @@
 
 #include "Cultivo.h"
 
+using namespace std;
+
 Cultivo::Cultivo(){
 	setearTipo('V');
 	setearCosto(0);
@@ -16,19 +18,54 @@ Cultivo::Cultivo(){
 }
 
 Cultivo::Cultivo(char tipoParametro){
-	/*Aca agregar un constructor que segun el char que nos dan
-	 * leemos el archivo y le asignamos las propiedades correspondientes
-	 *
-	 * Ej:
-	 * 	segun los parametros que leemos.
-		setearCosto(1);
-		setearTiempoCosecha(2);
-		setearRentabilidad(10);
-		setearTiempoDeRecuperacion(1);
+	ifstream archivo(RUTA_CULTIVOS);
+	char caracterLeido;
 
-	 */
+	if(!archivo.is_open())
+		throw string("APERTURA DE ARCHIVO FALLIDA");
+
+	while(!archivo.eof()){
+		caracterLeido = (char) archivo.get();
+		if(caracterLeido == tipoParametro){
+
+			string informacion;
+			getline(archivo, informacion);
+
+			string aux;
+
+			aux = informacion.substr(2, informacion.find(','));
+
+			istringstream buffer(aux);
+			buffer >> this->costoSemilla;
+
+			size_t posicionInicial = informacion.find(',') + 2;
+			size_t desplazamiento = informacion.find(',', posicionInicial) - posicionInicial;
+
+			aux = informacion.substr(posicionInicial, desplazamiento);
+
+			istringstream buffer2(aux);
+			buffer2 >> this->tiempoCosecha;
+
+			posicionInicial = posicionInicial + 2 + desplazamiento;
+			desplazamiento = informacion.find(',', posicionInicial) - posicionInicial;
+
+			aux = informacion.substr(posicionInicial, desplazamiento);
+
+			istringstream buffer3(aux);
+			buffer3 >> this->rentabilidad;
+
+			posicionInicial = posicionInicial + 2 + desplazamiento;
+			desplazamiento = informacion.find(',', posicionInicial) - posicionInicial;
+
+			aux = informacion.substr(posicionInicial, desplazamiento);
+
+			istringstream buffer4(aux);
+			buffer4 >> this->tiempoDeRecuperacion;
+		}
 
 	}
+	archivo.close();
+}
 
 	Cultivo &Cultivo::setearTipo(char tipoArg){
 		tipo = tipoArg;
