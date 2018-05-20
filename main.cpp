@@ -1,13 +1,16 @@
 #include "main.h"
 
+#define ARCHIVO_CULTIVOS "cultivos.txt"
+
 using namespace std;
 
 const int TURNOS = 10;
 
 const int OPCION_MOSTRAR_CAMPO = 1;
 const int OPCION_COMPRAR_TERRENO = 2;
-const int OPCION_SEMBRAR_CULTIVO = 3;
-const int OPCION_FINALIZAR_TURNO = 4;
+const int OPCION_VENDER_TERRENO = 3;
+const int OPCION_FINALIZAR_TURNO = 5;
+const int OPCION_SEMBRAR_PARCELA = 4;
 
 // Deberia ir en logica.cpp
 int obtenerOpcion() {
@@ -16,9 +19,11 @@ int obtenerOpcion() {
 
     cout << "\n1. Mostrar campo" << endl
         << "2. Comprar terreno" << endl
-        << "3.Finalizar turno" << endl << endl;
+        << "3. Vender terreno" << endl
+        << "4. Sembrar parcela" << endl
+        << "5. Finalizar turno" << endl << endl;
 
-    cout << "Ingrese una accion: ";
+    cout << "Ingrese una opcion: ";
     cin >> opcionIngresada;
 
     return opcionIngresada;
@@ -31,15 +36,35 @@ void mostrarCampo(Jugador& jugador) {
 
 void comprarTerreno(Jugador& jugador) {
 
-    //if (jugador.hayCreditosDisponibles()) {
+    if (jugador.hayCreditosDisponiblesTerreno() == false) {
+
+        cout << "No tiene creditos suficientes" << endl;
+    }
+
+    else {
 
         jugador.comprarTerreno();
-    //}
+    }
+}
 
-    //else {
+void venderTerreno(Jugador& jugador) {
 
-    //    cout << endl << jugador.obtenerNombre() << " no tiene creditos suficientes para comprar un terreno" << endl;
-    //}
+    int posicion;
+
+    cout << "Ingrese la posicion del terreno a vender: ";
+    cin >> posicion;
+
+    if (posicion < 0 || posicion > jugador.obtenerCantidadTerrenos()) {
+
+        cout << endl << "La posicion indicada no corresponde a ninguno de los terrenos disponibles" << endl;
+    }
+
+    jugador.venderTerreno(posicion);
+}
+
+void sembrarParcela(Jugador& jugador) {
+
+    cout << "hola" << endl;
 }
 
 // Deberia ir en logica.cpp
@@ -63,21 +88,42 @@ void procesarTurno(Jugador& jugador, int turno) {
 
             case OPCION_COMPRAR_TERRENO:
 
-                cout << endl << "Creditos antes de comprar terreno: " << jugador.obtenerCreditos() << endl;
                 comprarTerreno(jugador);
-                cout << endl << "Creditos despues de comprar terreno: " << jugador.obtenerCreditos() << endl;
-
-            case OPCION_SEMBRAR_CULTIVO:
-
-                cout << "Aca iria la logica de sembrar cultivo" << endl;
 
                 break;
+
+            case OPCION_VENDER_TERRENO:
+    
+                venderTerreno(jugador);
+
+                break;
+
+            case OPCION_SEMBRAR_PARCELA:
+
+                sembrarParcela(jugador);
+
+                break;    
 
             default:
 
                 break;
         }
     }
+}
+
+void mostrarGanador(Jugador* jugadores, int cantidadJugadores) {
+
+    int indiceJugadorGanador = 0; 
+
+    for (int i = 1; i < cantidadJugadores; i++) {
+
+        if (jugadores[i].obtenerCreditos() > jugadores[indiceJugadorGanador].obtenerCreditos()) {
+
+            indiceJugadorGanador = i;
+        }
+    }
+
+    cout << endl << "El ganador es: " << jugadores[indiceJugadorGanador].obtenerNombre() << endl;
 }
 
 int main() {
@@ -101,8 +147,9 @@ int main() {
         }
     }
 
-
     mostrarInformacionJugadores(jugadores, cantidadJugadores);    
+
+    mostrarGanador(jugadores, cantidadJugadores);
 
     delete[] jugadores;
 

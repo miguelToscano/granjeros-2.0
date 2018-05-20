@@ -97,7 +97,7 @@ void Campo::mostrarTerreno(Parcela** terreno){
 	for(unsigned int i = 0; i < filas; i++){
 		for(unsigned int j = 0; j < columnas; j++)
 
-			std::cout << terreno[i][j].infoParcela() << " - ";
+			std::cout << terreno[i][j].obtenerEstadoParcela() << " - ";
 		std:: cout << std::endl;
 	}
 
