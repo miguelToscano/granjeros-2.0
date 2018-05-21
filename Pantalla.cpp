@@ -27,7 +27,7 @@ void solicitarNombre(int jugN){
 
 void imprimirMenu(){
 	cout << "Seleccione una accion:" << endl
-		<< "1. Regar " << endl
+		<< "1. Mostrar campo " << endl
 		<< "2. Comprar terreno" << endl
 		<< "3. Vender terreno" << endl
 		<< "4. Sembrar" << endl
