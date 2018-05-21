@@ -30,13 +30,14 @@ Cultivo::Cultivo(char tipoParametro){
 
 			string informacion;
 			getline(archivo, informacion);
-
+			int intAux = 0;
 			string aux;
 
 			aux = informacion.substr(2, informacion.find(','));
 
 			istringstream buffer(aux);
-			buffer >> this->costoSemilla;
+			buffer >> intAux;
+			setearCosto(intAux);
 
 			size_t posicionInicial = informacion.find(',') + 2;
 			size_t desplazamiento = informacion.find(',', posicionInicial) - posicionInicial;
@@ -44,7 +45,8 @@ Cultivo::Cultivo(char tipoParametro){
 			aux = informacion.substr(posicionInicial, desplazamiento);
 
 			istringstream buffer2(aux);
-			buffer2 >> this->tiempoCosecha;
+			buffer2 >> intAux;
+			setearTiempoCosecha(intAux);
 
 			posicionInicial = posicionInicial + 2 + desplazamiento;
 			desplazamiento = informacion.find(',', posicionInicial) - posicionInicial;
@@ -52,7 +54,8 @@ Cultivo::Cultivo(char tipoParametro){
 			aux = informacion.substr(posicionInicial, desplazamiento);
 
 			istringstream buffer3(aux);
-			buffer3 >> this->rentabilidad;
+			buffer3 >> intAux;
+			setearRentabilidad(intAux);
 
 			posicionInicial = posicionInicial + 2 + desplazamiento;
 			desplazamiento = informacion.find(',', posicionInicial) - posicionInicial;
@@ -60,7 +63,8 @@ Cultivo::Cultivo(char tipoParametro){
 			aux = informacion.substr(posicionInicial, desplazamiento);
 
 			istringstream buffer4(aux);
-			buffer4 >> this->tiempoDeRecuperacion;
+			buffer4 >> intAux;
+			setearTiempoDeRecuperacion(intAux);
 		}
 
 	}

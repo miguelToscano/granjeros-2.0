@@ -7,9 +7,9 @@
  */
 
 #include "EasyBMP.h"
-#include "cultivo.h"
+#include "Cultivo.h"
 #include "Campo.h"
-#include "parcela.h"
+#include "Parcela.h"
 
 
 #ifndef GRANJEROSBMP_H_

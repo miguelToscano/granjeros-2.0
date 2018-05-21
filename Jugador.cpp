@@ -1,9 +1,9 @@
-#include "jugador.h"
+#include "Jugador.h"
 
 using namespace std;
 
 Jugador :: Jugador() {
-
+	this->tanque.aumentarCapacidad(25);
     this->nombre = "Nombre no asignado";
     this->creditos = 0;
     this->unidadesRiego = 0;
@@ -31,7 +31,7 @@ void Jugador :: imprimirInformacion() {
 
 int Jugador :: obtenerCantidadTerrenos() {
 
-    this->campoJugador.obtenerCantidadTerrenos();
+    return this->campoJugador.obtenerCantidadTerrenos();
 }
 
 void Jugador :: establecerNombre(string nombre) {

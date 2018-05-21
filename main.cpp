@@ -1,6 +1,17 @@
-#include "main.h"
-
 #define ARCHIVO_CULTIVOS "cultivos.txt"
+
+#include <iostream>
+#include <cstdlib>
+#include <string>
+#include <string>
+#include <fstream>
+#include <iomanip>
+#include "Jugador.h"
+#include "Configuracion.h"
+#include "Pantalla.h"
+#include "Campo.h"
+#include "Lista.h"
+#include "Nodo.h"
 
 using namespace std;
 
@@ -9,21 +20,17 @@ const int TURNOS = 10;
 const int OPCION_MOSTRAR_CAMPO = 1;
 const int OPCION_COMPRAR_TERRENO = 2;
 const int OPCION_VENDER_TERRENO = 3;
-const int OPCION_FINALIZAR_TURNO = 5;
+const int OPCION_COSECHAR = 5;
+const int OPCION_COMPRAR_AGUA = 6;
 const int OPCION_SEMBRAR_PARCELA = 4;
-
+const int OPCION_FINALIZAR_TURNO = 9;
+const int OPCION_SALIR = 10;
 // Deberia ir en logica.cpp
 int obtenerOpcion() {
 
     int opcionIngresada;
 
-    cout << "\n1. Mostrar campo" << endl
-        << "2. Comprar terreno" << endl
-        << "3. Vender terreno" << endl
-        << "4. Sembrar parcela" << endl
-        << "5. Finalizar turno" << endl << endl;
-
-    cout << "Ingrese una opcion: ";
+    imprimirMenu();
     cin >> opcionIngresada;
 
     return opcionIngresada;
@@ -44,6 +51,7 @@ void comprarTerreno(Jugador& jugador) {
     else {
 
         jugador.comprarTerreno();
+        cout << "Terreno comprado!" << endl;
     }
 }
 
@@ -59,7 +67,11 @@ void venderTerreno(Jugador& jugador) {
         cout << endl << "La posicion indicada no corresponde a ninguno de los terrenos disponibles" << endl;
     }
 
-    jugador.venderTerreno(posicion);
+    else {
+
+        jugador.venderTerreno(posicion);
+        cout << "Terreno vendido" << endl;
+    }
 }
 
 void sembrarParcela(Jugador& jugador) {
@@ -134,9 +146,6 @@ int main() {
     system("clear");
 
     configurarJuego(jugadores, cantidadJugadores);
-
-    // Esta funcion es opcional, por ahora esta aca para ver si anda bien la configuracion
-    mostrarInformacionJugadores(jugadores, cantidadJugadores);
 
     // Empiezan a jugar
     for (int turno = 1; turno <= TURNOS; turno++) {

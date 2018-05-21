@@ -140,15 +140,15 @@ void GranjerosBMP::determinarColor (BMP imagen, Campo terreno, Parcela parcelaAr
 
 
 	switch (parcelaArg.cultivoParcela.obtenerTipo() ){
-		case (parcelaArg.cultivoParcela.obtenerTipo() == //CULTIVO_A):
+		case 'A':
 			pintarParcela(imagen, rojoA, terreno);
 			break;
 
-		case (parcelaArg.cultivoParcela.obtenerTipo() == //CULTIVO_B):
+		case 'B':
 			pintarParcela(imagen, amarilloB, terreno);
 			break;
 
-		case (parcelaArg.cultivoParcela.obtenerTipo() == //CULTIVO_C):
+		case 'C':
 			pintarParcela(imagen, azulC, terreno);
 			break;
 	}
