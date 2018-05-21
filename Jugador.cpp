@@ -122,3 +122,10 @@ void Jugador :: venderTerreno(int posicion) {
 
     this->campoJugador.eliminarTerreno(posicion);
 }
+
+void Jugador :: plantarSemilla(Cultivo& cultivo, unsigned int terreno, int fila, int columna) {
+
+    Nodo<Parcela**>* terrenoParaSembrar = this->campoJugador.obtenerTerreno(terreno);
+
+    (*terrenoParaSembrar).datoDelNodo[fila][columna].establecerCultivo(cultivo);
+}

@@ -136,6 +136,11 @@ void Campo :: actualizarPrecioTerreno() {
 	this->precioTerreno = static_cast<int>(nuevoPrecioTerreno);
 }
 
+Nodo<Parcela**>* Campo :: obtenerTerreno(unsigned int posicion) {
+
+	return this->ListaDeTerrenos.obtenerNodo(posicion);
+}
+
 Campo::~Campo() {
 	for(int i = 1; i < this->cantidadTerrenos; i++)
 		eliminarTerreno(i);

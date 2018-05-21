@@ -45,6 +45,8 @@ class Parcela{
 		 */
 		void liberarParcela();
 
+		void establecerCultivo(Cultivo& cultivo);
+
 		/*
 		 * post: Indica si esta disponible para sembrar
 		 */

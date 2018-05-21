@@ -31,6 +31,8 @@ public:
 
 	Campo(unsigned int filas,unsigned int columnas);
 
+	Nodo<Parcela**>* obtenerTerreno(unsigned int posicion);
+
 	void agregarTerreno();
 
 	void establecerFilas(int filas);

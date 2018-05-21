@@ -91,6 +91,8 @@ public:
     bool hayCreditosDisponiblesTerreno();
 
     void descontarCreditos(int valor);
+
+    void plantarSemilla(Cultivo& cultivo, unsigned int terreno, int fila, int columna);
 };
 
 #endif

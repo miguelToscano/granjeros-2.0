@@ -124,13 +124,77 @@ void mostrarInformacionJugadores(Jugador* jugadores, int cantidadJugadores) {
     }
 }
 
-void configurarJuego(Jugador*& jugadores, int& cantidadJugadores) {
+void cargarCultivos(Cultivo*& cultivosDisponibles, int& cantidadCultivosDisponibles) {
+
+    ifstream archivoCultivos("Cultivos.txt");
+    string lineaLeida;
+    int contadorLineasLeidas = 0;
+
+    if (!(archivoCultivos.is_open())) {
+
+        throw string("No se pudo abrir el archivo de cultivos");
+    }
+
+    // Cuenta cuantos cultivos hay
+    while (!archivoCultivos.eof()) {
+
+        contadorLineasLeidas++;
+        getline(archivoCultivos, lineaLeida);
+    }
+
+    cantidadCultivosDisponibles = (contadorLineasLeidas / 6);
+
+    cultivosDisponibles = new Cultivo[cantidadCultivosDisponibles];
+
+    // Vuelve al principio del archivo
+    archivoCultivos.seekg(ios::beg);
+
+    // Variables para guardar los datos leidos
+    char tipo;
+	int costoSemilla;
+	int tiempoCosecha;
+	int rentabilidad;
+	int tiempoDeRecuperacion;
+	int consumoDeAgua;
+
+    // Asignacion de los cultivos levantados del archivo   
+    for (int i = 0; i < cantidadCultivosDisponibles; i++) {
+
+        archivoCultivos >> tipo;
+        archivoCultivos >> costoSemilla;
+        archivoCultivos >> tiempoCosecha;
+        archivoCultivos >> rentabilidad;
+        archivoCultivos >> tiempoDeRecuperacion;
+        archivoCultivos >> consumoDeAgua;
+
+        cultivosDisponibles[i].setearTipo(tipo);
+        cultivosDisponibles[i].setearCosto(costoSemilla);
+        cultivosDisponibles[i].setearTiempoCosecha(tiempoCosecha);
+        cultivosDisponibles[i].setearRentabilidad(rentabilidad);
+        cultivosDisponibles[i].setearTiempoDeRecuperacion(tiempoDeRecuperacion);
+        cultivosDisponibles[i].setearConsumoDeAgua(consumoDeAgua);
+
+        cout << endl << "Tipo: " << cultivosDisponibles[i].obtenerTipo() << endl
+        << "Costo semilla: " << cultivosDisponibles[i].obtenerCosto() << endl
+        << "Tiempo de cosecha: " << cultivosDisponibles[i].obtenerTiempoCosecha() << endl
+        << "Rentabilidad: " << cultivosDisponibles[i].obtenerRentabilidad() << endl
+        << "Tiempo de recuperacion: " << cultivosDisponibles[i].obtenerTiempoDeRecuperacion() << endl
+        << "Consumo de agua: " << cultivosDisponibles[i].obtenerConsumoDeAgua() << endl;
+    }
+
+    cout << endl;
+
+    archivoCultivos.close();
+}
+
+void configurarJuego(Jugador*& jugadores, int& cantidadJugadores, Cultivo*& cultivosDisponibles, int& cantidadCultivosDisponibles) {
 
     jugadores = NULL;
     cantidadJugadores = 0;
 
     dificultad nivelElegido = NO_ASIGNADA;
 
+    cargarCultivos(cultivosDisponibles, cantidadCultivosDisponibles);
     ingresarCantidadJugadores(cantidadJugadores);
     crearArregloJugadores(jugadores, cantidadJugadores);
     ingresarNombres(jugadores, cantidadJugadores);

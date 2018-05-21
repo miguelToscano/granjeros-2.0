@@ -18,7 +18,7 @@ void imprimirBienvenida(){
 }
 
 void solicitarJugadores(){
-	cout << "Ingrese la cantidad de jugadores" << "(MAXIMO 5)" << endl;
+	cout << "Ingrese la cantidad de jugadores" << endl;
 }
 
 void solicitarNombre(int jugN){
@@ -32,7 +32,7 @@ void imprimirMenu(){
 		<< "3. Vender terreno" << endl
 		<< "4. Sembrar" << endl
 		<< "5. Cosechar" << endl
-		<< "6. Comprar capacidad de agua" << endl
+		<< "6. Comprar capacidad de tanque" << endl
 		<< "7. Comprar capacidad de almacén" << endl
 		<< "8. Enviar pedido" << endl
 		<< "9. Pasar turno" << endl

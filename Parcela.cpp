@@ -11,6 +11,10 @@ Parcela::Parcela(){
 	seca = false;
 }
 
+void Parcela :: establecerCultivo(Cultivo& cultivoElegido) {
+
+	this->cultivoParcela = cultivoElegido;
+}
 
 bool Parcela::estaDisponible(){
 	return disponible;
@@ -93,7 +97,7 @@ void Parcela::desSecarParcela(){
 }
 
 void Parcela::liberarParcela(){
-	setearRecuperacion(cultivoParcela.obtenerTIempoDeRecuperacion());
+	setearRecuperacion(cultivoParcela.obtenerTiempoDeRecuperacion());
 	Cultivo cultivo('V');
 	cultivoParcela.cambiarCultivo(&cultivo);
 	desocuparParcela();
@@ -105,14 +109,14 @@ void Parcela::pasoDeTurno(){
 	if(estaOcupada()){
 		if(!estaRegada()){
 			secarParcela();
-			setearRecuperacion(cultivoParcela.obtenerTIempoDeRecuperacion());
+			setearRecuperacion(cultivoParcela.obtenerTiempoDeRecuperacion());
 		}else{
 			cultivoParcela.reducirTiempoCosecha();
 			noRegarParcela();
 		}
 		if(cultivoParcela.obtenerTiempoCosecha() < 0){
 			pudrirParcela();
-			setearRecuperacion(cultivoParcela.obtenerTIempoDeRecuperacion()/2);
+			setearRecuperacion(cultivoParcela.obtenerTiempoDeRecuperacion()/2);
 		}
 	}else{
 		if(obtenerRecuperacion() > 0){
