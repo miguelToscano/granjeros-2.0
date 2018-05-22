@@ -35,6 +35,11 @@ Campo::Campo(unsigned int filas, unsigned int columnas){
 	this->cantidadTerrenos++;
 }
 
+Parcela** Campo::devolverTerreno(unsigned int posicion){
+
+	return this->ListaDeTerrenos.mostrarElemento(posicion);
+}
+
 void Campo :: establecerFilas(int filas) {
 
 	this->filas = filas;

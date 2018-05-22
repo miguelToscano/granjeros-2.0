@@ -33,6 +33,8 @@ public:
 
 	Nodo<Parcela**>* obtenerTerreno(unsigned int posicion);
 
+	Parcela** devolverTerreno(unsigned int posicion);
+
 	void agregarTerreno();
 
 	void establecerFilas(int filas);

@@ -137,6 +137,28 @@ void sembrarParcela(Jugador& jugador, Cultivo* cultivosDisponibles, int cantidad
     }
 }
 
+void actualizarTerreno(Parcela** terrenoJugador, unsigned int topeFila, unsigned int topeColumnas){
+
+	for(unsigned int i = 0; i < topeFila ; i++)
+		for(unsigned int j = 0; j < topeColumnas; j++)
+			terrenoJugador[i][j].pasoDeTurno();
+}
+
+
+void actualizarCampo(Jugador& jugador){
+
+	Campo* campoJugador;
+	Parcela** terrenoJugador;
+	campoJugador = jugador.devolverCampo();
+
+	for(unsigned int i = 0; i < campoJugador->obtenerCantidadTerrenos() ; i++){
+
+		terrenoJugador = campoJugador->devolverTerreno(i);
+		actualizarTerreno(terrenoJugador, campoJugador->obtenerFilas(), campoJugador->obtenerColumnas());
+	}
+
+}
+
 // Deberia ir en logica.cpp
 void procesarTurno(Jugador& jugador, int turno, Cultivo* cultivosDisponibles, int cantidadCultivosDisponibles) {
 
@@ -178,6 +200,9 @@ void procesarTurno(Jugador& jugador, int turno, Cultivo* cultivosDisponibles, in
 
                 break;
         }
+
+		actualizarCampo(jugador);  // Función cabeza de termo, coloquialmente llamado.
+
     }
 }
 

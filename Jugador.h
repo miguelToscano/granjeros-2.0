@@ -28,6 +28,8 @@ public:
 
     void imprimirInformacion();
 
+    Campo* devolverCampo();
+
     void mostrarCampo();
 
     /*
