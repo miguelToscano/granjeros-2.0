@@ -10,7 +10,7 @@
 
 #include "Lista.h"
 #include "Destino.h"
-#include "Cultivo.h"
+#include "cultivo.h"
 
 typedef char dato;
 

@@ -21,7 +21,7 @@ int obtenerOpcion() {
         << "2. Comprar terreno" << endl
         << "3. Vender terreno" << endl
         << "4. Sembrar parcela" << endl
-        << "5. Finalizar turno" << endl << endl;
+		<< "5. Finalizar turno" << endl << endl;
 
     cout << "Ingrese una opcion: ";
     cin >> opcionIngresada;
@@ -67,10 +67,32 @@ void sembrarParcela(Jugador& jugador) {
     cout << "hola" << endl;
 }
 
+void actualizarTerreno(Parcela** terrenoJugador, unsigned int topeFila, unsigned int topeColumnas){
+
+	for(unsigned int i = 0; i < topeFila ; i++)
+		for(unsigned int j = 0; j < topeColumnas; j++)
+			terrenoJugador[i][j].pasoDeTurno();
+}
+
+
+void actualizarCampo(Jugador& jugador){
+
+	Campo* campoJugador;
+	Parcela** terrenoJugador;
+	campoJugador = jugador.devolverCampo();
+
+	for(unsigned int i = 0; i < campoJugador->obtenerCantidadTerrenos() ; i++){
+
+		terrenoJugador = campoJugador->devolverTerreno(i);
+		actualizarTerreno(terrenoJugador, campoJugador->obtenerFilas(), campoJugador->obtenerColumnas());
+	}
+
+}
+
 // Deberia ir en logica.cpp
 void procesarTurno(Jugador& jugador, int turno) {
 
-    int opcion;
+		int opcion;
 
     system("clear");
 
@@ -83,7 +105,7 @@ void procesarTurno(Jugador& jugador, int turno) {
             case OPCION_MOSTRAR_CAMPO:
 
                 mostrarCampo(jugador);
-                
+
                 break;
 
             case OPCION_COMPRAR_TERRENO:
@@ -93,7 +115,7 @@ void procesarTurno(Jugador& jugador, int turno) {
                 break;
 
             case OPCION_VENDER_TERRENO:
-    
+
                 venderTerreno(jugador);
 
                 break;
@@ -102,18 +124,21 @@ void procesarTurno(Jugador& jugador, int turno) {
 
                 sembrarParcela(jugador);
 
-                break;    
+                break;
 
             default:
 
                 break;
         }
+
+		actualizarCampo(jugador);  // Función cabeza de termo, coloquialmente llamado.
+
     }
 }
 
 void mostrarGanador(Jugador* jugadores, int cantidadJugadores) {
 
-    int indiceJugadorGanador = 0; 
+    int indiceJugadorGanador = 0;
 
     for (int i = 1; i < cantidadJugadores; i++) {
 
@@ -147,7 +172,7 @@ int main() {
         }
     }
 
-    mostrarInformacionJugadores(jugadores, cantidadJugadores);    
+    mostrarInformacionJugadores(jugadores, cantidadJugadores);
 
     mostrarGanador(jugadores, cantidadJugadores);
 

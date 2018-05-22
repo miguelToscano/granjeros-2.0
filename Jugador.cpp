@@ -1,4 +1,4 @@
-#include "jugador.h"
+#include "Jugador.h"
 
 using namespace std;
 
@@ -7,6 +7,11 @@ Jugador :: Jugador() {
     this->nombre = "Nombre no asignado";
     this->creditos = 0;
     this->unidadesRiego = 0;
+}
+
+Campo* Jugador::devolverCampo(){
+
+	return this->campoJugador;
 }
 
 void Jugador :: mostrarCampo() {

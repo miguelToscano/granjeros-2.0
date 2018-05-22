@@ -21,6 +21,7 @@ Campo::Campo(unsigned int filas, unsigned int columnas){
 	this->cantidadTerrenos = 1;
 	this->columnas = columnas;
 	this->filas = filas;
+	this->precioTerreno = 50;
 
 	Parcela** parcelaNueva;
 
@@ -32,6 +33,11 @@ Campo::Campo(unsigned int filas, unsigned int columnas){
 
 	this->ListaDeTerrenos.agregarElemento(parcelaNueva);
 	this->cantidadTerrenos++;
+}
+
+Parcela** Campo::devolverTerreno(unsigned int posicion){
+
+	return this->ListaDeTerrenos.mostrarElemento(posicion);
 }
 
 void Campo :: establecerFilas(int filas) {

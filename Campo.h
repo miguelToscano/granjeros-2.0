@@ -31,6 +31,8 @@ public:
 
 	Campo(unsigned int filas,unsigned int columnas);
 
+	Parcela** devolverTerreno(unsigned int posicion);
+
 	void agregarTerreno();
 
 	void establecerFilas(int filas);

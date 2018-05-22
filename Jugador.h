@@ -23,6 +23,8 @@ public:
 
     Jugador();
 
+    Campo* devolverCampo();
+
     void imprimirInformacion();
 
     void mostrarCampo();
