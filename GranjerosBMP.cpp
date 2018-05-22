@@ -21,20 +21,20 @@ GranjerosBMP::GranjerosBMP(){
 	verdeBordes.Blue=31;
 	verdeBordes.Alpha= 1.0;
 
-	rojoA.Red=255;
-	rojoA.Green=8;
-	rojoA.Blue=0;
-	rojoA.Alpha= 1.0;
+	violetaCosechar.Red=148;
+	violetaCosechar.Green=0;
+	violetaCosechar.Blue=132;
+	violetaCosechar.Alpha= 1.0;
 
-	amarilloB.Red=248;
-	amarilloB.Green=255;
-	amarilloB.Blue=63;
-	amarilloB.Alpha= 1.0;
+	amarilloCultivo.Red=248;
+	amarilloCultivo.Green=255;
+	amarilloCultivo.Blue=63;
+	amarilloCultivo.Alpha= 1.0;
 
-	azulC.Red=2;
-	azulC.Green=173;
-	azulC.Blue=234;
-	azulC.Alpha= 1.0;
+	azulAgua.Red=2;
+	azulAgua.Green=173;
+	azulAgua.Blue=234;
+	azulAgua.Alpha= 1.0;
 
 	marronPodrido.Red= 97;
 	marronPodrido.Green= 68;
@@ -65,6 +65,16 @@ int GranjerosBMP::obtenerPixelesParcelaFila (){
 	return pixelesParcelaFila;
 }
 
+
+void GranjerosBMP:: pintarTodoElTerreno (BMP imagen){
+
+	pintarFondo (imagen);
+	pintarBordesExteriores (imagen);
+	pintarBordesInternos (imagen, terreno);
+	determinarColor (imagen, terreno, parcelaArg, cultivoParcela);
+	guardarImagen (imagen);
+
+}
 
 void GranjerosBMP::pintarFondo (BMP imagen){
 
@@ -128,6 +138,19 @@ void GranjerosBMP::pintarParcela (BMP imagen, RGBApixel color, Campo terreno){
 }
 
 
+void GranjerosBMP:: dibujarCuadradito (BMP imagen, RGBApixel color){
+
+	int posicionColumnaSimbolito = obtenerPixelesParcelaColumna()*(4/5);
+	int posicionFilaSimbolito = obtenerPixelesParcelaFila()*(1/5);
+
+	for (int i= posicionColumnaSimbolito; i < (posicionColumnaSimbolito+(posicionColumnaSimbolito/10)); i++){
+		for (int j= posicionFilaSimbolito; j < (posicionFilaSimbolito+(posicionFilaSimbolito/10)); j++){
+			imagen.SetPixel(i, j, color);
+		}
+	}
+}
+
+
 void GranjerosBMP::determinarColor (BMP imagen, Campo terreno, Parcela parcelaArg, Cultivo cultivoParcela){
 
 	if (!parcelaArg.estaPodrida() )
@@ -140,25 +163,26 @@ void GranjerosBMP::determinarColor (BMP imagen, Campo terreno, Parcela parcelaAr
 		pintarParcela (imagen, marronDisponible, terreno);
 
 
+	if (parcelaArg.estaRegada() )
+		dibujarCuadradito (imagen, azulAgua);
+
+	else if (!parcelaArg.estaOcupada() && parcelaArg.cultivoParcela.obtenerTiempoCosecha()==0)
+			dibujarCuadradito(imagen, violetaCosechar);
+
+/*
 	switch (parcelaArg.cultivoParcela.obtenerTipo() ){
 		case (parcelaArg.cultivoParcela.obtenerTipo() == //CULTIVO_A):
-			pintarParcela(imagen, rojoA, terreno);
+			pintarParcela(imagen, amarilloCultivo, terreno);
 			break;
 
-		case (parcelaArg.cultivoParcela.obtenerTipo() == //CULTIVO_B):
-			pintarParcela(imagen, amarilloB, terreno);
-			break;
-
-		case (parcelaArg.cultivoParcela.obtenerTipo() == //CULTIVO_C):
-			pintarParcela(imagen, azulC, terreno);
-			break;
-	}
+	*/
 }
 
 
 void GranjerosBMP:: guardarImagen (BMP imagen){
 
 	imagen.WriteToFile("granjeros.bmp");
+
 }
 
 
