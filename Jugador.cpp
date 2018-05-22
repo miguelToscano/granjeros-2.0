@@ -21,6 +21,11 @@ void Jugador :: mostrarCampo() {
         this->campoJugador.mostrarCampo();
 }
 
+Campo* Jugador::devolverCampo(){
+
+	return this->campoJugador;
+}
+
 void Jugador :: imprimirInformacion() {
 
     cout << "\nNombre: " << this->obtenerNombre() << endl
