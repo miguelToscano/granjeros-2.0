@@ -5,7 +5,7 @@
  *      Author: Matias Figueroa
  */
 
-#include "Pantalla.h"
+#include "pantalla.h"
 
 #include "Jugador.h"
 //#include "error.h"
