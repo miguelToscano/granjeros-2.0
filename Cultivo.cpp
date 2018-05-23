@@ -5,7 +5,7 @@
  *      Author: Matias Figueroa
  */
 
-#include "Cultivo.h"
+#include "../src/Cultivo.h"
 
 using namespace std;
 
@@ -16,16 +16,6 @@ Cultivo::Cultivo(){
 	setearRentabilidad(0);
 	setearTiempoDeRecuperacion(0);
 }
-/*
-Cultivo :: Cultivo(const Cultivo& cultivoArg) {
-
-	this->tipo = cultivoArg.obtenerTipo();
-	this->costoSemilla = cultivoArg.obtenerCosto();
-	this->tiempoCosecha = cultivoArg.obtenerTiempoCosecha();
-	this->rentabilidad = cultivoArg.obtenerRentabilidad();
-	this->tiempoDeRecuperacion = cultivoArg.obtenerTiempoDeRecuperacion();
-	this->consumoDeAgua = cultivoArg.obtenerConsumoDeAgua();
-}*/
 
 Cultivo::Cultivo(char tipoParametro){
 	ifstream archivo(RUTA_CULTIVOS);
@@ -109,6 +99,7 @@ Cultivo::Cultivo(char tipoParametro){
 	Cultivo& Cultivo :: setearConsumoDeAgua(int consumoDeAgua) {
 
 		this->consumoDeAgua = consumoDeAgua;
+		return *this;
 	}
 
 	int Cultivo :: obtenerConsumoDeAgua() {
@@ -142,10 +133,6 @@ Cultivo::Cultivo(char tipoParametro){
 		setearRentabilidad(cultivoArg->obtenerRentabilidad());
 		setearTiempoDeRecuperacion(cultivoArg->obtenerTiempoDeRecuperacion());
 		setearTiempoCosecha(cultivoArg->obtenerTiempoCosecha());
-	}
-
-	void pasarTurno(){
-
 	}
 
 	void Cultivo::reducirTiempoCosecha(){

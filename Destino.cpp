@@ -2,10 +2,10 @@
  * Destino.cpp
  *
  *  Created on: 1 may. 2018
- *      Author: Tomas
+ *      Author: tomas
  */
 
-#include "Destino.h"
+#include "../src/Destino.h"
 
 using namespace std;
 

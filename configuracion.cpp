@@ -1,4 +1,4 @@
-#include "configuracion.h"
+#include "../src/configuracion.h"
 
 void ingresarCantidadJugadores(int& cantidadJugadores) {
 

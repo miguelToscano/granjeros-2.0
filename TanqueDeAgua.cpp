@@ -6,7 +6,7 @@
  */
 
 
-#include "TanqueDeAgua.h"
+#include "../src/TanqueDeAgua.h"
 
 TanqueDeAgua::TanqueDeAgua(){
 

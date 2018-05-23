@@ -2,7 +2,8 @@
 #define LISTA_H_
 
 #include <iostream>
-#include "Nodo.h"
+
+#include "../src/Nodo.h"
 
 template < typename dato >
 class Lista {
@@ -24,6 +25,8 @@ public:
 	dato eliminarElemento(unsigned int posicion);
 
 	dato mostrarElemento(unsigned int posicion);
+
+	int obtenerTamanio();
 
 	bool ListaVacia();
 
@@ -105,6 +108,11 @@ template < typename dato >
 bool Lista<dato>::ListaVacia(){
 
 	return (this->primerNodo == 0);
+}
+
+template < typename dato >
+int Lista<dato>::obtenerTamanio(){
+	return tamanio;
 }
 
 template < typename dato >

@@ -8,7 +8,7 @@
 #ifndef PARCELA_H_
 #define PARCELA_H_
 
-#include "Cultivo.h"
+#include "../src/Cultivo.h"
 
 class Parcela{
 	private:
@@ -159,6 +159,16 @@ class Parcela{
 		 * post: ------
 		 */
 		void copiarParcela(Parcela* parcelaArg);
+
+		/*
+		 * post: ------
+		 */
+		bool sePuedeCosechar();
+
+		/*
+		 * post: ------
+		 */
+		Cultivo cosecharParcela();
 };
 
 

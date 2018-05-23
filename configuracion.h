@@ -4,8 +4,8 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include "Jugador.h"
 #include <iomanip>
+#include "../src/Jugador.h"
 
 using namespace std;
 

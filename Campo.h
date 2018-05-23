@@ -8,9 +8,9 @@
 #ifndef CAMPO_H_
 #define CAMPO_H_
 
-#include "Parcela.h"
-#include "Lista.h"
 #include <iostream>
+#include "../src/Lista.h"
+#include "../src/Parcela.h"
 
 const float FACTOR_PRECIO_TERRENO = 1.25;
 
@@ -58,6 +58,8 @@ public:
 	int obtenerPrecioTerreno();
 
 	void actualizarPrecioTerreno();
+
+	Parcela* obtenerPacela(int terreno, int fila, int columna);
 
 	virtual ~Campo();
 

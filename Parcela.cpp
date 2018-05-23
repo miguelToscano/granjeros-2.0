@@ -1,4 +1,4 @@
-#include "Parcela.h"
+#include "../src/Parcela.h"
 
 Parcela::Parcela(){
 	disponible = true;
@@ -13,7 +13,7 @@ Parcela::Parcela(){
 
 void Parcela :: establecerCultivo(Cultivo& cultivoElegido) {
 
-	this->cultivoParcela = cultivoElegido;
+	this->cultivoParcela.cambiarCultivo(&cultivoElegido);
 }
 
 bool Parcela::estaDisponible(){
@@ -167,3 +167,21 @@ char Parcela::infoParcela(){
 		}
 	}
 }
+
+bool Parcela::sePuedeCosechar(){
+	if(infoParcela() == COSECHAR){
+		return true;
+	}else{
+		return false;
+	}
+}
+
+Cultivo Parcela::cosecharParcela(){
+	Cultivo cultivoParaAlmacenar;
+	cultivoParaAlmacenar.cambiarCultivo(&this->cultivoParcela);
+	this->setearRecuperacion(this->cultivoParcela.obtenerTiempoDeRecuperacion());
+	this->bloquearParcela();
+	this->desocuparParcela();
+	return cultivoParaAlmacenar;
+}
+

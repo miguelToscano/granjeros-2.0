@@ -2,7 +2,7 @@
  * Almacen.h
  *
  *  Created on: 1 may. 2018
- *      Author: Tomas
+ *      Author: tomas
  */
 
 #ifndef ALMACEN_H_
@@ -21,51 +21,56 @@ class Almacen {
 	private:
 
 		Lista <Cultivo> ListaDeCosechas;
-		int cantidadCosechas;
 		int capacidadMaxima;
 
 	public:
 
-		/*	Constructor:
-		 *
-		 *	Pre: Recibe N y M parámetros definidos según la dificultad del juego
-		 *
-		 * 	Post: Inicializa el almacén con 2(N + M) espacios
-		 */
-
+		//Constructor con parámetros
 		Almacen(int N, int M);
 
-		/*
-		 * 	Constructor de oficio
-		 */
-
+		//Constructor sin parámetros
 		Almacen();
 
-		/*	Pre: Recibe una cosecha para ser guardada
-		 *
-		 *	Post: Si existe capacidad disponible guarda la cosecha en el almacén, caso
-		 *	contrario la cosecha se pierde
+		/*
+		 * post:Agrega un cultivo al almacen y devuelve true,
+		 *      si el almacen esta lleno devuelve false.
 		 */
+		bool agregarCosechaAlmacen(Cultivo cosecha);
 
-		void agregarCosechaAlmacen(Cultivo cosecha);
-
-		/*	Pre: Recibe la cosecha para ser despachada. La cosecha debe estar guardada en el
-		 * 	almacén caso contrario se lanza una excepción.
-		 *
-		 * 	Post: Elimina la cosecha del almacén, y retorna el valor de la ganancia: calculado como
-		 * 	rentabilidad - costo de envío.
+		/*
+		 * pre: recibis cultivo , y el destino como string
+		 * post: Envia una cosecha a destino y me retornas un
+		 * int con el precio total de la rentabilidad del cultivo
+		 * mas el costo de envio
 		 */
-
 		int despacharCosecha(Cultivo cosecha);
 
-		/*	Pre: Recibe la cantidad de lugares a agregar en el almacén, número positivo
-		 *
-		 * 	Post: Agrega al almacén la cantidad de lugares
+		/*
+		 * Pre: Recibe cantidadDeLugares > 0, entero.
+		 * Post: Aumenta capacidad de almacen en cantidadDeLugares.
 		 */
 
 		void aumentarCapacidad(unsigned int cantidadDeLugares);
 
+		/*
+		 * post: obtiene la capacidad maxima.
+		 */
+		int obtenerCapacidadMaxima();
+
+		/*
+		 * post:devuelve la cantidad de cosechas del almacen.
+		 */
+		int obtenerCantidadDeCosechas();
+
+		/*
+		 * post: Devuelve true si hay lugar en el almacen
+		 */
+		bool hayLugar();
+
+		//Destructor
 		virtual ~Almacen();
+
+
 };
 
 #endif /* ALMACEN_H_ */

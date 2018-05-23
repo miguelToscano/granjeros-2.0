@@ -1,33 +1,14 @@
+
 #define ARCHIVO_CULTIVOS "cultivos.txt"
 
-#include "main.h"
+#include "../src/main.h"
 
 using namespace std;
 
 const int TURNOS = 10;
 
-const int OPCION_MOSTRAR_CAMPO = 1;
-const int OPCION_COMPRAR_TERRENO = 2;
-const int OPCION_VENDER_TERRENO = 3;
-const int OPCION_COSECHAR = 5;
-const int OPCION_COMPRAR_AGUA = 6;
-const int OPCION_SEMBRAR_PARCELA = 4;
-const int OPCION_FINALIZAR_TURNO = 9;
-const int OPCION_SALIR = 10;
 
-void imprimirMenu(){
-	cout << "Seleccione una accion:" << endl
-		<< "1. Mostrar campo " << endl
-		<< "2. Comprar terreno" << endl
-		<< "3. Vender terreno" << endl
-		<< "4. Sembrar" << endl
-		<< "5. Cosechar" << endl
-		<< "6. Comprar capacidad de tanque" << endl
-		<< "7. Comprar capacidad de almacén" << endl
-		<< "8. Enviar pedido" << endl
-		<< "9. Pasar turno" << endl
-		<< "10. Salir" << endl;
-}
+/*
 
 // Deberia ir en logica.cpp
 int obtenerOpcion() {
@@ -78,89 +59,7 @@ void venderTerreno(Jugador& jugador) {
     }
 }
 
-void sembrarParcela(Jugador& jugador, Cultivo* cultivosDisponibles, int cantidadCultivosDisponibles) {
 
-    system("clear");
-
-    int cantidadCultivos;
-    Cultivo* cultivosComprados;
-    char tipo;
-
-    cout << endl << "Cultivos disponibles: " << endl << endl;
-
-    // Muestra los cultivos disponibles (deberia ir en una funcion)
-    for (int i = 0; i < cantidadCultivosDisponibles; i++) {
-
-        cout << endl << "Tipo: " << cultivosDisponibles[i].obtenerTipo() << endl
-        << "Costo semilla: " << cultivosDisponibles[i].obtenerCosto() << endl
-        << "Tiempo de cosecha: " << cultivosDisponibles[i].obtenerTiempoCosecha() << endl
-        << "Rentabilidad: " << cultivosDisponibles[i].obtenerRentabilidad() << endl
-        << "Tiempo de recuperacion: " << cultivosDisponibles[i].obtenerTiempoDeRecuperacion() << endl
-        << "Consumo de agua: " << cultivosDisponibles[i].obtenerConsumoDeAgua() << endl;
-    }
-
-    cout << "Ingrese el tipo de cultivo que quiere comprar: ";
-    cin >> tipo;
-
-    cout << endl << "Cantidad de semillas: ";
-    cin >> cantidadCultivos;
-
-    cultivosComprados = new Cultivo[cantidadCultivos];
-
-    int indiceCultivoSeleccionado;
-    bool coincideCultivo = false;
-
-    for (int i = 0; i < cantidadCultivosDisponibles && coincideCultivo == false; i++) {
-
-        if (cultivosDisponibles[i].obtenerTipo() == tipo) {
-
-            indiceCultivoSeleccionado = i;
-            coincideCultivo = true;
-        }
-    }
-
-    for (int i = 0; i < cantidadCultivos; i++) {
-
-        cultivosComprados[i] = cultivosDisponibles[indiceCultivoSeleccionado];
-    }
-
-    unsigned int terreno;
-    int fila;
-    int columna;
-
-    for (int i = 0; i < cantidadCultivos; i++) {
-
-        cout << "Ingrese las coordenadas de donde quiere semprar la semilla: " << endl;
-        cin >> terreno;
-        cin >> fila;
-        cin >> columna;
-
-        jugador.plantarSemilla(cultivosComprados[i], terreno, fila, columna);
-        cout << endl << "Semilla plantada!" << endl;
-    }
-}
-
-void actualizarTerreno(Parcela** terrenoJugador, unsigned int topeFila, unsigned int topeColumnas){
-
-	for(unsigned int i = 0; i < topeFila ; i++)
-		for(unsigned int j = 0; j < topeColumnas; j++)
-			terrenoJugador[i][j].pasoDeTurno();
-}
-
-
-void actualizarCampo(Jugador& jugador){
-
-	Campo* campoJugador;
-	Parcela** terrenoJugador;
-	campoJugador = jugador.devolverCampo();
-
-	for(unsigned int i = 0; i < campoJugador->obtenerCantidadTerrenos() ; i++){
-
-		terrenoJugador = campoJugador->devolverTerreno(i);
-		actualizarTerreno(terrenoJugador, campoJugador->obtenerFilas(), campoJugador->obtenerColumnas());
-	}
-
-}
 
 // Deberia ir en logica.cpp
 void procesarTurno(Jugador& jugador, int turno, Cultivo* cultivosDisponibles, int cantidadCultivosDisponibles) {
@@ -222,7 +121,7 @@ void mostrarGanador(Jugador* jugadores, int cantidadJugadores) {
     }
 
     cout << endl << "El ganador es: " << jugadores[indiceJugadorGanador].obtenerNombre() << endl;
-}
+}*/
 
 int main() {
 
@@ -231,7 +130,7 @@ int main() {
     Cultivo* cultivosDisponibles;
     int cantidadCultivosDisponibles;
 
-    system("clear");
+    //system("clear");
 
     configurarJuego(jugadores, cantidadJugadores, cultivosDisponibles, cantidadCultivosDisponibles);
 
