@@ -199,3 +199,11 @@ bool Jugador :: sePuedeComprarCapacidadAlmacen(int capacidad){
 		}
 		return respuesta;
 }
+
+bool Jugador::tieneTerrenos(){
+	bool respuesta = true;
+	if(this->obtenerCantidadTerrenos() == 0){
+		respuesta = false;
+	}
+	return respuesta;
+}
