@@ -27,7 +27,7 @@ const int DIFICULTAD_DIFICIL = 3;
 // iniciales)
 // Pre: -
 // Post: Deja el juego listo para comenzar
-void configurarJuego(Jugador*& jugadores, int& cantidadJugadores);
+void configurarJuego(Jugador*& jugadores, int& cantidadJugadores, Cultivo*& cultivosDisponibles, int& cantidadCultivosDisponibles);
 
 // Pre: -
 // Post: asigna lo ingresado por teclado por el usuario a la cantida de jugadores
@@ -52,6 +52,9 @@ void elegirDificultad(dificultad& nivelElegido);
 // consultado segun la dificultad elegida
 void cargarAtributosIniciales(Jugador* jugadores, int cantidad, dificultad dificultadElegida);
 
+// Pre: El archivo de cultivos debe existir
+// Post: carga los cultivos en un arreglo global
+void cargarCultivos();
 
 void mostrarInformacionJugadores(Jugador* jugadores, int cantidadJugadores);
 

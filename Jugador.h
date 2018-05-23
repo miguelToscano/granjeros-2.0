@@ -6,7 +6,6 @@
 #include <cstdlib>
 #include <fstream>
 #include "Campo.h"
-#include "Almacen.h"
 #include "TanqueDeAgua.h"
 
 class Jugador {
@@ -23,13 +22,13 @@ private:
     
     TanqueDeAgua tanque;
 
-    Almacen almacen;
-
 public:
 
     Jugador();
 
     void imprimirInformacion();
+
+    Campo* devolverCampo();
 
     void mostrarCampo();
 
@@ -91,61 +90,11 @@ public:
     // Post: Devuelve el valor de unidadesRiego
     int obtenerUnidadesRiego();
 
-    /*
-     * post: retorna verdadero si hay suficiente credito
-     * 		para comprar un terrreno
-     */
     bool hayCreditosDisponiblesTerreno();
 
-    /*
-     * pre: Se requiere un entero posito menos o igual a la cantidad
-     * 		actual de creditos.
-     * post: Descuenta los creditos pasados por parametro
-     */
     void descontarCreditos(int valor);
 
-    /*
-     * post: devuelve verdadero si existe el terreno indicado
-     */
-    bool esUnTerrenoValido(int terreno);
-
-    /*
-     * post: Devuelve verdadero si existe la fila indicada.
-     */
-    bool esUnaFilaValida(int fila);
-
-    /*
-     * post: Devuelve verdadero si existe la columna indicada
-     */
-    bool esUnaColumnaValida(int columna);
-
-    /*
-     * pre: Se solicita el numero de terreno, la fila y columna,
-     * 		los tres valores deben ser numeros positivos y debe existir
-     * 		la direccion de esa parcela.
-     * post:Si se puede cosechar, cosecha la parcela y devuelve
-     * 		verdadero si se realizo la operecion, sino devuelve falso.
-     */
-    bool cosechar(int terreno, int fila, int columna);
-
-    /*
-     * post: Devuelve verdadero si hay lugar en el almacen,
-     */
-    bool hayLugarEnAlmacen();
-
-    /*
-     * pre: Se pasa un numero entero positivo con la capacidad a comprar
-     * post: Obtiene verdadero si se puede comprar, compra y descuenta los creditos
-     * 		si no se puede no hace nada y devuelve falso.
-     */
-    bool sePuedeComprarCapacidadTanque(int capacidad);
-
-    /*
-     * pre: Se pasa un numero entero positivo con la capacidad a comprar
-     * post: Obtiene verdadero si se puede comprar, compra y descuenta los creditos
-     * 		si no se puede no hace nada y devuelve falso.
-     */
-    bool sePuedeComprarCapacidadAlmacen(int capacidad);
+    void plantarSemilla(Cultivo& cultivo, unsigned int terreno, int fila, int columna);
 };
 
 #endif

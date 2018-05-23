@@ -16,6 +16,16 @@ Cultivo::Cultivo(){
 	setearRentabilidad(0);
 	setearTiempoDeRecuperacion(0);
 }
+/*
+Cultivo :: Cultivo(const Cultivo& cultivoArg) {
+
+	this->tipo = cultivoArg.obtenerTipo();
+	this->costoSemilla = cultivoArg.obtenerCosto();
+	this->tiempoCosecha = cultivoArg.obtenerTiempoCosecha();
+	this->rentabilidad = cultivoArg.obtenerRentabilidad();
+	this->tiempoDeRecuperacion = cultivoArg.obtenerTiempoDeRecuperacion();
+	this->consumoDeAgua = cultivoArg.obtenerConsumoDeAgua();
+}*/
 
 Cultivo::Cultivo(char tipoParametro){
 	ifstream archivo(RUTA_CULTIVOS);
@@ -96,6 +106,16 @@ Cultivo::Cultivo(char tipoParametro){
 		return *this;
 	}
 
+	Cultivo& Cultivo :: setearConsumoDeAgua(int consumoDeAgua) {
+
+		this->consumoDeAgua = consumoDeAgua;
+	}
+
+	int Cultivo :: obtenerConsumoDeAgua() {
+
+		return this->consumoDeAgua;
+	}
+
 	char Cultivo::obtenerTipo(){
 		return tipo;
 	}
@@ -112,7 +132,7 @@ Cultivo::Cultivo(char tipoParametro){
 		return rentabilidad;
 	}
 
-	int Cultivo::obtenerTIempoDeRecuperacion(){
+	int Cultivo::obtenerTiempoDeRecuperacion(){
 		return tiempoDeRecuperacion;
 	}
 
@@ -120,7 +140,7 @@ Cultivo::Cultivo(char tipoParametro){
 		setearTipo(cultivoArg->obtenerTipo());
 		setearCosto(cultivoArg->obtenerCosto());
 		setearRentabilidad(cultivoArg->obtenerRentabilidad());
-		setearTiempoDeRecuperacion(cultivoArg->obtenerTIempoDeRecuperacion());
+		setearTiempoDeRecuperacion(cultivoArg->obtenerTiempoDeRecuperacion());
 		setearTiempoCosecha(cultivoArg->obtenerTiempoCosecha());
 	}
 
@@ -132,10 +152,10 @@ Cultivo::Cultivo(char tipoParametro){
 		tiempoCosecha--;
 	}
 
-	void Cultivo::reducirTIempoDeRecuperacion(){
+	void Cultivo::reducirTiempoDeRecuperacion(){
 		tiempoDeRecuperacion--;
 	}
 
-
+	
 
 

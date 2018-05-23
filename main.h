@@ -7,11 +7,10 @@
 #include <string>
 #include <fstream>
 #include <iomanip>
-#include "jugador.h"
+#include "Jugador.h"
 #include "configuracion.h"
 #include "Campo.h"
 #include "Lista.h"
 #include "Nodo.h"
-
 
 #endif
