@@ -110,6 +110,7 @@ void Parcela::pasoDeTurno(){
 		if(!estaRegada()){
 			secarParcela();
 			setearRecuperacion(cultivoParcela.obtenerTiempoDeRecuperacion());
+			
 		}else{
 			cultivoParcela.reducirTiempoCosecha();
 			noRegarParcela();

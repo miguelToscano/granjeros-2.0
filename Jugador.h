@@ -94,7 +94,7 @@ public:
     // Post: Devuelve el valor de unidadesRiego
     int obtenerUnidadesRiego();
 
-    void plantarSemilla(Cultivo& cultivo, unsigned int terreno, int fila, int columna);
+    void plantarSemilla(Cultivo& cultivo, int terreno, int fila, int columna);
 
     /*
      * post: retorna verdadero si hay suficiente credito
@@ -151,11 +151,10 @@ public:
      * 		si no se puede no hace nada y devuelve falso.
      */
     bool sePuedeComprarCapacidadAlmacen(int capacidad);
-    
-    /*
-     * post:Devuelve verdadero si el jugador tiene por lo menos un terreno.
-     */
-    bool tieneTerrenos();
+
+    bool sonCoordenadasValidas(unsigned int terreno, unsigned int fila, unsigned int columna);
+
+    bool hayCreditosDisponibles(int valor);
 };
 
 #endif

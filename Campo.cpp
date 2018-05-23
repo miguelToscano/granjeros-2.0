@@ -101,13 +101,33 @@ void Campo::mostrarCampo(){
 void Campo::mostrarTerreno(Parcela** terreno){
 
 	for(unsigned int i = 0; i < filas; i++){
+	
 		for(unsigned int j = 0; j < columnas; j++)
 
-			std::cout << terreno[i][j].cultivoParcela.obtenerTipo() << " - ";
+		// Caso en el que haya un cultivo creciendo
+		if (terreno[i][j].estaOcupada() && !terreno[i][j].estaDisponible()) {
+
+			cout << terreno[i][j].cultivoParcela.obtenerTipo() << " (" << terreno[i][j].cultivoParcela.obtenerTiempoCosecha() << ") ";
+		}
+
+		// Caso que la parcela este en recuperacion ya sea por haber sido cosechada, secada o podrida 
+		else if (!terreno[i][j].estaOcupada() && !terreno[i][j].estaDisponible()) {
+
+			cout << "R(" << terreno[i][j].obtenerRecuperacion() << ")  ";
+		}
+
+		else if (terreno[i][j].obtenerRecuperacion() == 0) {
+
+			cout << "V     ";
+		}
+
+		else {
+
+			cout << "V     ";
+		}
+			//std::cout << terreno[i][j].cultivoParcela.obtenerTipo() << " - ";
 		std:: cout << std::endl;
 	}
-
-	std::cout << "-----------------------" << std::endl;
 }
 
 void Campo::eliminarTerreno(unsigned int posicion){

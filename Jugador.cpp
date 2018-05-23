@@ -132,11 +132,25 @@ void Jugador :: venderTerreno(int posicion) {
     this->campoJugador.eliminarTerreno(posicion);
 }
 
-void Jugador :: plantarSemilla(Cultivo& cultivo, unsigned int terreno, int fila, int columna) {
+void Jugador :: plantarSemilla(Cultivo& cultivo, int terreno, int fila, int columna) {
 
     Nodo<Parcela**>* terrenoParaSembrar = this->campoJugador.obtenerTerreno(terreno);
 
-    (*terrenoParaSembrar).datoDelNodo[fila][columna].establecerCultivo(cultivo);
+	if (terrenoParaSembrar->datoDelNodo[fila][columna].estaOcupada() == false
+	 	&& terrenoParaSembrar->datoDelNodo[fila][columna].estaDisponible() == true) {
+
+		terrenoParaSembrar->datoDelNodo[fila][columna].establecerCultivo(cultivo);
+		terrenoParaSembrar->datoDelNodo[fila][columna].ocuparParcela();
+		terrenoParaSembrar->datoDelNodo[fila][columna].bloquearParcela();
+		terrenoParaSembrar->datoDelNodo[fila][columna].noRegarParcela();
+		terrenoParaSembrar->datoDelNodo[fila][columna].desSecarParcela();
+		terrenoParaSembrar->datoDelNodo[fila][columna].despudrirParcela();	 
+	}
+
+	else {
+
+		cout << "No puede plantar ahi!" << endl;
+	}
 }
 
 bool Jugador :: esUnTerrenoValido(int terreno){
@@ -200,10 +214,15 @@ bool Jugador :: sePuedeComprarCapacidadAlmacen(int capacidad){
 		return respuesta;
 }
 
-bool Jugador::tieneTerrenos(){
-	bool respuesta = true;
-	if(this->obtenerCantidadTerrenos() == 0){
-		respuesta = false;
-	}
-	return respuesta;
+bool Jugador :: sonCoordenadasValidas(unsigned int terreno, unsigned int fila, unsigned int columna) {
+
+	Parcela* parcelaDondePlantar = this->campoJugador.obtenerPacela(terreno, fila, columna);
+
+	return esUnTerrenoValido(terreno + 1) == true && esUnaFilaValida(fila + 1) == true && esUnaColumnaValida(columna + 1)
+			&& parcelaDondePlantar->estaDisponible() == true && parcelaDondePlantar->estaOcupada() == false;
+}
+
+bool Jugador :: hayCreditosDisponibles(int valor) {
+
+	return this->creditos >= valor;
 }
