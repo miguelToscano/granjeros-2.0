@@ -42,7 +42,7 @@ Parcela** Campo::devolverTerreno(unsigned int posicion){
 
 void Campo :: establecerFilas(int filas) {
 
-	this->filas = filas;
+	return this->filas = filas;
 }
 
 void Campo :: establecerColumnas(int columnas) {
