@@ -1,9 +1,9 @@
-#include "jugador.h"
+#include "Jugador.h"
 
 using namespace std;
 
 Jugador :: Jugador() {
-
+	this->tanque.aumentarCapacidad(25);
     this->nombre = "Nombre no asignado";
     this->creditos = 0;
     this->unidadesRiego = 0;
@@ -21,6 +21,11 @@ void Jugador :: mostrarCampo() {
         this->campoJugador.mostrarCampo();
 }
 
+Campo* Jugador::devolverCampo(){
+
+	return &(this->campoJugador);
+}
+
 void Jugador :: imprimirInformacion() {
 
     cout << "\nNombre: " << this->obtenerNombre() << endl
@@ -31,7 +36,7 @@ void Jugador :: imprimirInformacion() {
 
 int Jugador :: obtenerCantidadTerrenos() {
 
-    this->campoJugador.obtenerCantidadTerrenos();
+    return this->campoJugador.obtenerCantidadTerrenos();
 }
 
 void Jugador :: establecerNombre(string nombre) {
@@ -121,4 +126,26 @@ void Jugador :: venderTerreno(int posicion) {
     this->creditos += static_cast<int>(precioVentaTerreno);
 
     this->campoJugador.eliminarTerreno(posicion);
+}
+
+void Jugador :: regarParcela(){
+
+
+
+}
+
+void Jugador :: plantarSemilla(Cultivo& cultivo, unsigned int terreno, int fila, int columna) {
+
+    Nodo<Parcela**>* terrenoParaSembrar = this->campoJugador.obtenerTerreno(terreno);
+
+    (*terrenoParaSembrar).datoDelNodo[fila][columna].establecerCultivo(cultivo);
+}
+
+void Jugador :: comprarAmpliacionDeTanqueDeAgua(int aumento){
+
+	if(creditos >= 	tanque.obtenerPrecioAumentoDeCapacidad()){
+		descontarCreditos(this->tanque.obtenerPrecioAumentoDeCapacidad());
+		tanque.aumentarCapacidad(aumento);
+	}
+
 }

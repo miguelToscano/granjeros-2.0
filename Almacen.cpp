@@ -56,6 +56,6 @@ void Almacen::aumentarCapacidad(unsigned int cantidadDeLugares){
 }
 
 Almacen::~Almacen(){
-
+	cout << "Almacen destruido" << endl;
 }
 

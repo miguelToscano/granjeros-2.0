@@ -14,14 +14,15 @@ Campo :: Campo() {
 	this->columnas = 0;
 	this->filas = 0;
 	this->cantidadTerrenos = 0;
-	this->precioTerreno = 50;
+	this->precioTerreno = 1;
 }
 
 Campo::Campo(unsigned int filas, unsigned int columnas){
+
 	this->cantidadTerrenos = 1;
 	this->columnas = columnas;
 	this->filas = filas;
-
+	this->precioTerreno = 0; //modificar despues
 	Parcela** parcelaNueva;
 
 	parcelaNueva = new Parcela*[this->filas];
@@ -32,6 +33,11 @@ Campo::Campo(unsigned int filas, unsigned int columnas){
 
 	this->ListaDeTerrenos.agregarElemento(parcelaNueva);
 	this->cantidadTerrenos++;
+}
+
+Parcela** Campo::devolverTerreno(unsigned int posicion){
+
+	return this->ListaDeTerrenos.mostrarElemento(posicion);
 }
 
 void Campo :: establecerFilas(int filas) {
@@ -86,7 +92,7 @@ void Campo::agregarTerreno(){
 
 void Campo::mostrarCampo(){
 
-	for(unsigned int i = 0; i < this->cantidadTerrenos ; i++){
+	for(int i = 0; i < this->cantidadTerrenos ; i++){
 		cout << endl;
 		mostrarTerreno(ListaDeTerrenos.mostrarElemento(i));
 	}
@@ -97,7 +103,7 @@ void Campo::mostrarTerreno(Parcela** terreno){
 	for(unsigned int i = 0; i < filas; i++){
 		for(unsigned int j = 0; j < columnas; j++)
 
-			std::cout << terreno[i][j].obtenerEstadoParcela() << " - ";
+			std::cout << terreno[i][j].cultivoParcela.obtenerTipo() << " - ";
 		std:: cout << std::endl;
 	}
 
@@ -135,8 +141,31 @@ void Campo :: actualizarPrecioTerreno() {
 	this->precioTerreno = static_cast<int>(nuevoPrecioTerreno);
 }
 
+Nodo<Parcela**>* Campo :: obtenerTerreno(unsigned int posicion) {
+
+	return this->ListaDeTerrenos.obtenerNodo(posicion);
+}
+
+void Campo :: pudrirCultivos(){
+
+	Parcela** terreno;
+
+	for(int i = 0; i < this->cantidadTerrenos ; i++){
+
+		terreno = devolverTerreno(i);
+
+		for(unsigned int i = 0; i < filas; i++){
+			for(unsigned int j = 0; j < columnas; j++){
+
+				terreno[i][j].pudrirCultivo();
+			}
+		}
+	}
+
+}
+
 Campo::~Campo() {
-	for(unsigned int i = 1; i < this->cantidadTerrenos; i++)
+	for(int i = 1; i < this->cantidadTerrenos; i++)
 		eliminarTerreno(i);
 }
 

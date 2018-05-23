@@ -6,6 +6,7 @@
 #include <cstdlib>
 #include <fstream>
 #include "Campo.h"
+#include "TanqueDeAgua.h"
 
 class Jugador {
 
@@ -19,18 +20,28 @@ private:
     
     Campo campoJugador;
     
+    TanqueDeAgua tanque;
+
 public:
 
     Jugador();
 
     void imprimirInformacion();
 
+    Campo* devolverCampo();
+
     void mostrarCampo();
 
+    /*
+     * pre:
+     * post:
+     */
     void comprarTerreno();
 
-    // Pre: La posicion debe ser una posicion de la lista valida (debe haber un terreno)
-    // Post: Elimina la posicion de la lista, suma los creditos y reacomoda la lista
+    /*
+     * pre: La posicion debe ser una posicion de la lista valida (debe haber un terreno)
+     * post: Elimina la posicion de la lista, suma los creditos y reacomoda la lista
+     */
     void venderTerreno(int posicion);
 
     // Pre: -
@@ -82,6 +93,12 @@ public:
     bool hayCreditosDisponiblesTerreno();
 
     void descontarCreditos(int valor);
+
+    void plantarSemilla(Cultivo& cultivo, unsigned int terreno, int fila, int columna);
+
+    void regarParcela();
+
+    void comprarAmpliacionDeTanqueDeAgua(int aumento);
 };
 
 #endif
