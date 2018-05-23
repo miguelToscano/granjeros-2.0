@@ -96,7 +96,7 @@ void Campo::mostrarCampo(){
 void Campo::mostrarTerreno(Parcela** terreno){
 
 	GranjerosBMP granja;
-	granja.pintarTodoElTerreno (imagen);
+	//granja.pintarTodoElTerreno (imagen);
 }
 
 void Campo::eliminarTerreno(unsigned int posicion){

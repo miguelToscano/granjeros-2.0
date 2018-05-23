@@ -1,15 +1,7 @@
 
 #include "GranjerosBMP.h"
 
-GranjerosBMP::GranjerosBMP (BMP imagen, Campo terreno){
-
-	imagen.SetSize(resolucionColumna,resolucionFila);
-	imagen.SetBitDepth(profundidadBit);
-	pixelesParcelaFila= imagen.TellHeight()/ terreno.obtenerFilas();
-	pixelesParcelaColumna= imagen.TellWidth()/ terreno.obtenerColumnas();
-}
-
-GranjerosBMP::GranjerosBMP(){
+GranjerosBMP::GranjerosBMP () {
 
 	marronDisponible.Red=130;
 	marronDisponible.Green=47;
@@ -50,6 +42,11 @@ GranjerosBMP::GranjerosBMP(){
 	resolucionFila= 3000;
 	profundidadBit= 8;
 	grosorBordes=30;
+
+	imagen.SetSize(resolucionColumna,resolucionFila);
+	imagen.SetBitDepth(profundidadBit);
+	pixelesParcelaFila= imagen.TellHeight()/ terreno.obtenerFilas();
+	pixelesParcelaColumna= imagen.TellWidth()/ terreno.obtenerColumnas();
 }
 
 
@@ -66,17 +63,71 @@ int GranjerosBMP::obtenerPixelesParcelaFila (){
 }
 
 
-void GranjerosBMP:: pintarTodoElTerreno (BMP imagen){
+BMP GranjerosBMP::obtenerImagen (){
 
-	pintarFondo (imagen);
-	pintarBordesExteriores (imagen);
-	pintarBordesInternos (imagen, terreno);
-	determinarColor (imagen, terreno, parcelaArg, cultivoParcela);
-	guardarImagen (imagen);
+	return imagen;
+}
+
+
+RGBApixel GranjerosBMP:: obtenerColorMarronDisponible (){
+
+	return marronDisponible;
+}
+
+
+RGBApixel GranjerosBMP::obtenerColorMarronPodrido (){
+
+	return marronPodrido;
+}
+
+
+RGBApixel GranjerosBMP::obtenerColorMarronSeco (){
+
+	return marronSeco;
+}
+
+
+RGBApixel GranjerosBMP::obtenerColorVerdeDisponible (){
+
+	return verdeBordes;
+}
+
+
+RGBApixel GranjerosBMP::obtenerColorAmarilloCultivo (){
+
+	return amarilloCultivo;
+}
+
+
+RGBApixel GranjerosBMP::obtenerColorAzulAgua (){
+
+	return azulAgua;
+}
+
+
+RGBApixel GranjerosBMP::obtenerColorVioletaCosechar (){
+
+	return violetaCosechar;
+}
+
+
+int GranjerosBMP:: obtenerGrosorBordes(){
+
+	return grosorBordes;
+}
+
+
+void GranjerosBMP:: pintarTodoElTerreno (){
+
+	pintarFondo ();
+	pintarBordesExteriores ();
+	pintarBordesInternos ();
+	determinarColor ();
+	guardarImagen ();
 
 }
 
-void GranjerosBMP::pintarFondo (BMP imagen){
+void GranjerosBMP::pintarFondo (){
 
 	for (int i = 0; i < imagen.TellHeight(); i++){
 		for (int j = 0; j < imagen.TellWidth(); j++){
@@ -86,7 +137,7 @@ void GranjerosBMP::pintarFondo (BMP imagen){
 }
 
 
-void GranjerosBMP::pintarBordesExteriores(BMP imagen){
+void GranjerosBMP::pintarBordesExteriores(){
 
 	for (int i = 0; i < imagen.TellWidth(); i++){
 		for (int k = 0; k < grosorBordes; k++){
@@ -104,7 +155,7 @@ void GranjerosBMP::pintarBordesExteriores(BMP imagen){
 }
 
 
-void GranjerosBMP::pintarBordesInternos (BMP imagen, Campo terreno){
+void GranjerosBMP::pintarBordesInternos (){
 
 	int n=1;
 
@@ -128,7 +179,7 @@ void GranjerosBMP::pintarBordesInternos (BMP imagen, Campo terreno){
 }
 
 
-void GranjerosBMP::pintarParcela (BMP imagen, RGBApixel color, Campo terreno){
+void GranjerosBMP::pintarParcela (RGBApixel color){
 
 	for (int i = ((terreno.obtenerColumnas() - 1) * pixelesParcelaColumna) + grosorBordes; i < ((terreno.obtenerColumnas() * pixelesParcelaColumna) - grosorBordes); i++){
 		for (int j = ((terreno.obtenerFilas() - 1) *pixelesParcelaFila) + grosorBordes; j < ((terreno.obtenerFilas() * pixelesParcelaFila) - grosorBordes); j++){
@@ -138,7 +189,7 @@ void GranjerosBMP::pintarParcela (BMP imagen, RGBApixel color, Campo terreno){
 }
 
 
-void GranjerosBMP:: dibujarCuadradito (BMP imagen, RGBApixel color){
+void GranjerosBMP:: dibujarCuadradito (RGBApixel color){
 
 	int posicionColumnaSimbolito = obtenerPixelesParcelaColumna()*(4/5);
 	int posicionFilaSimbolito = obtenerPixelesParcelaFila()*(1/5);
@@ -151,35 +202,31 @@ void GranjerosBMP:: dibujarCuadradito (BMP imagen, RGBApixel color){
 }
 
 
-void GranjerosBMP::determinarColor (BMP imagen, Campo terreno, Parcela parcelaArg, Cultivo cultivoParcela){
+void GranjerosBMP::determinarColor (){
 
 	if (!parcelaArg.estaPodrida() )
-		pintarParcela (imagen, marronPodrido, terreno);
+		pintarParcela (marronPodrido);
 
 	else if (!parcelaArg.estaSeca() )
-		pintarParcela (imagen, marronSeco, terreno);
+		pintarParcela (marronSeco);
 
 	else if (parcelaArg.estaDisponible() )
-		pintarParcela (imagen, marronDisponible, terreno);
+		pintarParcela (marronDisponible);
+
+	else
+		pintarParcela (amarilloCultivo);
 
 
 	if (parcelaArg.estaRegada() )
-		dibujarCuadradito (imagen, azulAgua);
+		dibujarCuadradito (azulAgua);
 
 	else if (!parcelaArg.estaOcupada() && parcelaArg.cultivoParcela.obtenerTiempoCosecha()==0)
-			dibujarCuadradito(imagen, violetaCosechar);
+			dibujarCuadradito (violetaCosechar);
 
-/*
-	switch (parcelaArg.cultivoParcela.obtenerTipo() ){
-		case (parcelaArg.cultivoParcela.obtenerTipo() == //CULTIVO_A):
-			pintarParcela(imagen, amarilloCultivo, terreno);
-			break;
-
-	*/
 }
 
 
-void GranjerosBMP:: guardarImagen (BMP imagen){
+void GranjerosBMP:: guardarImagen (){
 
 	imagen.WriteToFile("granjeros.bmp");
 

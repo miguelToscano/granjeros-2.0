@@ -21,17 +21,14 @@ class GranjerosBMP{
 	private:
 
 		RGBApixel marronDisponible;
+		RGBApixel marronPodrido;
+		RGBApixel marronSeco;
 		RGBApixel verdeBordes;
 		RGBApixel amarilloCultivo;
 		RGBApixel azulAgua;
 		RGBApixel violetaCosechar;
-		RGBApixel marronPodrido;
-		RGBApixel marronSeco;
 
 		BMP imagen;
-		Campo terreno;
-		Parcela parcelaArg;
-		Cultivo cultivoParcela;
 
 		int resolucionFila;
 		int resolucionColumna;
@@ -44,11 +41,12 @@ class GranjerosBMP{
 
 	public:
 
+		Campo terreno;
+		Parcela parcelaArg;
+		Cultivo cultivoParcela;
+
 		//Constructor
 		GranjerosBMP();
-
-		//Post: setea la resolucion de la imagen y los pixeles de las filas y columnas
-		GranjerosBMP (BMP imagen, Campo terreno);
 
 		//Post: devuelve los pixeles por columna
 		int obtenerPixelesParcelaColumna ();
@@ -56,36 +54,55 @@ class GranjerosBMP{
 		//Post: devuelve los pixeles por fila
 		int obtenerPixelesParcelaFila ();
 
+		//Post: devuelve la imagen
+		BMP obtenerImagen ();
+
+		RGBApixel obtenerColorMarronDisponible ();
+
+		RGBApixel obtenerColorMarronPodrido ();
+
+		RGBApixel obtenerColorMarronSeco ();
+
+		RGBApixel obtenerColorVerdeDisponible ();
+
+		RGBApixel obtenerColorAmarilloCultivo ();
+
+		RGBApixel obtenerColorAzulAgua ();
+
+		RGBApixel obtenerColorVioletaCosechar ();
+
+		int obtenerGrosorBordes();
+
 		//Post: muestra el terreno
-		void pintarTodoElTerreno (BMP imagen);
+		void pintarTodoElTerreno ();
 
 
 		//Post: pinta el fondo de la imagen con el color asignado
-		void pintarFondo (BMP imagen);
+		void pintarFondo ();
 
 
 		//Post: pinta los vordes exteriores de la imagen
-		void pintarBordesExteriores(BMP imagen);
+		void pintarBordesExteriores();
 
 
 		//Post: pinta las divisiones internas del terreno segun la canitdad de filas y columnas
-		void pintarBordesInternos (BMP imagen, Campo terreno);
+		void pintarBordesInternos ();
 
 
 		//Pre: debe recibir alguno de los colores establecidos
 		//Post: pinta la parcela seleccionada segun el estado que tenga
-		void pintarParcela (BMP imagen, RGBApixel color, Campo terreno);
+		void pintarParcela (RGBApixel color);
 
 
 		//Post: determina de que color se pintara la parcela en base a su estado
-		void determinarColor (BMP imagen, Campo terreno, Parcela parcelaArg, Cultivo cultivoParcela);
+		void determinarColor ();
 
 		//Post: dibuja un cuadradito celeste si la parcela tiene que ser regada
 		// y un cuadradito violeta si la parcela tiene que ser cosechada
-		void dibujarCuadradito (BMP imagen, RGBApixel color);
+		void dibujarCuadradito (RGBApixel color);
 
 		//Post: guarda la imagen que se pinto en un archivo .bmp
-		void guardarImagen (BMP imagen);
+		void guardarImagen ();
 };
 
 
