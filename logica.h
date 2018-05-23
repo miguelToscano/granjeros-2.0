@@ -278,7 +278,11 @@ void procesarTurno(Jugador& jugador, int turno,
 
             case OPCION_MOSTRAR_CAMPO:
 
-                jugador.mostrarCampo();
+            	if(jugador.tieneTerrenos()){
+            		jugador.mostrarCampo();
+            	}else{
+            		cout << "No posee terrenos" << endl;
+            	}
 
                 break;
 
@@ -296,14 +300,23 @@ void procesarTurno(Jugador& jugador, int turno,
 
             case OPCION_SEMBRAR_PARCELA:
 
-            	sembrarParcela(jugador, cultivosDisponibles, cantidadCultivosDisponibles);
+            	if(jugador.tieneTerrenos()){
+            		sembrarParcela(jugador, cultivosDisponibles, cantidadCultivosDisponibles);
+            	    }else{
+            	    cout << "No posee terrenos" << endl;
+            	    }
+
 
                 break;
 
             case OPCION_COSECHAR:
 
             	if(jugador.hayLugarEnAlmacen()){
-            		cosecharParcela(jugador);
+            		if(jugador.tieneTerrenos()){
+            			cosecharParcela(jugador);
+            		}else{
+            		    cout << "No posee terrenos" << endl;
+            		           	    }
             	}else{
             		cout << "Almacen Lleno!!" << endl;
             	}
@@ -330,7 +343,6 @@ void procesarTurno(Jugador& jugador, int turno,
         }
     }
 }
-
 void mostrarGanador(Jugador* jugadores, int cantidadJugadores) {
 
     int indiceJugadorGanador = 0;
