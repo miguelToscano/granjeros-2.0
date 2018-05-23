@@ -8,6 +8,11 @@
 #ifndef TANQUE_DE_AGUA_H_
 #define TANQUE_DE_AGUA_H_
 
+#include <cstdlib>
+#include <ctime>
+
+const int AGUA_POR_TURNO = 5;
+
 class TanqueDeAgua{
 
 private:
@@ -49,6 +54,8 @@ public:
 	 * post: Aumenta la capidad indicada.
 	 */
 	void aumentarCapacidad(int aumento);
+
+	void recibirAgua();
 
 	/*
 	 * pre: masAgua debe ser un numero entero positivo.

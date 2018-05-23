@@ -7,6 +7,7 @@
 #include <string>
 #include <fstream>
 #include <iomanip>
+#include <ctime>
 
 #include "../src/configuracion.h"
 #include "../src/Campo.h"

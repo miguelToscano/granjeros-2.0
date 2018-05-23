@@ -96,6 +96,11 @@ void Parcela::desSecarParcela(){
 	seca = false;
 }
 
+int Parcela :: obtenerConsumoDeAgua() {
+
+	return this->cultivoParcela.obtenerConsumoDeAgua();
+}
+
 void Parcela::liberarParcela(){
 	setearRecuperacion(cultivoParcela.obtenerTiempoDeRecuperacion());
 	Cultivo cultivo('V');
@@ -110,7 +115,7 @@ void Parcela::pasoDeTurno(){
 		if(!estaRegada()){
 			secarParcela();
 			setearRecuperacion(cultivoParcela.obtenerTiempoDeRecuperacion());
-			
+
 		}else{
 			cultivoParcela.reducirTiempoCosecha();
 			noRegarParcela();

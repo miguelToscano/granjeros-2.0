@@ -108,6 +108,7 @@ void cargarAtributosIniciales(Jugador* jugadores, int cantidad, dificultad dific
         jugadores[i].establecerColumnas(diccionarioColumnas[dificultadElegida - 1]);
         jugadores[i].crearCampo();
         jugadores[i].establecerCreditos();
+        jugadores[i].inicializarCapacidadTanque();
     }    
 }
 

@@ -68,9 +68,21 @@ public:
     // Post: Asigna un valor a columnas segun la dificultad elegida
     void establecerColumnas(int columnas);
 
+    int obtenerFilas();
+
+    int obtenerColumnas();
+
+    void recibirAgua();
+
+    void regarParcela(int terreno, int fila, int columna);
+
     // Pre: Las filas y columnas del jugador deben haber sido establecidas previamente
     // Post: Asigna a creditos el valor segun las filas y columnas del jugador
     void establecerCreditos();
+
+    int obtenerCantidadAgua();
+
+    bool hayAguaDisponible(int terreno, int fila, int columna);
 
     // Pre: -
     // Post: Devuelve la cantidad de creditos del jugador
@@ -89,6 +101,8 @@ public:
     // Pre: El argumento debe ser positivo
     // Post: Asigna a unidadesRiego el valor pasado como argumento
     void establecerUnidadesRiego(int unidadesRiego);
+
+    void inicializarCapacidadTanque();
 
     // Pre: -
     // Post: Devuelve el valor de unidadesRiego
@@ -152,7 +166,9 @@ public:
      */
     bool sePuedeComprarCapacidadAlmacen(int capacidad);
 
-    bool sonCoordenadasValidas(unsigned int terreno, unsigned int fila, unsigned int columna);
+    bool sonCoordenadasValidasPlantar(int terreno, int fila, int columna);
+
+    bool sonCoordenadasValidasRegar(int terreno, int fila, int columna);
 
     bool hayCreditosDisponibles(int valor);
 };

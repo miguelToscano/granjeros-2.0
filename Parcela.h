@@ -47,6 +47,8 @@ class Parcela{
 
 		void establecerCultivo(Cultivo& cultivo);
 
+		int obtenerConsumoDeAgua();
+
 		/*
 		 * post: Indica si esta disponible para sembrar
 		 */

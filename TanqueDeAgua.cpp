@@ -8,6 +8,7 @@
 
 #include "../src/TanqueDeAgua.h"
 
+
 TanqueDeAgua::TanqueDeAgua(){
 
 	this->capacidadDelTanque = 0;
@@ -26,10 +27,17 @@ void TanqueDeAgua::aumentarCapacidad(int aumento){
 
 }
 
+void TanqueDeAgua :: recibirAgua() {
+
+	srand(time(NULL));
+
+	int multiplicador = 1 + (rand() % 6);
+
+	this->cantidadDeAgua += (multiplicador * AGUA_POR_TURNO);
+} 
+
 void TanqueDeAgua::llenarTanque(int masAgua){
 
-	/*
-	NO VALIDO HAY QUE REVISAR EN QUE INSTANCIA HACERMOS ESTO!!!!
 
 	srand(time(NULL));
 
@@ -40,7 +48,7 @@ void TanqueDeAgua::llenarTanque(int masAgua){
 	if( this->cantidadDeAgua > this->capacidadDelTanque ){
 
 		this->cantidadDeAgua = this->capacidadDelTanque;
-	}*/
+	}
 
 	cantidadDeAgua += masAgua;
 }
