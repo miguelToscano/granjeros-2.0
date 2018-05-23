@@ -151,6 +151,11 @@ public:
      * 		si no se puede no hace nada y devuelve falso.
      */
     bool sePuedeComprarCapacidadAlmacen(int capacidad);
+    
+    /*
+     * post:Devuelve verdadero si el jugador tiene por lo menos un terreno.
+     */
+    bool tieneTerrenos();
 };
 
 #endif
