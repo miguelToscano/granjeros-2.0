@@ -4,7 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include "jugador.h"
+#include "Jugador.h"
 #include <iomanip>
 
 using namespace std;

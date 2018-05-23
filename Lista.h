@@ -25,6 +25,8 @@ public:
 
 	dato mostrarElemento(unsigned int posicion);
 
+	int obtenerTamanio();
+
 	bool ListaVacia();
 
 	virtual ~Lista();
@@ -78,6 +80,7 @@ dato Lista<dato>::eliminarElemento(unsigned int posicion){
 	if(posicion == 0)
 
 		primerNodo = nodoAux->mostrarSiguiente();
+
 	else{
 
 		Nodo<dato>* nodoAnterior = obtenerNodo(posicion - 1);
@@ -105,6 +108,11 @@ template < typename dato >
 bool Lista<dato>::ListaVacia(){
 
 	return (this->primerNodo == 0);
+}
+
+template < typename dato >
+int Lista<dato>::obtenerTamanio(){
+	return tamanio;
 }
 
 template < typename dato >

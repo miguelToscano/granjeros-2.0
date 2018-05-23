@@ -5,11 +5,10 @@
  *      Author: Matias Figueroa
  */
 
-#include "pantalla.h"
-
 #include "Jugador.h"
 //#include "error.h"
 #include <iostream>
+#include "pantalla.h"
 
 using namespace std;
 
@@ -18,7 +17,7 @@ void imprimirBienvenida(){
 }
 
 void solicitarJugadores(){
-	cout << "Ingrese la cantidad de jugadores" << endl;
+	cout << "Ingrese la cantidad de jugadores" << "(MAXIMO 5)" << endl;
 }
 
 void solicitarNombre(int jugN){
@@ -27,12 +26,12 @@ void solicitarNombre(int jugN){
 
 void imprimirMenu(){
 	cout << "Seleccione una accion:" << endl
-		<< "1. Mostrar campo " << endl
+		<< "1. Regar " << endl
 		<< "2. Comprar terreno" << endl
 		<< "3. Vender terreno" << endl
 		<< "4. Sembrar" << endl
 		<< "5. Cosechar" << endl
-		<< "6. Comprar capacidad de tanque" << endl
+		<< "6. Comprar capacidad de agua" << endl
 		<< "7. Comprar capacidad de almacén" << endl
 		<< "8. Enviar pedido" << endl
 		<< "9. Pasar turno" << endl

@@ -45,8 +45,6 @@ class Parcela{
 		 */
 		void liberarParcela();
 
-		void establecerCultivo(Cultivo& cultivo);
-
 		/*
 		 * post: Indica si esta disponible para sembrar
 		 */
@@ -159,6 +157,16 @@ class Parcela{
 		 * post: ------
 		 */
 		void copiarParcela(Parcela* parcelaArg);
+
+		/*
+		 * post: ------
+		 */
+		bool sePuedeCosechar();
+
+		/*
+		 * post: ------
+		 */
+		Cultivo cosecharParcela();
 };
 
 

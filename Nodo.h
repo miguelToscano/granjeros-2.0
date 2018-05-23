@@ -6,12 +6,11 @@ class Nodo {
 
 private:
 
+	dato datoDelNodo;
 
 	Nodo<dato>* siguienteNodo;
 
 public:
-
-	dato datoDelNodo;
 
 	Nodo();
 

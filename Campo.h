@@ -31,10 +31,6 @@ public:
 
 	Campo(unsigned int filas,unsigned int columnas);
 
-	Nodo<Parcela**>* obtenerTerreno(unsigned int posicion);
-
-	Parcela** devolverTerreno(unsigned int posicion);
-
 	void agregarTerreno();
 
 	void establecerFilas(int filas);
@@ -60,6 +56,8 @@ public:
 	void actualizarPrecioTerreno();
 
 	virtual ~Campo();
+
+	Parcela* obtenerPacela(int terreno, int fila, int columna);
 
 };
 

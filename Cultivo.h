@@ -17,7 +17,6 @@ static const char RUTA_CULTIVOS[] = "cultivos.txt";
 
 
 class Cultivo{
-
 	private:
 
 		char tipo;
@@ -39,21 +38,16 @@ class Cultivo{
 		 */
 		Cultivo(char tipoParametro);
 
-		// Constructor de copia
-//		Cultivo(const Cultivo& cultivo);
-
 		Cultivo &setearTipo(char tipoArg);
 		Cultivo &setearCosto(int costoArg);
 		Cultivo &setearTiempoCosecha(int tiempoCosechaArg);
 		Cultivo &setearRentabilidad(int rentabilidadArg);
 		Cultivo &setearTiempoDeRecuperacion(int tiempoDeRecuperacionArg);
-		Cultivo &setearConsumoDeAgua(int consumoDeAgua);
+
 		/*
 		 * post: devuelve el un char con el tipo del cultivo
 		 */
 		char obtenerTipo();
-
-		int obtenerConsumoDeAgua();
 
 		/*
 		* post: devuelve un int con el costo del cultivo
@@ -69,8 +63,7 @@ class Cultivo{
 		* post: Devuelve un int con la rentabilidad del cultivo
 		*/
 		int obtenerRentabilidad();
-
-		int obtenerTiempoDeRecuperacion();
+		int obtenerTIempoDeRecuperacion();
 
 		/*
 		* post: Reemplaza el cultivo
@@ -91,7 +84,7 @@ class Cultivo{
 		/*
 		* post: Reduce el tiempo de recuperacion en una unidad
 		*/
-		void reducirTiempoDeRecuperacion();
+		void reducirTIempoDeRecuperacion();
 
 };
 

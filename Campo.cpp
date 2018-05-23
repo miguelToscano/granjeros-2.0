@@ -35,11 +35,6 @@ Campo::Campo(unsigned int filas, unsigned int columnas){
 	this->cantidadTerrenos++;
 }
 
-Parcela** Campo::devolverTerreno(unsigned int posicion){
-
-	return this->ListaDeTerrenos.mostrarElemento(posicion);
-}
-
 void Campo :: establecerFilas(int filas) {
 
 	this->filas = filas;
@@ -141,9 +136,9 @@ void Campo :: actualizarPrecioTerreno() {
 	this->precioTerreno = static_cast<int>(nuevoPrecioTerreno);
 }
 
-Nodo<Parcela**>* Campo :: obtenerTerreno(unsigned int posicion) {
-
-	return this->ListaDeTerrenos.obtenerNodo(posicion);
+Parcela* Campo::obtenerPacela(int terreno, int fila, int columna){
+	Parcela** hectarea = ListaDeTerrenos.mostrarElemento(terreno);
+	return &hectarea[fila][columna];
 }
 
 Campo::~Campo() {

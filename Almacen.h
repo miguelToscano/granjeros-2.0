@@ -21,7 +21,6 @@ class Almacen {
 	private:
 
 		Lista <Cultivo> ListaDeCosechas;
-		int cantidadCosechas;
 		int capacidadMaxima;
 
 	public:
@@ -33,10 +32,10 @@ class Almacen {
 		Almacen();
 
 		/*
-		 * post:Agrega un cultivo al almacen
-		 * si no hay lugar no hacer nada.
+		 * post:Agrega un cultivo al almacen y devuelve true,
+		 *      si el almacen esta lleno devuelve false.
 		 */
-		void agregarCosechaAlmacen(Cultivo cosecha);
+		bool agregarCosechaAlmacen(Cultivo cosecha);
 
 		/*
 		 * pre: recibis cultivo , y el destino como string
@@ -53,6 +52,20 @@ class Almacen {
 
 		void aumentarCapacidad(unsigned int cantidadDeLugares);
 
+		/*
+		 * post: obtiene la capacidad maxima.
+		 */
+		int obtenerCapacidadMaxima();
+
+		/*
+		 * post:devuelve la cantidad de cosechas del almacen.
+		 */
+		int obtenerCantidadDeCosechas();
+
+		/*
+		 * post: Devuelve true si hay lugar en el almacen
+		 */
+		bool hayLugar();
 
 		//Destructor
 		virtual ~Almacen();

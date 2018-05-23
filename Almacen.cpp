@@ -10,23 +10,21 @@
 using namespace std;
 
 Almacen::Almacen(){
-	this->cantidadCosechas = 0;
 	this->capacidadMaxima = 0;
 }
 
 
 Almacen::Almacen(const int N, const int M){
 	int capacidad = 2 * (N + M);
-	for(int i = 0; i < capacidad ; i++)
-		this->ListaDeCosechas.agregarElemento(ESPACIO_VACIO);
-	this->cantidadCosechas = 0;
 	this->capacidadMaxima = capacidad;
 }
 
-void Almacen::agregarCosechaAlmacen(Cultivo cosecha){
-	if(capacidadMaxima > cantidadCosechas){
+bool Almacen::agregarCosechaAlmacen(Cultivo cosecha){
+	if(hayLugar()){
 		this->ListaDeCosechas.agregarElemento(cosecha);
-		this->cantidadCosechas++;
+		return true;
+	}else{
+		return false;
 	}
 }
 
@@ -37,7 +35,7 @@ int Almacen::despacharCosecha(Cultivo cosecha){
 	Destino DestinoCosecha(cosecha.obtenerTipo());
 
 	ganancias = cosecha.obtenerRentabilidad() - DestinoCosecha.mostrarCostoEnvio();
-	for(int i = 0; i < this->cantidadCosechas; i++){
+	for(int i = 0; i < obtenerCantidadDeCosechas(); i++){
 		Cultivo aux = ListaDeCosechas.mostrarElemento(i);
 		if(aux.obtenerTipo() == cosecha.obtenerTipo()){
 			ListaDeCosechas.eliminarElemento(i);
@@ -49,13 +47,26 @@ int Almacen::despacharCosecha(Cultivo cosecha){
 }
 
 void Almacen::aumentarCapacidad(unsigned int cantidadDeLugares){
-	for(unsigned int i = 0; i < cantidadDeLugares; i++)
-		ListaDeCosechas.agregarElemento(ESPACIO_VACIO);
+
 	this->capacidadMaxima += cantidadDeLugares;
 
 }
 
+int Almacen::obtenerCantidadDeCosechas(){
+
+	return ListaDeCosechas.obtenerTamanio();
+
+}
+
+int Almacen::obtenerCapacidadMaxima(){
+	return capacidadMaxima;
+}
+
+bool Almacen::hayLugar(){
+	return (capacidadMaxima > obtenerCantidadDeCosechas());
+}
+
 Almacen::~Almacen(){
-	cout << "Almacen destruido" << endl;
+
 }
 
