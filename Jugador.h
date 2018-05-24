@@ -74,6 +74,8 @@ public:
 
     void recibirAgua();
 
+    void desecharExcesoDeAgua();
+
     void regarParcela(int terreno, int fila, int columna);
 
     // Pre: Las filas y columnas del jugador deben haber sido establecidas previamente

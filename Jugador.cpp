@@ -31,7 +31,7 @@ void Jugador :: imprimirInformacion() {
     cout << "\nNombre: " << this->obtenerNombre() << endl
         << "Creditos: " << this->obtenerCreditos() << endl
         << "Cantidad de terrenos: " << this->obtenerCantidadTerrenos() << endl
-        << "Unidades de riego en tanque: " << this->tanque.obtenerCantidadAgua() << endl
+        << "Unidades de riego en disponibles: " << this->tanque.obtenerCantidadAgua() << endl
 		<< "Capacidad del tanque: " << tanque.obtenerCapacidad() << endl
     	<< "Capacidad de almacen: " << almacen.obtenerCapacidadMaxima() << endl
     	<< "Objetos en almacen: " << almacen.obtenerCantidadDeCosechas() << endl;
@@ -102,6 +102,11 @@ int Jugador :: obtenerFilas() {
 void Jugador :: recibirAgua() {
 
 	this->tanque.recibirAgua();
+}
+
+void Jugador :: desecharExcesoDeAgua() {
+
+	this->tanque.desecharExcesoDeAgua();
 }
 
 int Jugador :: obtenerColumnas() {

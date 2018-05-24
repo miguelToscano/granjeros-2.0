@@ -70,3 +70,10 @@ bool TanqueDeAgua::disminuirAgua(int costoRiego){
 	}
 }
 
+void TanqueDeAgua :: desecharExcesoDeAgua() {
+
+	if (this->cantidadDeAgua > this->capacidadDelTanque) {
+
+		cantidadDeAgua = capacidadDelTanque;
+	}
+}

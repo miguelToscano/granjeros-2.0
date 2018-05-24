@@ -57,6 +57,8 @@ public:
 
 	void recibirAgua();
 
+	void desecharExcesoDeAgua();
+
 	/*
 	 * pre: masAgua debe ser un numero entero positivo.
 	 * post: Llena el tanque con la cantidad de agua

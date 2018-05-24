@@ -406,6 +406,8 @@ void procesarTurno(Jugador& jugador, int turno,	Cultivo* cultivosDisponibles, in
         }
     }
 
+    jugador.desecharExcesoDeAgua();
+    
     actualizarCampo(jugador);
 }
 
