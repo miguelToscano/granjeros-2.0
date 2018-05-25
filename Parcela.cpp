@@ -28,9 +28,8 @@ void Parcela::bloquearParcela(){
 	disponible = false;
 }
 
-Parcela &Parcela::setearRecuperacion(int recuperacionArg){
+void Parcela::setearRecuperacion(int recuperacionArg){
 	recuperacion = recuperacionArg;
-	return *this;
 }
 
 int Parcela::obtenerRecuperacion(){
@@ -41,9 +40,6 @@ void Parcela::reducirRecuperacion(){
 	recuperacion--;
 }
 
-void Parcela::copiarParcela(Parcela* parcelaArg){
-	setearRecuperacion(parcelaArg->obtenerRecuperacion());
-}
 
 bool Parcela::estaSeca(){
 	return seca;
@@ -96,14 +92,10 @@ void Parcela::desSecarParcela(){
 	seca = false;
 }
 
-int Parcela :: obtenerConsumoDeAgua() {
-
-	return this->cultivoParcela.obtenerConsumoDeAgua();
-}
-
 void Parcela::liberarParcela(){
 	setearRecuperacion(cultivoParcela.obtenerTiempoDeRecuperacion());
-	Cultivo cultivo('V');
+	Cultivo cultivo;
+	cultivo.setearTipo('V');
 	cultivoParcela.cambiarCultivo(&cultivo);
 	desocuparParcela();
 	despudrirParcela();
@@ -113,16 +105,18 @@ void Parcela::liberarParcela(){
 void Parcela::pasoDeTurno(){
 	if(estaOcupada()){
 		if(!estaRegada()){
-			secarParcela();
-			setearRecuperacion(cultivoParcela.obtenerTiempoDeRecuperacion());
-
+			liberarParcela();
+			bloquearParcela();
+			cultivoParcela.setearTipo('S');
 		}else{
 			cultivoParcela.reducirTiempoCosecha();
 			noRegarParcela();
 		}
 		if(cultivoParcela.obtenerTiempoCosecha() < 0){
+			liberarParcela();
+			setearRecuperacion(obtenerRecuperacion()/2);
 			pudrirParcela();
-			setearRecuperacion(cultivoParcela.obtenerTiempoDeRecuperacion()/2);
+			cultivoParcela.setearTipo('P');
 		}
 	}else{
 		if(obtenerRecuperacion() > 0){
@@ -136,58 +130,58 @@ void Parcela::pasoDeTurno(){
 }
 
 char Parcela::imagenRepresentativa(){
+	char respuesta = ' ';
 	if(cultivoParcela.obtenerTipo() == VACIA){
-		return VACIA;
+		respuesta = VACIA;
 	}else{
 		if(estaDisponible()){
-			return DISPONIBLE;
+			respuesta = DISPONIBLE;
 		}else{
 			if(estaSeca()){
-				return SECA;
+				respuesta = SECA;
 			}
 			if(estaPodrida()){
-				return PODRIDA;
+				respuesta = PODRIDA;
 			}
 		}
 		if(estaOcupada()){
-			return cultivoParcela.obtenerTipo();
+			respuesta = cultivoParcela.obtenerTipo();
 		}else{
-			return ERROR_CHAR;
+			respuesta = ERROR_CHAR;
 		}
 	}
+	return respuesta;
 }
 
 char Parcela::infoParcela(){
+
+	char respuesta = ' ';
 	if(cultivoParcela.obtenerTiempoCosecha() == 0){
-		if(estaDisponible()){
-			return SIN_REGAR;
-		}else{
-			return COSECHAR;
+		if(estaOcupada()){
+			respuesta = COSECHAR;
 		}
 
 	}else{
 		if(estaRegada()){
-			return REGADA;
+			respuesta = REGADA;
 		}else{
-			return SIN_REGAR;
+			respuesta = SIN_REGAR;
 		}
 	}
+
+	return respuesta;
 }
 
 bool Parcela::sePuedeCosechar(){
-	if(infoParcela() == COSECHAR){
-		return true;
-	}else{
-		return false;
-	}
+	return (infoParcela() == COSECHAR);
 }
 
-Cultivo Parcela::cosecharParcela(){
-	Cultivo cultivoParaAlmacenar;
-	cultivoParaAlmacenar.cambiarCultivo(&this->cultivoParcela);
-	this->setearRecuperacion(this->cultivoParcela.obtenerTiempoDeRecuperacion());
-	this->bloquearParcela();
-	this->desocuparParcela();
-	return cultivoParaAlmacenar;
+
+void Parcela::sembrar(){
+	ocuparParcela();
+	bloquearParcela();
 }
 
+int Parcela::obtenerConsumoDeAgua(){
+	return this->cultivoParcela.obtenerConsumoDeAgua();
+}

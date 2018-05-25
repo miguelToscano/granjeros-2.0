@@ -11,6 +11,7 @@
 #include <cstdlib>
 #include <ctime>
 
+
 const int AGUA_POR_TURNO = 5;
 
 class TanqueDeAgua{
@@ -42,7 +43,6 @@ public:
 	int obtenerCapacidad();
 
 	/*
-	 * pre: El tanque debe ser inicializado.
 	 * post: Devuelve la cantidad de agua actual
 	 * 		que posee el tanque.
 	 */
@@ -54,10 +54,6 @@ public:
 	 * post: Aumenta la capidad indicada.
 	 */
 	void aumentarCapacidad(int aumento);
-
-	void recibirAgua();
-
-	void desecharExcesoDeAgua();
 
 	/*
 	 * pre: masAgua debe ser un numero entero positivo.
@@ -73,6 +69,19 @@ public:
 	 * 		y no hace nada.
 	 */
 	bool disminuirAgua(int costoRiego);
+
+	/*
+	 * post: Si el la cantidad de agua almacenada supera la capacidad,
+	 * 		se deja el tanque al maximo.
+	 */
+	void desecharExcesoDeAgua();
+
+	/*
+	 *
+	 */
+    void recibirAgua();
+
+
 };
 
 

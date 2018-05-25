@@ -8,7 +8,6 @@
 
 #include "../src/TanqueDeAgua.h"
 
-
 TanqueDeAgua::TanqueDeAgua(){
 
 	this->capacidadDelTanque = 0;
@@ -27,31 +26,7 @@ void TanqueDeAgua::aumentarCapacidad(int aumento){
 
 }
 
-void TanqueDeAgua :: recibirAgua() {
 
-	srand(time(NULL));
-
-	int multiplicador = 1 + (rand() % 6);
-
-	this->cantidadDeAgua += (multiplicador * AGUA_POR_TURNO);
-} 
-
-void TanqueDeAgua::llenarTanque(int masAgua){
-
-
-	srand(time(NULL));
-
-	int multiplicador = 1 + rand() % ((6+1) - 1);
-
-	this->cantidadDeAgua += AGUA_POR_TURNO * multiplicador;
-
-	if( this->cantidadDeAgua > this->capacidadDelTanque ){
-
-		this->cantidadDeAgua = this->capacidadDelTanque;
-	}
-
-	cantidadDeAgua += masAgua;
-}
 
 int TanqueDeAgua::obtenerCapacidad(){
 	return this->capacidadDelTanque;
@@ -62,18 +37,45 @@ int TanqueDeAgua::obtenerCantidadAgua(){
 }
 
 bool TanqueDeAgua::disminuirAgua(int costoRiego){
-	if(costoRiego > cantidadDeAgua){
-		return false;
-	}else{
+	bool respuesta = false;
+	if(costoRiego <= cantidadDeAgua){
 		cantidadDeAgua -= costoRiego;
-		return true;
+		respuesta = true;
 	}
+	return respuesta;
 }
+
+
+
+
+void TanqueDeAgua :: recibirAgua() {
+
+	srand(time(NULL));
+	int multiplicador = 1 + (rand() % 6);
+	this->cantidadDeAgua += (multiplicador * AGUA_POR_TURNO);
+}
+
+
+void TanqueDeAgua::llenarTanque(int masAgua){
+
+	srand(time(0));
+
+	int multiplicador = (1 + rand() % (6));
+	this->cantidadDeAgua += AGUA_POR_TURNO * multiplicador;
+
+	if( this->cantidadDeAgua > this->capacidadDelTanque ){
+		this->cantidadDeAgua = this->capacidadDelTanque;
+	}
+
+	cantidadDeAgua += masAgua;
+
+}
+
+
 
 void TanqueDeAgua :: desecharExcesoDeAgua() {
 
 	if (this->cantidadDeAgua > this->capacidadDelTanque) {
-
 		cantidadDeAgua = capacidadDelTanque;
 	}
 }

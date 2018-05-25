@@ -43,7 +43,7 @@ class Almacen {
 		 * int con el precio total de la rentabilidad del cultivo
 		 * mas el costo de envio
 		 */
-		int despacharCosecha(Cultivo cosecha);
+		int despacharCosechas();
 
 		/*
 		 * Pre: Recibe cantidadDeLugares > 0, entero.
@@ -66,6 +66,11 @@ class Almacen {
 		 * post: Devuelve true si hay lugar en el almacen
 		 */
 		bool hayLugar();
+
+		/*
+		 * post: devuelve true si no hay cultivos almacenados
+		 */
+		bool estaVacio();
 
 		//Destructor
 		virtual ~Almacen();

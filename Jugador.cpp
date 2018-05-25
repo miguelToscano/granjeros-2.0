@@ -3,10 +3,11 @@
 using namespace std;
 
 Jugador :: Jugador() {
-
+	this->tanque.aumentarCapacidad(25);
     this->nombre = "Nombre no asignado";
     this->creditos = 0;
-	this->unidadesRiego = 0;
+    this->unidadesRiego = 0;
+    this->almacen.aumentarCapacidad(5);
 }
 
 void Jugador :: mostrarCampo() {
@@ -31,10 +32,10 @@ void Jugador :: imprimirInformacion() {
     cout << "\nNombre: " << this->obtenerNombre() << endl
         << "Creditos: " << this->obtenerCreditos() << endl
         << "Cantidad de terrenos: " << this->obtenerCantidadTerrenos() << endl
-        << "Unidades de riego en disponibles: " << this->tanque.obtenerCantidadAgua() << endl
-		<< "Capacidad del tanque: " << tanque.obtenerCapacidad() << endl
-    	<< "Capacidad de almacen: " << almacen.obtenerCapacidadMaxima() << endl
-    	<< "Objetos en almacen: " << almacen.obtenerCantidadDeCosechas() << endl;
+		<< "Unidades de riego disponibles: " << this->tanque.obtenerCantidadAgua() << endl
+		<< "Capacidad del tanque: " << this->tanque.obtenerCapacidad() << endl
+    	<< "Capacidad de almacen: " << this->almacen.obtenerCapacidadMaxima() << endl
+    	<< "Objetos en almacen: " << this->almacen.obtenerCantidadDeCosechas() << endl;
 }
 
 int Jugador :: obtenerCantidadTerrenos() {
@@ -84,6 +85,84 @@ void Jugador :: establecerUnidadesRiego(int unidadesRiego) {
     this->unidadesRiego = unidadesRiego;
 }
 
+int Jugador :: obtenerFilas() {
+
+ 	return this->campoJugador.obtenerFilas();
+
+ }
+
+
+ void Jugador :: recibirAgua() {
+
+ 	this->tanque.recibirAgua();
+ }
+
+int Jugador :: obtenerColumnas(){
+
+	return this->campoJugador.obtenerColumnas();
+}
+
+void Jugador :: inicializarCapacidadTanque() {
+
+	this->tanque.aumentarCapacidad(this->obtenerFilas() * this->obtenerColumnas());
+}
+
+int Jugador :: obtenerCantidadAgua() {
+
+	return this->tanque.obtenerCantidadAgua();
+}
+
+void Jugador :: regarParcela(int terreno, int fila, int columna) {
+
+	Nodo<Parcela**>* terrenoParaRegar = this->campoJugador.obtenerTerreno(terreno);
+
+	terrenoParaRegar->obtenerDato()[fila][columna].regarParcela();
+
+	int consumoAgua = terrenoParaRegar->obtenerDato()[fila][columna].obtenerConsumoDeAgua();
+
+	this->tanque.disminuirAgua(consumoAgua);
+}
+
+bool Jugador :: hayAguaDisponible(int terreno, int fila, int columna) {
+
+	Nodo<Parcela**>* terrenoParaRegar = this->campoJugador.obtenerTerreno(terreno);
+
+	return this->tanque.obtenerCantidadAgua() >= terrenoParaRegar->obtenerDato()[fila][columna].obtenerConsumoDeAgua();
+}
+
+bool Jugador :: sonCoordenadasValidasRegar(int terreno, int fila, int columna) {
+
+	Parcela* parcelaDondeRegar = this->campoJugador.obtenerPacela(terreno, fila -1, columna-1);
+	if(esUnTerrenoValido(terreno)){
+		cout << "terreno valido "<< endl;
+	}
+	if(esUnaFilaValida(fila)){
+			cout << "es una fila valida"<< endl;
+		}
+	if(esUnaColumnaValida(columna)){
+		cout << "es una columna valida"<< endl;
+		}
+	if(!parcelaDondeRegar->estaDisponible()){
+		cout << "no esta disponible"<< endl;
+		}
+	if(parcelaDondeRegar->estaOcupada()){
+		cout << "esta ocupada"<< endl;
+		}
+	if(parcelaDondeRegar->estaOcupada()){
+			cout << "no esta regada" << endl;
+			}
+	cout << "se regara" << parcelaDondeRegar->cultivoParcela.obtenerTipo();
+
+	return esUnTerrenoValido(terreno) && esUnaFilaValida(fila) && esUnaColumnaValida(columna)
+			&& !parcelaDondeRegar->estaDisponible() && parcelaDondeRegar->estaOcupada()
+			 && !parcelaDondeRegar->estaRegada();
+}
+
+void Jugador :: desecharExcesoDeAgua() {
+
+	this->tanque.desecharExcesoDeAgua();
+}
+
 void Jugador :: establecerFilas(int filas) {
 
     this->campoJugador.establecerFilas(filas);
@@ -94,34 +173,9 @@ void Jugador :: establecerColumnas(int columnas) {
     this->campoJugador.establecerColumnas(columnas);
 }
 
-int Jugador :: obtenerFilas() {
-
-	return this->campoJugador.obtenerFilas();
-}
-
-void Jugador :: recibirAgua() {
-
-	this->tanque.recibirAgua();
-}
-
-void Jugador :: desecharExcesoDeAgua() {
-
-	this->tanque.desecharExcesoDeAgua();
-}
-
-int Jugador :: obtenerColumnas() {
-
-	return this->campoJugador.obtenerColumnas();
-}
-
 void Jugador :: crearCampo() {
 
     this->campoJugador.crearCampo();
-}
-
-void Jugador :: inicializarCapacidadTanque() {
-
-	this->tanque.aumentarCapacidad(this->obtenerFilas() * this->obtenerColumnas());
 }
 
 bool Jugador :: hayCreditosDisponiblesTerreno() {
@@ -156,75 +210,39 @@ void Jugador :: venderTerreno(int posicion) {
     this->campoJugador.eliminarTerreno(posicion);
 }
 
-void Jugador :: plantarSemilla(Cultivo& cultivo, int terreno, int fila, int columna) {
+bool Jugador :: plantarSemilla(Cultivo& cultivo, int terreno, int fila, int columna) {
+	bool respuesta = false;
 
     Nodo<Parcela**>* terrenoParaSembrar = this->campoJugador.obtenerTerreno(terreno);
+    if((*terrenoParaSembrar).obtenerDato()[fila - 1][columna - 1].estaDisponible()){
 
-	if (terrenoParaSembrar->datoDelNodo[fila][columna].estaOcupada() == false
-	 	&& terrenoParaSembrar->datoDelNodo[fila][columna].estaDisponible() == true) {
+    	(*terrenoParaSembrar).obtenerDato()[fila - 1][columna - 1].establecerCultivo(cultivo);
+    	(*terrenoParaSembrar).obtenerDato()[fila - 1][columna - 1].sembrar();
+    	this->creditos -= cultivo.obtenerCosto();
+    	respuesta = true;
+    }
 
-		terrenoParaSembrar->datoDelNodo[fila][columna].establecerCultivo(cultivo);
-		terrenoParaSembrar->datoDelNodo[fila][columna].ocuparParcela();
-		terrenoParaSembrar->datoDelNodo[fila][columna].bloquearParcela();
-		terrenoParaSembrar->datoDelNodo[fila][columna].noRegarParcela();
-		terrenoParaSembrar->datoDelNodo[fila][columna].desSecarParcela();
-		terrenoParaSembrar->datoDelNodo[fila][columna].despudrirParcela();	 
-	}
-
-	else {
-
-		cout << "No puede plantar ahi!" << endl;
-	}
-}
-
-int Jugador :: obtenerCantidadAgua() {
-
-	return this->tanque.obtenerCantidadAgua();
-}
-
-void Jugador :: regarParcela(int terreno, int fila, int columna) {
-
-	Nodo<Parcela**>* terrenoParaRegar = this->campoJugador.obtenerTerreno(terreno);
-
-	terrenoParaRegar->datoDelNodo[fila][columna].regarParcela();
-}
-
-bool Jugador :: hayAguaDisponible(int terreno, int fila, int columna) {
-
-	Nodo<Parcela**>* terrenoParaRegar = this->campoJugador.obtenerTerreno(terreno);
-
-	return this->tanque.obtenerCantidadAgua() >= terrenoParaRegar->datoDelNodo[fila][columna].obtenerConsumoDeAgua();
+    return respuesta;
 }
 
 bool Jugador :: esUnTerrenoValido(int terreno){
-	if(terreno > 0 && terreno <= campoJugador.obtenerCantidadTerrenos()){
-		return true;
-	}else{
-		return false;
-	}
+	return (terreno > 0 && terreno <= campoJugador.obtenerCantidadTerrenos());
 }
 
 bool Jugador :: esUnaFilaValida(int fila){
-	if(fila > 0 && fila <= campoJugador.obtenerFilas()){
-			return true;
-		}else{
-			return false;
-		}
+	return(fila > 0 && fila <= campoJugador.obtenerFilas());
 }
 
 bool Jugador :: esUnaColumnaValida(int columna){
-	if(columna > 0 && columna <= campoJugador.obtenerColumnas()){
-			return true;
-		}else{
-			return false;
-		}
+	return (columna > 0 && columna <= campoJugador.obtenerColumnas());
 }
 
 bool Jugador :: cosechar(int terreno, int fila, int columna){
-	Parcela* parcela = campoJugador.obtenerPacela(terreno, fila, columna);
+	Parcela* parcela = campoJugador.obtenerPacela(terreno, fila -1, columna -1);
 	bool respuesta = true;
 	if(parcela->sePuedeCosechar()){
-		almacen.agregarCosechaAlmacen(parcela->cosecharParcela());
+		almacen.agregarCosechaAlmacen(parcela->cultivoParcela);
+		parcela->liberarParcela();
 	}else{
 		respuesta = false;
 	}
@@ -257,24 +275,23 @@ bool Jugador :: sePuedeComprarCapacidadAlmacen(int capacidad){
 		return respuesta;
 }
 
-bool Jugador :: sonCoordenadasValidasPlantar(int terreno, int fila, int columna) {
-
-	Parcela* parcelaDondePlantar = this->campoJugador.obtenerPacela(terreno, fila, columna);
-
-	return esUnTerrenoValido(terreno + 1) == true && esUnaFilaValida(fila + 1) == true && esUnaColumnaValida(columna + 1)
-			&& parcelaDondePlantar->estaDisponible() == true && parcelaDondePlantar->estaOcupada() == false;
+bool Jugador::tieneTerrenos(){
+	bool respuesta = true;
+	if(this->obtenerCantidadTerrenos() == 0){
+		respuesta = false;
+	}
+	return respuesta;
 }
 
-bool Jugador :: sonCoordenadasValidasRegar(int terreno, int fila, int columna) {
-
-	Parcela* parcelaDondeRegar = this->campoJugador.obtenerPacela(terreno, fila, columna);
-
-	return esUnTerrenoValido(terreno + 1) == true && esUnaFilaValida(fila + 1) == true && esUnaColumnaValida(columna + 1)
-			&& !parcelaDondeRegar->estaDisponible() == true && parcelaDondeRegar->estaOcupada() == true
-			 && !parcelaDondeRegar->estaRegada();
+void Jugador::enviarPedidos(){
+	creditos += almacen.despacharCosechas();
 }
 
-bool Jugador :: hayCreditosDisponibles(int valor) {
+bool Jugador::tieneCultivosEnAlmacen(){
+	return !almacen.estaVacio();
+}
 
-	return this->creditos >= valor;
+Jugador::~Jugador(){
+	campoJugador.~Campo();
+	almacen.~Almacen();
 }

@@ -174,6 +174,13 @@ void cargarCultivos(Cultivo*& cultivosDisponibles, int& cantidadCultivosDisponib
         cultivosDisponibles[i].setearRentabilidad(rentabilidad);
         cultivosDisponibles[i].setearTiempoDeRecuperacion(tiempoDeRecuperacion);
         cultivosDisponibles[i].setearConsumoDeAgua(consumoDeAgua);
+
+        cout << endl << "Tipo: " << cultivosDisponibles[i].obtenerTipo() << endl
+        << "Costo semilla: " << cultivosDisponibles[i].obtenerCosto() << endl
+        << "Tiempo de cosecha: " << cultivosDisponibles[i].obtenerTiempoCosecha() << endl
+        << "Rentabilidad: " << cultivosDisponibles[i].obtenerRentabilidad() << endl
+        << "Tiempo de recuperacion: " << cultivosDisponibles[i].obtenerTiempoDeRecuperacion() << endl
+        << "Consumo de agua: " << cultivosDisponibles[i].obtenerConsumoDeAgua() << endl;
     }
 
     cout << endl;

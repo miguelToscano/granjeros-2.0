@@ -52,7 +52,7 @@ void Destino::guardarInformacionDeArchivo(const string informacion){
 
 		this->nombreDestino = informacion.substr(0, informacion.find(','));
 
-		size_t posicionInicial = informacion.find(',') + 1;
+		size_t posicionInicial = informacion.find(',') + 2;
 		size_t desplazamiento = informacion.find(',', posicionInicial) - posicionInicial;
 
 		aux = informacion.substr(posicionInicial, desplazamiento);
@@ -60,7 +60,7 @@ void Destino::guardarInformacionDeArchivo(const string informacion){
 		istringstream buffer(aux);
 		buffer >> this->distancia;
 
-		posicionInicial = posicionInicial + 1 + desplazamiento;
+		posicionInicial = posicionInicial + 2 + desplazamiento;
 		desplazamiento = informacion.find(',', posicionInicial) - posicionInicial;
 
 		aux = informacion.substr(posicionInicial, desplazamiento);

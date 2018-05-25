@@ -1,65 +1,60 @@
 #ifndef NODO_H_
 #define NODO_H_
 
-template < typename dato >
-class Nodo {
+#include <iostream>
+#include <cstdlib>
 
-private:
+template<class T> class Nodo {
 
+    private:
 
-	Nodo<dato>* siguienteNodo;
+        T dato;
 
-public:
+        Nodo<T>* siguiente;
 
-	dato datoDelNodo;
+    public:
 
-	Nodo();
+        /*
+         * post: el Nodo resulta inicializado con el dato dado
+         *       y sin un Nodo siguiente.
+         */
+        Nodo(T dato) {
 
-	void modificarSiguiente(Nodo<dato>* siguienteNodo);
+            this->dato = dato;
+            this->siguiente = NULL;
+        }
 
-	void modificarDato(dato datoNuevo);
+        /*
+         * post: devuelve el valor del dato.
+         */
+        T obtenerDato() {
 
-	dato mostrarDato();
+            return this->dato;
+        }
 
-	Nodo<dato>* mostrarSiguiente();
+        /*
+         * post: cambia el valor del dato.
+         */
+        void cambiarDato(T nuevoDato) {
 
-	virtual ~Nodo();
+            this->dato = nuevoDato;
+        }
 
+        /*
+         * post: devuelve el siguiente Nodo.
+         */
+        Nodo<T>* obtenerSiguiente() {
+
+            return this->siguiente;
+        }
+
+        /*
+         * post: cambia el siguiente Nodo por nuevoSiguiente.
+         */
+        void modificarSiguiente(Nodo<T>* nuevoSiguiente) {
+
+            this->siguiente = nuevoSiguiente;
+        }
 };
-
-template < typename dato >
-Nodo<dato>::Nodo(){
-
-	this->siguienteNodo = 0;
-}
-
-template < typename dato >
-void Nodo<dato>::modificarSiguiente(Nodo<dato>* siguienteNodo){
-
-	this->siguienteNodo = siguienteNodo;
-}
-
-template < typename dato >
-void Nodo<dato>::modificarDato(dato datoNuevo){
-
-	this->datoDelNodo = datoNuevo;
-}
-
-template < typename dato >
-dato Nodo<dato>::mostrarDato(){
-
-	return this->datoDelNodo;
-}
-
-template < typename dato >
-Nodo<dato>* Nodo<dato>::mostrarSiguiente(){
-
-	return this->siguienteNodo;
-}
-
-template < typename dato >
-Nodo<dato>::~Nodo(){
-
-}
 
 #endif

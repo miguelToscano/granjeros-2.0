@@ -34,6 +34,7 @@ const int OPCION_SEMBRAR_PARCELA = 4;
 const int OPCION_COSECHAR = 5;
 const int OPCION_COMPRAR_AGUA = 6;
 const int OPCION_COMPRAR_ALMACEN = 7;
+const int OPCION_ENVIAR_PEDIDOS = 8;
 const int OPCION_FINALIZAR_TURNO = 9;
 const int OPCION_SALIR = 10;
 
@@ -41,8 +42,8 @@ const int OPCION_SALIR = 10;
  * Funciones de logica
  */
 void imprimirMenu(){
-	cout << endl << "Seleccione una accion:" << endl
-		<< "1. Regar parcela" << endl
+	cout << "Seleccione una accion:" << endl
+		<< "1. Regar parcela " << endl
 		<< "2. Comprar terreno" << endl
 		<< "3. Vender terreno" << endl
 		<< "4. Sembrar" << endl
@@ -115,11 +116,14 @@ void cosecharParcela(Jugador& jugador){
 
 	int terreno, fila, columna;
 
-	validarTerreno(&terreno, jugador);
-	validarFila(&fila, jugador);
-	validarColumna(&columna, jugador);
+	ingresarCoordenadas(&terreno, &fila, &columna, jugador);
 
-	jugador.cosechar(terreno, fila, columna);
+
+	if(jugador.cosechar(terreno, fila, columna)){
+		cout << "Parcela cosechada";
+	}else{
+		cout << "No se puede cosechar parcela";
+	}
 }
 
 
@@ -142,8 +146,7 @@ void venderTerreno(Jugador& jugador) {
 
     int posicion;
 
-    cout << "Ingrese la posicion del terreno a vender: ";
-    cin >> posicion;
+    validarTerreno(&posicion, jugador);
 
     if (posicion < 0 || posicion > jugador.obtenerCantidadTerrenos()) {
 
@@ -183,10 +186,18 @@ void comprarCapacidadAlmacen(Jugador& jugador){
 		}
 }
 
-void mostrarCultivos(Cultivo* cultivosDisponibles, int cantidadCultivosDisponibles) {
-  
+void sembrarParcela(Jugador& jugador, Cultivo* cultivosDisponibles, int cantidadCultivosDisponibles) {
+
+    system("clear");
+
+    Cultivo cultivoComprados;
+    char tipo;
+    char primerCultivo;
+    char ultimoCultivo;
+
     cout << endl << "Cultivos disponibles: " << endl << endl;
-    
+
+    // Muestra los cultivos disponibles (deberia ir en una funcion)
     for (int i = 0; i < cantidadCultivosDisponibles; i++) {
 
         cout << endl << "Tipo: " << cultivosDisponibles[i].obtenerTipo() << endl
@@ -196,16 +207,12 @@ void mostrarCultivos(Cultivo* cultivosDisponibles, int cantidadCultivosDisponibl
         << "Tiempo de recuperacion: " << cultivosDisponibles[i].obtenerTiempoDeRecuperacion() << endl
         << "Consumo de agua: " << cultivosDisponibles[i].obtenerConsumoDeAgua() << endl;
     }
-}
-
-void comprarCultivos(Jugador& jugador, Cultivo* cultivosDisponibles, int cantidadCultivosDisponibles, char& tipo,
-                Cultivo*& cultivosComprados, int& cantidadCultivosComprados) {
-
-    cout << endl << "Ingrese el tipo de cultivo que quiere comprar: ";
-    cin >> tipo;
-
-    cout << endl << "Cantidad de semillas: ";
-    cin >> cantidadCultivosComprados;
+    primerCultivo = cultivosDisponibles[0].obtenerTipo();
+    ultimoCultivo = cultivosDisponibles[cantidadCultivosDisponibles - 1].obtenerTipo();
+    do{
+    cout << "Ingrese el tipo de cultivo que quiere comprar: ";
+    cin >> tipo;}
+    while(tipo < primerCultivo|| tipo > ultimoCultivo);
 
     int indiceCultivoSeleccionado;
     bool coincideCultivo = false;
@@ -219,64 +226,24 @@ void comprarCultivos(Jugador& jugador, Cultivo* cultivosDisponibles, int cantida
         }
     }
 
-    if (jugador.hayCreditosDisponibles(cultivosDisponibles[indiceCultivoSeleccionado].obtenerCosto() * cantidadCultivosComprados)) {
+    cultivoComprados.cambiarCultivo(&cultivosDisponibles[indiceCultivoSeleccionado]);
 
-        cultivosComprados = new Cultivo[cantidadCultivosComprados];
-
-        for (int i = 0; i < cantidadCultivosComprados; i++) {
-
-            cultivosComprados[i] = cultivosDisponibles[indiceCultivoSeleccionado];
-        }
-    }
-
-    else {
-
-        cout << endl << "No tiene creditos suficientes" << endl;
-    }
-
-}
-
-void plantarCultivos(Jugador& jugador, Cultivo* cultivosComprados, int cantidadCultivosComprados) {
 
     int terreno;
     int fila;
     int columna;
 
-    for (int i = 0; i < cantidadCultivosComprados; i++) {
+    validarTerreno(&terreno, jugador);
+    validarFila(&fila, jugador);
+    validarColumna(&columna, jugador);
 
-        cout << endl << "Ingrese las coordenadas de donde quiere semprar la semilla: " << endl;
-        
-        do {
-
-            ingresarCoordenadas(&terreno, &fila, &columna, jugador);
-        
-            if (!jugador.sonCoordenadasValidasPlantar(terreno - 1, fila - 1, columna - 1)) {
-
-                cout << endl << "No puede plantar una semilla ahi!" << endl;
-            }
-
-        } while (!jugador.sonCoordenadasValidasPlantar(terreno - 1, fila - 1, columna - 1)); 
-
-        jugador.plantarSemilla(cultivosComprados[i], terreno - 1, fila - 1, columna - 1);
-        cout << endl << "Semilla plantada!" << endl;
+    if(jugador.plantarSemilla(cultivoComprados, terreno, fila, columna)){
+    	cout << endl << "Semilla plantada!" << endl;
+    }else{
+    	cout << endl << "ESA UBICACION NO ESTA DISPONIBLE PARA SER PLANTADA!!!" << endl;
     }
-}
 
-void sembrarParcela(Jugador& jugador, Cultivo* cultivosDisponibles, int cantidadCultivosDisponibles) {
 
-    system("clear");
-
-    int cantidadCultivosComprados = 0;
-    Cultivo* cultivosComprados;
-    char tipo;
-
-    mostrarCultivos(cultivosDisponibles, cantidadCultivosDisponibles);
-
-    comprarCultivos(jugador, cultivosDisponibles, cantidadCultivosDisponibles, tipo, cultivosComprados, cantidadCultivosComprados);
-
-    plantarCultivos(jugador, cultivosComprados, cantidadCultivosComprados);
-
-    delete[] cultivosComprados;
 }
 
 void actualizarTerreno(Parcela** terrenoJugador, unsigned int topeFila, unsigned int topeColumnas){
@@ -293,7 +260,7 @@ void actualizarCampo(Jugador& jugador){
 	Parcela** terrenoJugador;
 	campoJugador = jugador.devolverCampo();
 
-	for(int i = 0; i < campoJugador->obtenerCantidadTerrenos() ; i++){
+	for(int i = 1; i <= campoJugador->obtenerCantidadTerrenos() ; i++){
 
 		terrenoJugador = campoJugador->devolverTerreno(i);
 		actualizarTerreno(terrenoJugador, campoJugador->obtenerFilas(), campoJugador->obtenerColumnas());
@@ -303,41 +270,50 @@ void actualizarCampo(Jugador& jugador){
 
 void regarCultivo(Jugador& jugador) {
 
-    int terreno;
+	int terreno;
     int fila;
     int columna;
+
+    bool corteWhile = true;
 
     if (jugador.obtenerCantidadAgua() > 0) {
 
         do {
 
-            ingresarCoordenadas(&terreno, &fila, &columna, jugador);
+          ingresarCoordenadas(&terreno, &fila, &columna, jugador);
 
-            if (!jugador.sonCoordenadasValidasRegar(terreno - 1, fila - 1, columna - 1)) {
+          corteWhile = jugador.sonCoordenadasValidasRegar(terreno, fila, columna);
 
-                cout << endl << "No se puede regar esa parcela!" << endl;
-            }
+          if (corteWhile) {
+        	  if (jugador.hayAguaDisponible(terreno, fila - 1, columna - 1)) {
 
-        } while (!jugador.sonCoordenadasValidasRegar(terreno - 1, fila - 1, columna - 1));
+        	     jugador.regarParcela(terreno, fila - 1, columna - 1);
+        	     cout << endl << "Se rego parcela!" << endl;
+        	  }else {
 
-        if (jugador.hayAguaDisponible(terreno - 1, fila - 1, columna - 1)) {
+                  cout << endl << "No tiene agua suficiente para regar ese cultivo!" << endl;
+              }
 
-            jugador.regarParcela(terreno - 1, fila - 1, columna - 1);
-        }
 
-        else {
+          }else{
+        	  cout << endl << "No se puede regar esa parcela!" << endl;
+          }
 
-            cout << endl << "No tiene agua suficiente para regar ese cultivo!" << endl;
-        }
+        } while (!corteWhile);
+
+
+
+
     }
 
     else {
 
         cout << endl << "No posee creditos suficientes" << endl;
-    }    
+    }
 }
 
-void procesarTurno(Jugador& jugador, int turno,	Cultivo* cultivosDisponibles, int cantidadCultivosDisponibles) {
+void procesarTurno(Jugador& jugador, int turno,
+		Cultivo* cultivosDisponibles, int cantidadCultivosDisponibles) {
 
     int opcion;
 
@@ -354,8 +330,12 @@ void procesarTurno(Jugador& jugador, int turno,	Cultivo* cultivosDisponibles, in
 
             case OPCION_REGAR_CULTIVO:
 
-                regarCultivo(jugador);
-    
+            	if(jugador.tieneTerrenos()){
+            		regarCultivo(jugador);
+            	}else{
+            		cout << "No posee terrenos" << endl;
+            	}
+
                 break;
 
             case OPCION_COMPRAR_TERRENO:
@@ -372,14 +352,23 @@ void procesarTurno(Jugador& jugador, int turno,	Cultivo* cultivosDisponibles, in
 
             case OPCION_SEMBRAR_PARCELA:
 
-            	sembrarParcela(jugador, cultivosDisponibles, cantidadCultivosDisponibles);
+            	if(jugador.tieneTerrenos()){
+            		sembrarParcela(jugador, cultivosDisponibles, cantidadCultivosDisponibles);
+            	    }else{
+            	    cout << "No posee terrenos" << endl;
+            	    }
+
 
                 break;
 
             case OPCION_COSECHAR:
 
             	if(jugador.hayLugarEnAlmacen()){
-            		cosecharParcela(jugador);
+            		if(jugador.tieneTerrenos()){
+            			cosecharParcela(jugador);
+            		}else{
+            		    cout << "No posee terrenos" << endl;
+            		           	    }
             	}else{
             		cout << "Almacen Lleno!!" << endl;
             	}
@@ -398,6 +387,17 @@ void procesarTurno(Jugador& jugador, int turno,	Cultivo* cultivosDisponibles, in
 
                 break;
 
+            case OPCION_ENVIAR_PEDIDOS:
+
+                if(jugador.tieneCultivosEnAlmacen()){
+                	jugador.enviarPedidos();
+                	cout << "Envidos Realizados!";
+                }else{
+                	cout << "No tiene pedidos en el almacen!!!";
+                }
+
+                break;
+
 
             default:
 
@@ -407,10 +407,10 @@ void procesarTurno(Jugador& jugador, int turno,	Cultivo* cultivosDisponibles, in
     }
 
     jugador.desecharExcesoDeAgua();
-    
     actualizarCampo(jugador);
-}
 
+
+}
 void mostrarGanador(Jugador* jugadores, int cantidadJugadores) {
 
     int indiceJugadorGanador = 0;

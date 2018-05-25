@@ -28,21 +28,27 @@ bool Almacen::agregarCosechaAlmacen(Cultivo cosecha){
 	}
 }
 
-int Almacen::despacharCosecha(Cultivo cosecha){
-
+int Almacen::despacharCosechas(){
+	cout << "hasta aca llega 1";
+	this->ListaDeCosechas.iniciarCursor();
+	cout << "hasta aca llega 2";
+	int rentabilidad = 0;
 	int ganancias = 0;
-	int posicionCosecha = -1;
-	Destino DestinoCosecha(cosecha.obtenerTipo());
+	int i = 1;
+	cout << "hasta aca llega";
+	while(ListaDeCosechas.avanzarCursor()){
+		Cultivo cultivo = ListaDeCosechas.obtenerCursor();
+		rentabilidad = cultivo.obtenerRentabilidad();
+		cout << "rentabilidad =" << cultivo.obtenerRentabilidad();
+		Destino DestinoCosecha(cultivo.obtenerTipo());
+		cout << "costo envio" << DestinoCosecha.mostrarCostoEnvio();
+		ganancias += (rentabilidad - DestinoCosecha.mostrarCostoEnvio());
+		cout << i;
 
-	ganancias = cosecha.obtenerRentabilidad() - DestinoCosecha.mostrarCostoEnvio();
-	for(int i = 0; i < obtenerCantidadDeCosechas(); i++){
-		Cultivo aux = ListaDeCosechas.mostrarElemento(i);
-		if(aux.obtenerTipo() == cosecha.obtenerTipo()){
-			ListaDeCosechas.eliminarElemento(i);
-		}
 	}
-	if(posicionCosecha == -1)
-		throw string ("Cosecha NO EXISTE EN ALMACEN");
+	ListaDeCosechas.eliminarElementos();
+	cout << this->ListaDeCosechas.contarElementos();
+	cout << "ganancias =" << ganancias;
 	return ganancias;
 }
 
@@ -66,7 +72,11 @@ bool Almacen::hayLugar(){
 	return (capacidadMaxima > obtenerCantidadDeCosechas());
 }
 
-Almacen::~Almacen(){
+bool Almacen::estaVacio(){
 
+	return this->ListaDeCosechas.estaVacia();
+}
+Almacen::~Almacen(){
+	this->ListaDeCosechas.eliminarElementos();
 }
 

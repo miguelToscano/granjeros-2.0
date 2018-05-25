@@ -92,7 +92,7 @@ void Campo::agregarTerreno(){
 
 void Campo::mostrarCampo(){
 
-	for(int i = 0; i < this->cantidadTerrenos ; i++){
+	for(int i = 1; i <= this->cantidadTerrenos ; i++){
 		cout << endl;
 		mostrarTerreno(ListaDeTerrenos.mostrarElemento(i));
 	}
@@ -101,44 +101,28 @@ void Campo::mostrarCampo(){
 void Campo::mostrarTerreno(Parcela** terreno){
 
 	for(unsigned int i = 0; i < filas; i++){
-	
-		for(unsigned int j = 0; j < columnas; j++)
+		for(unsigned int j = 0; j < columnas; j++){
 
-		// Caso en el que haya un cultivo creciendo
-		if (terreno[i][j].estaOcupada() && !terreno[i][j].estaDisponible()) {
-
-			cout << terreno[i][j].cultivoParcela.obtenerTipo() << " (" << terreno[i][j].cultivoParcela.obtenerTiempoCosecha() << ") ";
+			std::cout << terreno[i][j].cultivoParcela.obtenerTipo();
+			terreno[i][j].infoParcela();
+			if(terreno[i][j].estaRegada()){
+				std::cout << "*";
+			}
+			cout << "(r" << terreno[i][j].obtenerRecuperacion()
+					<< "c" << terreno[i][j].cultivoParcela.obtenerTiempoCosecha() << ")";
+			std::cout << " - ";
 		}
-
-		// Caso que la parcela este en recuperacion ya sea por haber sido cosechada, secada o podrida 
-		else if (!terreno[i][j].estaOcupada() && !terreno[i][j].estaDisponible()) {
-
-			cout << "R(" << terreno[i][j].obtenerRecuperacion() << ")  ";
-		}
-
-		else if (terreno[i][j].obtenerRecuperacion() == 0) {
-
-			cout << "V     ";
-		}
-
-		else {
-
-			cout << "V     ";
-		}
-			//std::cout << terreno[i][j].cultivoParcela.obtenerTipo() << " - ";
 		std:: cout << std::endl;
+
 	}
+
+	std::cout << "-----------------------" << std::endl;
 }
 
 void Campo::eliminarTerreno(unsigned int posicion){
 
-	Parcela** parcelaAux;
+	ListaDeTerrenos.eliminarElemento(posicion);
 
-	parcelaAux = ListaDeTerrenos.eliminarElemento(posicion);
-
-	for(unsigned int i = 0; i < filas; i++){
-		delete[] parcelaAux[i];
-	}
 	this->cantidadTerrenos--;
 }
 
@@ -163,7 +147,7 @@ void Campo :: actualizarPrecioTerreno() {
 
 Nodo<Parcela**>* Campo :: obtenerTerreno(unsigned int posicion) {
 
-	return this->ListaDeTerrenos.obtenerNodo(posicion);
+	return this->ListaDeTerrenos.obtenerPunteroNodo(posicion);
 }
 
 Parcela* Campo::obtenerPacela(int terreno, int fila, int columna){
@@ -172,7 +156,6 @@ Parcela* Campo::obtenerPacela(int terreno, int fila, int columna){
 }
 
 Campo::~Campo() {
-	for(int i = 1; i < this->cantidadTerrenos; i++)
-		eliminarTerreno(i);
+	this->ListaDeTerrenos.eliminarElementos();
 }
 

@@ -68,23 +68,9 @@ public:
     // Post: Asigna un valor a columnas segun la dificultad elegida
     void establecerColumnas(int columnas);
 
-    int obtenerFilas();
-
-    int obtenerColumnas();
-
-    void recibirAgua();
-
-    void desecharExcesoDeAgua();
-
-    void regarParcela(int terreno, int fila, int columna);
-
     // Pre: Las filas y columnas del jugador deben haber sido establecidas previamente
     // Post: Asigna a creditos el valor segun las filas y columnas del jugador
     void establecerCreditos();
-
-    int obtenerCantidadAgua();
-
-    bool hayAguaDisponible(int terreno, int fila, int columna);
 
     // Pre: -
     // Post: Devuelve la cantidad de creditos del jugador
@@ -104,13 +90,11 @@ public:
     // Post: Asigna a unidadesRiego el valor pasado como argumento
     void establecerUnidadesRiego(int unidadesRiego);
 
-    void inicializarCapacidadTanque();
-
     // Pre: -
     // Post: Devuelve el valor de unidadesRiego
     int obtenerUnidadesRiego();
 
-    void plantarSemilla(Cultivo& cultivo, int terreno, int fila, int columna);
+    bool plantarSemilla(Cultivo& cultivo, int terreno, int fila, int columna);
 
     /*
      * post: retorna verdadero si hay suficiente credito
@@ -168,11 +152,38 @@ public:
      */
     bool sePuedeComprarCapacidadAlmacen(int capacidad);
 
+    /*
+     * post:Devuelve verdadero si el jugador tiene por lo menos un terreno.
+     */
+    bool tieneTerrenos();
+
+    void recibirAgua();
+
+
+    void desecharExcesoDeAgua();
+
+    void regarParcela(int terreno, int fila, int columna);
+
+    int obtenerFilas();
+
+    int obtenerColumnas();
+
+    int obtenerCantidadAgua();
+
+    void inicializarCapacidadTanque();
+
+    bool hayAguaDisponible(int terreno, int fila, int columna);
+
     bool sonCoordenadasValidasPlantar(int terreno, int fila, int columna);
 
     bool sonCoordenadasValidasRegar(int terreno, int fila, int columna);
 
-    bool hayCreditosDisponibles(int valor);
+    void enviarPedidos();
+
+    bool tieneCultivosEnAlmacen();
+
+    ~Jugador();
+
 };
 
 #endif
