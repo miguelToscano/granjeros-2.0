@@ -199,7 +199,7 @@ template<class T> void Lista<T>::agregar(Lista<T> &otraLista) {
 
     otraLista.iniciarCursor();
     while (otraLista.avanzarCursor()) {
-        this->agregar(otraLista.obtenerCursor());
+//        this->agregar(otraLista.obtenerCursor());
     }
 }
 
