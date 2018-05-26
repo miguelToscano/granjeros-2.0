@@ -23,12 +23,6 @@ template<class T> class Lista {
         Lista();
 
         /*
-         * post: Lista que tiene los mismos elementos que otraLista.
-         *       La instancia resulta en una copia de otraLista.
-         */
-        Lista(Lista<T>& otraLista);
-
-        /*
          * post: indica si la Lista tiene algún elemento.
          */
         bool estaVacia();
@@ -137,39 +131,34 @@ template<class T> class Lista {
         T obtenerNodo(unsigned int posicion); // NOTA: primitiva PRIVADA
 };
 
-template<class T> Lista<T>::Lista() {
+template<class T> 
+Lista<T>::Lista() {
 
     this->primero = NULL;
     this->tamanio = 0;
     this->cursor = NULL;
 }
 
-template<class T> Lista<T>::Lista(Lista<T>& otraLista) {
-
-    this->primero = NULL;
-    this->tamanio = 0;
-    this->cursor = NULL;
-
-    /* copia los elementos de otraLista */
-    this->agregar(otraLista);
-}
-
-template<class T> bool Lista<T>::estaVacia() {
+template<class T> 
+bool Lista<T>::estaVacia() {
 
     return (this->tamanio == 0);
 }
 
-template<class T> unsigned int Lista<T>::contarElementos() {
+template<class T> 
+unsigned int Lista<T>::contarElementos() {
 
     return this->tamanio;
 }
 
-template<class T> void Lista<T>::agregarElemento(T elemento) {
+template<class T> 
+void Lista<T>::agregarElemento(T elemento) {
 
     this->agregar(elemento, this->tamanio + 1);
 }
 
-template<class T> void Lista<T>::agregar(T elemento, unsigned int posicion) {
+template<class T> 
+void Lista<T>::agregar(T elemento, unsigned int posicion) {
 
     if ((posicion > 0) && (posicion <= this->tamanio + 1)) {
 
@@ -204,7 +193,8 @@ template<class T> void Lista<T>::agregar(Lista<T> &otraLista) {
 }
 
 
-template<class T> T Lista<T>::obtenerNodo(unsigned int posicion) {
+template<class T> 
+T Lista<T>::obtenerNodo(unsigned int posicion) {
 
     T elemento;
 
@@ -216,7 +206,8 @@ template<class T> T Lista<T>::obtenerNodo(unsigned int posicion) {
     return elemento;
 }
 
-template<class T> void Lista<T>::asignar(T elemento, unsigned int posicion) {
+template<class T> 
+void Lista<T>::asignar(T elemento, unsigned int posicion) {
 
     if ((posicion > 0) && (posicion <= this->tamanio)) {
 
@@ -224,7 +215,8 @@ template<class T> void Lista<T>::asignar(T elemento, unsigned int posicion) {
     }
 }
 
-template<class T> void Lista<T>::eliminarElemento(unsigned int posicion) {
+template<class T> 
+void Lista<T>::eliminarElemento(unsigned int posicion) {
 
     if ((posicion > 0) && (posicion <= this->tamanio)) {
 
@@ -250,12 +242,14 @@ template<class T> void Lista<T>::eliminarElemento(unsigned int posicion) {
     }
 }
 
-template<class T> void Lista<T>::iniciarCursor() {
+template<class T> 
+void Lista<T>::iniciarCursor() {
 
     this->cursor = NULL;
 }
 
-template<class T> bool Lista<T>::avanzarCursor() {
+template<class T> 
+bool Lista<T>::avanzarCursor() {
 
     if (this->cursor == NULL) {
 
@@ -270,7 +264,8 @@ template<class T> bool Lista<T>::avanzarCursor() {
     return (this->cursor != NULL);
 }
 
-template<class T> T Lista<T>::obtenerCursor() {
+template<class T> 
+T Lista<T>::obtenerCursor() {
 
     T elemento;
 
@@ -282,7 +277,8 @@ template<class T> T Lista<T>::obtenerCursor() {
     return elemento;
 }
 
-template<class T> Lista<T>::~Lista() {
+template<class T> 
+Lista<T>::~Lista() {
 
     while (this->primero != NULL) {
 
@@ -293,7 +289,8 @@ template<class T> Lista<T>::~Lista() {
     }
 }
 
-template<class T> Nodo<T>* Lista<T>::obtenerPunteroNodo(unsigned int posicion) {
+template<class T> 
+Nodo<T>* Lista<T>::obtenerPunteroNodo(unsigned int posicion) {
 
     Nodo<T>* actual = this->primero;
     for (unsigned int i = 1; i < posicion; i++) {
@@ -304,19 +301,22 @@ template<class T> Nodo<T>* Lista<T>::obtenerPunteroNodo(unsigned int posicion) {
     return actual;
 }
 
-template < class T > T Lista<T>::mostrarElemento(unsigned int posicion){
+template < class T > 
+T Lista<T>::mostrarElemento(unsigned int posicion){
 
 	Nodo<T>* nodoAux = obtenerPunteroNodo(posicion);
 
 	return nodoAux->obtenerDato();
 }
 
-template < class T > int Lista<T>::obtenerTamanio(){
+template < class T > 
+int Lista<T>::obtenerTamanio(){
 
 	return this->tamanio;
 }
 
-template < class T > void Lista<T>::eliminarElementos(){
+template < class T > 
+void Lista<T>::eliminarElementos(){
 
 	while (this->primero != NULL) {
 
@@ -327,8 +327,6 @@ template < class T > void Lista<T>::eliminarElementos(){
 	    }
 	tamanio = 0;
 }
-
-
 
 
 #endif /* SRC_LISTA_H_ */
