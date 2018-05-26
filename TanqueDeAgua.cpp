@@ -37,21 +37,23 @@ int TanqueDeAgua::obtenerCantidadAgua(){
 }
 
 bool TanqueDeAgua::disminuirAgua(int costoRiego){
-	bool respuesta = false;
-	if(costoRiego <= cantidadDeAgua){
+	if(costoRiego > cantidadDeAgua){
+		return false;
+	}else{
 		cantidadDeAgua -= costoRiego;
-		respuesta = true;
+		return true;
 	}
-	return respuesta;
 }
 
 
 
 
 void TanqueDeAgua :: recibirAgua() {
-
 	srand(time(NULL));
+
 	int multiplicador = 1 + (rand() % 6);
+
+
 	this->cantidadDeAgua += (multiplicador * AGUA_POR_TURNO);
 }
 
@@ -60,10 +62,13 @@ void TanqueDeAgua::llenarTanque(int masAgua){
 
 	srand(time(0));
 
-	int multiplicador = (1 + rand() % (6));
+	int multiplicador = 1 + rand() % ((6+1) - 1);
+
 	this->cantidadDeAgua += AGUA_POR_TURNO * multiplicador;
 
+
 	if( this->cantidadDeAgua > this->capacidadDelTanque ){
+
 		this->cantidadDeAgua = this->capacidadDelTanque;
 	}
 
@@ -76,6 +81,7 @@ void TanqueDeAgua::llenarTanque(int masAgua){
 void TanqueDeAgua :: desecharExcesoDeAgua() {
 
 	if (this->cantidadDeAgua > this->capacidadDelTanque) {
+
 		cantidadDeAgua = capacidadDelTanque;
 	}
 }

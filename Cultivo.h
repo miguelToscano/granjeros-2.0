@@ -29,102 +29,71 @@ class Cultivo{
 
 	public:
 
-		/*
-		 * post:Crea un objeto cultivo, setea el tipo como "V" y todas
-		 * 		sus otras variables las inicializa en 0.
-		 */
+		//Constructor
 		Cultivo();
 
 		/*
 		 * pre: se debe entregar un caracter que sea un tipo de cultivo
-		 * 		valido.
+		 * valido.
 		 * post: Crea un cultivo con las caracteristicas de dicho cultivo.
 		 */
 		Cultivo(char tipoParametro);
 
-		/*
-		 * pre: tipoArg debe ser un char.
-		 * post: Cambia el valor de "Tipo" por el pasado por argumento.
-		 */
-		void setearTipo(char tipoArg);
+		// Constructor de copia
+//		Cultivo(const Cultivo& cultivo);
 
+		Cultivo &setearTipo(char tipoArg);
+		Cultivo &setearCosto(int costoArg);
+		Cultivo &setearTiempoCosecha(int tiempoCosechaArg);
+		Cultivo &setearRentabilidad(int rentabilidadArg);
+		Cultivo &setearTiempoDeRecuperacion(int tiempoDeRecuperacionArg);
+		Cultivo &setearConsumoDeAgua(int consumoDeAgua);
 		/*
-		 * pre: costoArg debe ser un numero entero mayor o igual a 0.
-		 * post: Cambia el valor de "costo" por el pasado por argumento.
-		 */
-		void setearCosto(int costoArg);
-
-		/*
-		 * pre: tiempoCosechaArg debe ser un numero entero mayor o igual a 0.
-		 * post: Cambia el valor de "tiempoCosechaArg" por el pasado por argumento.
-		 */
-		void setearTiempoCosecha(int tiempoCosechaArg);
-
-		/*
-		 * pre: rentabilidadArg debe ser un numero entero mayor o igual a 0.
-		 * post: Cambia el valor de "tiempoCosechaArg" por el pasado por argumento.
-		 */
-		void setearRentabilidad(int rentabilidadArg);
-
-		/*
-		 * pre: tiempoDeRecuperacionArg debe ser un numero entero mayor o igual a 0.
-		 * post:Cambia el valor de "tiempoDeRecuperacionArg" por
-		 * 		 el pasado por argumento.
-		 */
-		void setearTiempoDeRecuperacion(int tiempoDeRecuperacionArg);
-
-		/*
-		 * pre: consumoDeAgua debe ser un numero entero mayor o igual a 0.
-		 * post: Cambia el valor de "consumoDeAgua" por el pasado por argumento.
-		 */
-		void setearConsumoDeAgua(int consumoDeAgua);
-
-		/*
-		 * post: Devuelve el un char con el tipo del Cultivo.
+		 * post: devuelve el un char con el tipo del cultivo
 		 */
 		char obtenerTipo();
 
-		/*
-		 * post: Devuelve un int con el consumo de agua del Cultivo
-		 */
 		int obtenerConsumoDeAgua();
 
 		/*
-		 * post: Devuelve un int con el costo del cultivo
-		 */
+		* post: devuelve un int con el costo del cultivo
+		*/
 		int obtenerCosto();
 
 		/*
-		 * post: Devuelve un int con el tiempo de cosecha del cultivo
-		 */
+		* post: Devuelve un int con el tiempo de cosecha del cultivo
+		*/
 		int obtenerTiempoCosecha();
 
 		/*
-		 * post: Devuelve un int con la rentabilidad del cultivo
-		 */
+		* post: Devuelve un int con la rentabilidad del cultivo
+		*/
 		int obtenerRentabilidad();
 
-		/*
-		 * post: Devuelve un int con el tiempo de recuperacion del cultivo
-		 */
 		int obtenerTiempoDeRecuperacion();
 
 		/*
-		 * pre: cultivoArg debe ser un puntero a un Objeto Cultivo.
-		 * post: Le asigna los parametros del cultivoArg a los de este Cultivo.
-		 */
+		* post: Reemplaza el cultivo
+		*/
 		void cambiarCultivo(Cultivo* cultivoArg);
 
 		/*
-		 * post: Reduce el tiempo de cosecha en una unidad.
-		 */
+		* post: Realiza las acciones que se producen en el cultivo
+		* al pasar de turno
+		*/
+		void pasarTurno();
+
+		/*
+		* post: Reduce el tiempo de cosecha en una unidad
+		*/
 		void reducirTiempoCosecha();
 
 		/*
-		 * post: Reduce el tiempo de recuperacion en una unidad.
-		 */
+		* post: Reduce el tiempo de recuperacion en una unidad
+		*/
 		void reducirTiempoDeRecuperacion();
 
 };
+
 
 #endif /* CULTIVO_H_ */

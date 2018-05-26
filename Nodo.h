@@ -1,8 +1,6 @@
 #ifndef NODO_H_
 #define NODO_H_
 
-#include <iostream>
-#include <cstdlib>
 
 template<class T> class Nodo {
 
@@ -21,7 +19,7 @@ template<class T> class Nodo {
         Nodo(T dato) {
 
             this->dato = dato;
-            this->siguiente = NULL;
+            this->siguiente = 0;
         }
 
         /*
