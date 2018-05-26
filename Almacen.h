@@ -16,7 +16,7 @@ class Almacen {
 
 	private:
 
-		Lista <Cultivo> ListaDeCosechas;
+		Lista<Cultivo> ListaDeCosechas;
 		int capacidadMaxima;
 
 	public:
