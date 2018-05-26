@@ -32,6 +32,10 @@ public:
 
     void imprimirInformacion();
 
+    void sumarCreditos(unsigned int creditos);
+
+    Almacen* obtenerAlmacen();
+
     Campo* devolverCampo();
 
     void mostrarCampo();
@@ -177,8 +181,6 @@ public:
     bool sonCoordenadasValidasPlantar(int terreno, int fila, int columna);
 
     bool sonCoordenadasValidasRegar(int terreno, int fila, int columna);
-
-    void enviarPedidos();
 
     bool tieneCultivosEnAlmacen();
 
