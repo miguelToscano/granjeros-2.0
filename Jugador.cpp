@@ -2,6 +2,17 @@
 
 using namespace std;
 
+Almacen* Jugador::obtenerAlmacen(){
+
+	return &almacen;
+}
+
+void Jugador::sumarCreditos(unsigned int creditos){
+
+	this->creditos += creditos;
+}
+
+
 Jugador :: Jugador() {
 	this->tanque.aumentarCapacidad(25);
     this->nombre = "Nombre no asignado";
@@ -281,10 +292,6 @@ bool Jugador::tieneTerrenos(){
 		respuesta = false;
 	}
 	return respuesta;
-}
-
-void Jugador::enviarPedidos(){
-	creditos += almacen.despacharCosechas();
 }
 
 bool Jugador::tieneCultivosEnAlmacen(){

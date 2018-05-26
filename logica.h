@@ -72,6 +72,30 @@ int obtenerOpcion(Jugador& jugador) {
  * post:
  */
 
+
+void enviarPedido(Jugador jugador){
+	int opcion;
+
+	cout << "Su almacen contiene: " << endl;
+	for(int i = 1; i < jugador.obtenerAlmacen()->obtenerCantidadDeCosechas(); i++){
+		cout << "	(" << i << "): Cultivo " << jugador.obtenerAlmacen()->obtenerElementoDePosicion(i).obtenerTipo()
+			<< ", Rentabilidad: " << jugador.obtenerAlmacen()->obtenerElementoDePosicion(i).obtenerRentabilidad()
+			<< endl;
+	}
+	cout << "Seleccione el numero del cultivo a enviar a destino :";
+	cin >> opcion;
+	cout << endl;
+
+	Cultivo cultivoAEnviar = jugador.obtenerAlmacen()->obtenerElementoDePosicion(opcion);
+	int creditosGanados = jugador.obtenerAlmacen()->despacharCosecha(cultivoAEnviar);
+	jugador.sumarCreditos(creditosGanados);
+
+	cout << "Se han agregado " << creditosGanados << " a sus creditos" << endl;
+
+	cout << "Su cultivo ha sido enviado" << endl;
+}
+
+
 void validarTerreno(int* terreno, Jugador& jugador){
 	do{
 			cout << "Ingrese el numero de terreno: " << endl;
@@ -389,12 +413,7 @@ void procesarTurno(Jugador& jugador, int turno,
 
             case OPCION_ENVIAR_PEDIDOS:
 
-                if(jugador.tieneCultivosEnAlmacen()){
-                	jugador.enviarPedidos();
-                	cout << "Envidos Realizados!";
-                }else{
-                	cout << "No tiene pedidos en el almacen!!!";
-                }
+                enviarPedido(jugador);
 
                 break;
 

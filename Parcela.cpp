@@ -28,8 +28,9 @@ void Parcela::bloquearParcela(){
 	disponible = false;
 }
 
-void Parcela::setearRecuperacion(int recuperacionArg){
+Parcela &Parcela::setearRecuperacion(int recuperacionArg){
 	recuperacion = recuperacionArg;
+	return *this;
 }
 
 int Parcela::obtenerRecuperacion(){
@@ -40,6 +41,9 @@ void Parcela::reducirRecuperacion(){
 	recuperacion--;
 }
 
+void Parcela::copiarParcela(Parcela* parcelaArg){
+	setearRecuperacion(parcelaArg->obtenerRecuperacion());
+}
 
 bool Parcela::estaSeca(){
 	return seca;
@@ -176,6 +180,11 @@ bool Parcela::sePuedeCosechar(){
 	return (infoParcela() == COSECHAR);
 }
 
+Cultivo Parcela::cosecharParcela(){
+	Cultivo cultivoParaAlmacenar;
+	liberarParcela();
+	return cultivoParaAlmacenar;
+}
 
 void Parcela::sembrar(){
 	ocuparParcela();
