@@ -90,33 +90,18 @@ void Campo::agregarTerreno(){
 	this->cantidadTerrenos++;
 }
 
-void Campo::mostrarCampo(){
+void Campo::mostrarCampo(Jugador* jugador){
 
 	for(int i = 1; i <= this->cantidadTerrenos ; i++){
 		cout << endl;
-		mostrarTerreno(ListaDeTerrenos.mostrarElemento(i));
+		mostrarTerreno(ListaDeTerrenos.mostrarElemento(i), jugador);
 	}
 }
 
-void Campo::mostrarTerreno(Parcela** terreno){
+void Campo::mostrarTerreno(Parcela** terreno, Jugador* jugador){
 
-	for(unsigned int i = 0; i < filas; i++){
-		for(unsigned int j = 0; j < columnas; j++){
-
-			std::cout << terreno[i][j].cultivoParcela.obtenerTipo();
-			terreno[i][j].infoParcela();
-			if(terreno[i][j].estaRegada()){
-				std::cout << "*";
-			}
-			cout << "(r" << terreno[i][j].obtenerRecuperacion()
-					<< "c" << terreno[i][j].cultivoParcela.obtenerTiempoCosecha() << ")";
-			std::cout << " - ";
-		}
-		std:: cout << std::endl;
-
-	}
-
-	std::cout << "-----------------------" << std::endl;
+	GranjerosBMP granja;
+	granja.pintarTodoElTerreno(jugador);
 }
 
 void Campo::eliminarTerreno(unsigned int posicion){
@@ -158,4 +143,3 @@ Parcela* Campo::obtenerPacela(int terreno, int fila, int columna){
 Campo::~Campo() {
 	this->ListaDeTerrenos.eliminarElementos();
 }
-

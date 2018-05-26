@@ -4,13 +4,14 @@
  *  Created on: 06/05/2018
  *      Author: trini
  */
-#ifndef GRANJEROSBMP_H_
-
 
 #include "EasyBMP.h"
 #include "cultivo.h"
 #include "Campo.h"
 #include "parcela.h"
+
+
+#ifndef GRANJEROSBMP_H_
 
 #define GRANJEROSBMP_H_
 
@@ -40,12 +41,8 @@ class GranjerosBMP{
 
 	public:
 
-		Campo terreno;
-		Parcela parcelaArg;
-		Cultivo cultivoParcela;
-
 		//Constructor
-		GranjerosBMP();
+		GranjerosBMP (Campo terreno, Parcela parcelaArg);
 
 		//Post: devuelve los pixeles por columna
 		int obtenerPixelesParcelaColumna ();
@@ -73,7 +70,7 @@ class GranjerosBMP{
 		int obtenerGrosorBordes();
 
 		//Post: muestra el terreno
-		void pintarTodoElTerreno ();
+		void pintarTodoElTerreno (Jugador* jugador);
 
 
 		//Post: pinta el fondo de la imagen con el color asignado
@@ -85,16 +82,16 @@ class GranjerosBMP{
 
 
 		//Post: pinta las divisiones internas del terreno segun la canitdad de filas y columnas
-		void pintarBordesInternos ();
+		void pintarBordesInternos (Campo terreno);
 
 
 		//Pre: debe recibir alguno de los colores establecidos
 		//Post: pinta la parcela seleccionada segun el estado que tenga
-		void pintarParcela (RGBApixel color);
+		void pintarParcela (RGBApixel color, Campo terreno);
 
 
 		//Post: determina de que color se pintara la parcela en base a su estado
-		void determinarColor ();
+		void determinarColor (Parcela parcelaArg, Campo terreno);
 
 		//Post: dibuja un cuadradito celeste si la parcela tiene que ser regada
 		// y un cuadradito violeta si la parcela tiene que ser cosechada

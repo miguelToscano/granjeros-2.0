@@ -1,7 +1,6 @@
-
 #include "GranjerosBMP.h"
 
-GranjerosBMP::GranjerosBMP () {
+GranjerosBMP::GranjerosBMP (Campo terreno, Parcela parcelaArg) {
 
 	marronDisponible.Red=130;
 	marronDisponible.Green=47;
@@ -117,14 +116,16 @@ int GranjerosBMP:: obtenerGrosorBordes(){
 }
 
 
-void GranjerosBMP:: pintarTodoElTerreno (){
+void GranjerosBMP:: pintarTodoElTerreno (Jugador* jugador){
 
-	pintarFondo ();
-	pintarBordesExteriores ();
-	pintarBordesInternos ();
-	determinarColor ();
-	guardarImagen ();
+	for (int terrenos=1; terrenos < jugador->obtenerCantidadTerrenos()+1; terrenos++){
 
+		pintarFondo ();
+		pintarBordesExteriores ();
+		pintarBordesInternos (terreno);
+		determinarColor (parcelaArg);
+		guardarImagen ();
+	}
 }
 
 void GranjerosBMP::pintarFondo (){
@@ -140,44 +141,49 @@ void GranjerosBMP::pintarFondo (){
 void GranjerosBMP::pintarBordesExteriores(){
 
 	for (int i = 0; i < imagen.TellWidth(); i++){
-		for (int j= 0; j < grosorBordes; j++){
-			imagen.SetPixel(i, j, verdeBordes);
-			imagen.SetPixel(j, i, verdeBordes);
+		for (int k = 0; k < grosorBordes; k++){
+			imagen.SetPixel(i, k, verdeBordes);
+			imagen.SetPixel(k, i, verdeBordes);
 		}
 	}
 
 	for (int i = 0; i < imagen.TellWidth(); i++){
-		for (int j = (imagen.TellHeight() - grosorBordes); j < imagen.TellHeight(); j++){
-			imagen.SetPixel(i, j, verdeBordes);
-			imagen.SetPixel(j, i, verdeBordes);
+		for (int k = (imagen.TellHeight() - grosorBordes); k < imagen.TellHeight(); k++){
+			imagen.SetPixel(i, k, verdeBordes);
+			imagen.SetPixel(k, i, verdeBordes);
 		}
 	}
 }
 
 
-void GranjerosBMP::pintarBordesInternos (){
+void GranjerosBMP::pintarBordesInternos (Campo terreno){
 
-	do{
-		int filas=terreno.obtenerFilas();
-		filas--; //como filas = columnas, da lo mismo para cualquiera de los dos
-		int filasP=filas*pixelesParcelaFila;
+	int n=1;
+
+	while (n < terreno.obtenerFilas() ){
 		for (int i = 0; i < imagen.TellHeight(); i++){
-			for (int j = (filasP); j < (filasP + grosorBordes); j++){
-				imagen.SetPixel(i, j, verdeBordes);
-				imagen.SetPixel(j, i, verdeBordes);
+			for (int k = (n*pixelesParcelaFila); k < ((n*pixelesParcelaFila) + grosorBordes); k++){
+				imagen.SetPixel(i, k, verdeBordes);
 			}
+			n++;
 		}
 	}
-	while (terreno.obtenerFilas()>0);
+
+	while (n < terreno.obtenerColumnas() ){
+		for (int i = 0; i < imagen.TellWidth(); i++){
+			for (int k = (n*pixelesParcelaColumna); k < ((n*pixelesParcelaColumna) + grosorBordes); k++){
+				imagen.SetPixel(i, k, verdeBordes);
+			}
+			n++;
+		}
+	}
 }
 
 
-void GranjerosBMP::pintarParcela (RGBApixel color){
+void GranjerosBMP::pintarParcela (RGBApixel color, Campo terreno){
 
-	for (int i = ((terreno.obtenerColumnas() - 1) * pixelesParcelaColumna) + grosorBordes;
-			i < ((terreno.obtenerColumnas() * pixelesParcelaColumna) - grosorBordes); i++){
-		for (int j = ((terreno.obtenerFilas() - 1) *pixelesParcelaFila) + grosorBordes;
-				j < ((terreno.obtenerFilas() * pixelesParcelaFila) - grosorBordes); j++){
+	for (int i = ((terreno.obtenerColumnas() - 1) * pixelesParcelaColumna) + grosorBordes; i < ((terreno.obtenerColumnas() * pixelesParcelaColumna) - grosorBordes); i++){
+		for (int j = ((terreno.obtenerFilas() - 1) *pixelesParcelaFila) + grosorBordes; j < ((terreno.obtenerFilas() * pixelesParcelaFila) - grosorBordes); j++){
 			imagen.SetPixel (i, j, color);
 		}
 	}
@@ -197,19 +203,19 @@ void GranjerosBMP:: dibujarCuadradito (RGBApixel color){
 }
 
 
-void GranjerosBMP::determinarColor (){
+void GranjerosBMP::determinarColor (Parcela parcelaArg, Campo terreno){
 
 	if (!parcelaArg.estaPodrida() )
-		pintarParcela (marronPodrido);
+		pintarParcela (marronPodrido, terreno);
 
 	else if (!parcelaArg.estaSeca() )
-		pintarParcela (marronSeco);
+		pintarParcela (marronSeco, terreno);
 
 	else if (parcelaArg.estaDisponible() )
-		pintarParcela (marronDisponible);
+		pintarParcela (marronDisponible, terreno);
 
 	else
-		pintarParcela (amarilloCultivo);
+		pintarParcela (amarilloCultivo, terreno);
 
 
 	if (parcelaArg.estaRegada() )
