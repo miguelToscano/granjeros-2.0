@@ -4,14 +4,13 @@
  *  Created on: 06/05/2018
  *      Author: trini
  */
+#ifndef GRANJEROSBMP_H_
+
 
 #include "EasyBMP.h"
 #include "cultivo.h"
 #include "Campo.h"
 #include "parcela.h"
-
-
-#ifndef GRANJEROSBMP_H_
 
 #define GRANJEROSBMP_H_
 
