@@ -43,6 +43,7 @@ public:
 	int obtenerCapacidad();
 
 	/*
+	 * pre: El tanque debe ser inicializado.
 	 * post: Devuelve la cantidad de agua actual
 	 * 		que posee el tanque.
 	 */
@@ -70,15 +71,8 @@ public:
 	 */
 	bool disminuirAgua(int costoRiego);
 
-	/*
-	 * post: Si el la cantidad de agua almacenada supera la capacidad,
-	 * 		se deja el tanque al maximo.
-	 */
 	void desecharExcesoDeAgua();
 
-	/*
-	 *
-	 */
     void recibirAgua();
 
 

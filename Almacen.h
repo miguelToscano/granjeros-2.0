@@ -12,10 +12,6 @@
 #include "Destino.h"
 #include "Cultivo.h"
 
-typedef char dato;
-
-const dato ESPACIO_VACIO = ' ';
-
 class Almacen {
 
 	private:
@@ -25,56 +21,27 @@ class Almacen {
 
 	public:
 
-		//Constructor con parámetros
 		Almacen(int N, int M);
 
-		//Constructor sin parámetros
 		Almacen();
 
-		/*
-		 * post:Agrega un cultivo al almacen y devuelve true,
-		 *      si el almacen esta lleno devuelve false.
-		 */
 		bool agregarCosechaAlmacen(Cultivo cosecha);
 
-		/*
-		 * pre: recibis cultivo , y el destino como string
-		 * post: Envia una cosecha a destino y me retornas un
-		 * int con el precio total de la rentabilidad del cultivo
-		 * mas el costo de envio
-		 */
-		int despacharCosechas();
-
-		/*
-		 * Pre: Recibe cantidadDeLugares > 0, entero.
-		 * Post: Aumenta capacidad de almacen en cantidadDeLugares.
-		 */
+		int despacharCosecha(Cultivo cosecha);
 
 		void aumentarCapacidad(unsigned int cantidadDeLugares);
 
-		/*
-		 * post: obtiene la capacidad maxima.
-		 */
 		int obtenerCapacidadMaxima();
 
-		/*
-		 * post:devuelve la cantidad de cosechas del almacen.
-		 */
 		int obtenerCantidadDeCosechas();
 
-		/*
-		 * post: Devuelve true si hay lugar en el almacen
-		 */
+		Cultivo obtenerElementoDePosicion(unsigned int posicion);
+
 		bool hayLugar();
 
-		/*
-		 * post: devuelve true si no hay cultivos almacenados
-		 */
 		bool estaVacio();
 
-		//Destructor
 		virtual ~Almacen();
-
 
 };
 

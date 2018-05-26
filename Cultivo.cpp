@@ -9,38 +9,100 @@
 
 using namespace std;
 
-	Cultivo::Cultivo(){
-		setearTipo('V');
-		setearCosto(0);
-		setearTiempoCosecha(0);
-		setearRentabilidad(0);
-		setearTiempoDeRecuperacion(0);
-	}
+Cultivo::Cultivo(){
+	setearTipo('V');
+	setearCosto(0);
+	setearTiempoCosecha(0);
+	setearRentabilidad(0);
+	setearTiempoDeRecuperacion(0);
+}
+/*
+Cultivo::Cultivo(char tipoParametro){
 
-	void Cultivo::setearTipo(char tipoArg){
+	ifstream archivo(RUTA_CULTIVOS);
+
+	char caracterLeido;
+
+	if(!archivo.is_open())
+		throw string("APERTURA DE ARCHIVO FALLIDA");
+
+	while(!archivo.eof()){
+		caracterLeido = (char) archivo.get();
+		if(caracterLeido == tipoParametro){
+
+			string informacion;
+			getline(archivo, informacion);
+			int intAux = 0;
+			string aux;
+
+			aux = informacion.substr(2, informacion.find(','));
+
+			istringstream buffer(aux);
+			buffer >> intAux;
+			setearCosto(intAux);
+
+			size_t posicionInicial = informacion.find(',') + 2;
+			size_t desplazamiento = informacion.find(',', posicionInicial) - posicionInicial;
+
+			aux = informacion.substr(posicionInicial, desplazamiento);
+
+			istringstream buffer2(aux);
+			buffer2 >> intAux;
+			setearTiempoCosecha(intAux);
+
+			posicionInicial = posicionInicial + 2 + desplazamiento;
+			desplazamiento = informacion.find(',', posicionInicial) - posicionInicial;
+
+			aux = informacion.substr(posicionInicial, desplazamiento);
+
+			istringstream buffer3(aux);
+			buffer3 >> intAux;
+			setearRentabilidad(intAux);
+
+			posicionInicial = posicionInicial + 2 + desplazamiento;
+			desplazamiento = informacion.find(',', posicionInicial) - posicionInicial;
+
+			aux = informacion.substr(posicionInicial, desplazamiento);
+
+			istringstream buffer4(aux);
+			buffer4 >> intAux;
+			setearTiempoDeRecuperacion(intAux);
+		}
+
+	}
+	archivo.close();
+}
+/*/
+	Cultivo &Cultivo::setearTipo(char tipoArg){
 		tipo = tipoArg;
+		return *this;
 	}
 
-	void Cultivo::setearCosto(int costoArg){
+	Cultivo &Cultivo::setearCosto(int costoArg){
 		costoSemilla = costoArg;
+		return *this;
 	}
 
-	void Cultivo::setearTiempoCosecha(int tiempoCosechaArg){
+	Cultivo &Cultivo::setearTiempoCosecha(int tiempoCosechaArg){
 		tiempoCosecha = tiempoCosechaArg;
+		return *this;
 	}
 
-	void Cultivo::setearRentabilidad(int rentabilidadArg){
+	Cultivo &Cultivo::setearRentabilidad(int rentabilidadArg){
 		rentabilidad = rentabilidadArg;
+		return *this;
 	}
 
-	void Cultivo::setearTiempoDeRecuperacion(int tiempoDeRecuperacionArg){
+	Cultivo &Cultivo::setearTiempoDeRecuperacion(int tiempoDeRecuperacionArg){
 		tiempoDeRecuperacion = tiempoDeRecuperacionArg;
+		return *this;
 	}
 
-	void Cultivo :: setearConsumoDeAgua(int consumoDeAgua) {
+	Cultivo& Cultivo :: setearConsumoDeAgua(int consumoDeAgua) {
 
 		this->consumoDeAgua = consumoDeAgua;
-		}
+		return *this;
+	}
 
 	int Cultivo :: obtenerConsumoDeAgua() {
 
