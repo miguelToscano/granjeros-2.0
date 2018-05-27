@@ -40,7 +40,7 @@ int Almacen::despacharCosecha(Cultivo cosecha){
 
 	ListaDeCosechas.iniciarCursor();
 	while(ListaDeCosechas.avanzarCursor()){
-		if(ListaDeCosechas.obtenerCursor().obtenerTipo() == cosecha.obtenerTipo())
+		if(ListaDeCosechas.obtenerCursor().obtenerTipo() == cosecha.obtenerTipo() && !cosechaEncontrada)
 			cosechaEncontrada = true;
 
 		posicion++;
@@ -59,7 +59,6 @@ void Almacen::aumentarCapacidad(unsigned int cantidadDeLugares){
 
 unsigned int Almacen::obtenerCantidadDeCosechas(){
 
-	cout << "Tamanio actua de cosechas " << ListaDeCosechas.obtenerTamanio() << std::endl;
 	return ListaDeCosechas.obtenerTamanio();
 }
 

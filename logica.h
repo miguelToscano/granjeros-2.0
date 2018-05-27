@@ -388,7 +388,7 @@ void regarCultivo(Jugador& jugador) {
  * post:Envia a destino un el cultivo que el jugador elija.
  * 		Se actualizaran los creditos correspondientes.
  */
-void enviarPedido(Jugador jugador){
+void enviarPedido(Jugador& jugador){
 	int opcion;
     Almacen* almacenJugador = jugador.obtenerAlmacen();
 
