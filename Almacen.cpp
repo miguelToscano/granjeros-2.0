@@ -57,20 +57,22 @@ void Almacen::aumentarCapacidad(unsigned int cantidadDeLugares){
 	this->capacidadMaxima += cantidadDeLugares;
 }
 
-int Almacen::obtenerCantidadDeCosechas(){
+unsigned int Almacen::obtenerCantidadDeCosechas(){
 
+	cout << "Tamanio actua de cosechas " << ListaDeCosechas.obtenerTamanio() << std::endl;
 	return ListaDeCosechas.obtenerTamanio();
 }
 
-int Almacen::obtenerCapacidadMaxima(){
+unsigned int Almacen::obtenerCapacidadMaxima(){
 
 	return capacidadMaxima;
 }
 
 Cultivo Almacen::obtenerElementoDePosicion(unsigned int posicion){
-	if(posicion < 1 || posicion > this->obtenerCantidadDeCosechas())
 
+	if(posicion < 1 || posicion > this->obtenerCantidadDeCosechas())
 		throw string("Posicion invalida de almacen");
+	
 	return this->ListaDeCosechas.mostrarElemento(posicion);
 }
 
@@ -81,11 +83,11 @@ bool Almacen::hayLugar(){
 
 bool Almacen::estaVacio(){
 
-	return obtenerCantidadDeCosechas();
+	return (obtenerCantidadDeCosechas() == 0);
 }
 
 Almacen::~Almacen(){
 
-	this->ListaDeCosechas.~Lista();
+	ListaDeCosechas.eliminarElementos();
 }
 

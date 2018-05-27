@@ -8,11 +8,9 @@
 #ifndef CAMPO_H_
 #define CAMPO_H_
 
-#include "parcela.h"
-#include "Jugador.h"
-#include "Lista.h"
-#include "Nodo.h"
 #include <iostream>
+#include "../src/Lista.h"
+#include "../src/Parcela.h"
 
 const float FACTOR_PRECIO_TERRENO = 1.25;
 
@@ -33,6 +31,10 @@ public:
 
 	Campo(unsigned int filas,unsigned int columnas);
 
+	Nodo<Parcela**>* obtenerTerreno(unsigned int posicion);
+
+	Parcela** devolverTerreno(unsigned int posicion);
+
 	void agregarTerreno();
 
 	void establecerFilas(int filas);
@@ -41,9 +43,9 @@ public:
 
 	void crearCampo();
 
-	void mostrarCampo(Jugador* jugador);
+	void mostrarCampo();
 
-	void mostrarTerreno(Parcela** parcelaArg, Jugador* jugador);
+	void mostrarTerreno(Parcela** terreno);
 
 	int obtenerCantidadTerrenos();
 
@@ -56,6 +58,8 @@ public:
 	int obtenerPrecioTerreno();
 
 	void actualizarPrecioTerreno();
+
+	Parcela* obtenerPacela(int terreno, int fila, int columna);
 
 	virtual ~Campo();
 

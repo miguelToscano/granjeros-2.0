@@ -41,6 +41,11 @@ const int OPCION_SALIR = 10;
 /*
  * Funciones de logica
  */
+
+/*
+ * post: Imprime por pantalla el menu de acciones
+ * 		que se pueden realizar
+ */
 void imprimirMenu(){
 	cout << "Seleccione una accion:" << endl
 		<< "1. Regar parcela " << endl
@@ -55,7 +60,11 @@ void imprimirMenu(){
 		<< "10. Salir" << endl;
 }
 
-
+/*
+ * pre: Se recibe por paarametro la direccion de memoria de un Jugador
+ * post: Solicita por pantalla que se seleccione una opcion y
+ * 		devuelve un entero con la opcion seleccionada.
+ */
 int obtenerOpcion(Jugador& jugador) {
 
     int opcionIngresada;
@@ -69,9 +78,13 @@ int obtenerOpcion(Jugador& jugador) {
 }
 
 /*
- * post:
+ * pre: Se recibe un puntero a int terreno, y un Jugador
+ * 		por referencia
+ * post: Se solicita por pantalla que se ingrese un numero
+ * 		de terreno y le asigna ese numero a la direccion del
+ * 		puntero terreno. Aclaracion: Si no es un terreno valido
+ * 		se pedira el reingreso del mismo.
  */
-
 void validarTerreno(int* terreno, Jugador& jugador){
 	do{
 			cout << "Ingrese el numero de terreno: " << endl;
@@ -83,6 +96,14 @@ void validarTerreno(int* terreno, Jugador& jugador){
 		while(!jugador.esUnTerrenoValido(*terreno));
 }
 
+/*
+ * pre: Se recibe un puntero a int fila, y un Jugador
+ * 		por referencia
+ * post: Se solicita por pantalla que se ingrese un numero
+ * 		de terreno y le asigna ese numero a la direccion del
+ * 		puntero fila. Aclaracion: Si no es una fila valido
+ * 		se pedira el reingreso del mismo.
+ */
 void validarFila(int* fila, Jugador& jugador){
 	do{
 			cout << "Ingrese la fila" << endl;
@@ -94,6 +115,14 @@ void validarFila(int* fila, Jugador& jugador){
 		while(!jugador.esUnaFilaValida(*fila));
 }
 
+/*
+ * pre: Se recibe un puntero a int columna, y un Jugador
+ * 		por referencia
+ * post: Se solicita por pantalla que se ingrese un numero
+ * 		de terreno y le asigna ese numero a la direccion del
+ * 		puntero columna. Aclaracion: Si no es una columna valido
+ * 		se pedira el reingreso del mismo.
+ */
 void validarColumna(int* columna, Jugador& jugador){
 	do{
 			cout << "Ingrese la columna" << endl;
@@ -105,6 +134,13 @@ void validarColumna(int* columna, Jugador& jugador){
 		while(!jugador.esUnaColumnaValida(*columna));
 }
 
+/*
+ * pre: Se recibe tres punteros a int terreno, fila y columna,
+ * 		y un Jugador por referencia.
+ * post: Solicita las coordenas al usuario, terreno, fila y columna.
+ * 		asigna esos valores a las direcciones que tiene los punteros
+ * 		pasados por argumentos.
+ */
 void ingresarCoordenadas(int* terreno, int* fila, int* columna, Jugador& jugador) {
 
     validarTerreno(terreno, jugador);
@@ -112,6 +148,11 @@ void ingresarCoordenadas(int* terreno, int* fila, int* columna, Jugador& jugador
     validarColumna(columna, jugador);
 }
 
+/*
+ * pre: Se recibe la direccion de memoria de un Jugador.
+ * post: Se solicitan coordenadas y se solicita cosechar
+ * 		la parcela en dicha coordenada.
+ */
 void cosecharParcela(Jugador& jugador){
 
 	int terreno, fila, columna;
@@ -126,8 +167,11 @@ void cosecharParcela(Jugador& jugador){
 	}
 }
 
-
-
+/*
+ * pre: Se recibe la direccion de memoria de un Jugador.
+ * post: Agrega un terreno a la lista de terrenos del jugador
+ * 		y descuenta los creditos correspondientes.
+ */
 void comprarTerreno(Jugador& jugador) {
 
     if (jugador.hayCreditosDisponiblesTerreno()){
@@ -142,6 +186,10 @@ void comprarTerreno(Jugador& jugador) {
     }
 }
 
+/*
+ * pre: Se recibe la direccion de memoria de un Jugador.
+ * post: Solicita el ingreso de un terreno y lo vende.
+ */
 void venderTerreno(Jugador& jugador) {
 
     int posicion;
@@ -156,9 +204,11 @@ void venderTerreno(Jugador& jugador) {
     jugador.venderTerreno(posicion);
 }
 
-
-
-
+/*
+ * pre: Se recibe la direccion de memoria de un Jugador.
+ * post: Aumenta la capacidad del Tanque y disminuye los
+ * 		creditos necesarios.
+ */
 void comprarCapacidadAgua(Jugador& jugador){
 
 	int capacidad;
@@ -173,7 +223,11 @@ void comprarCapacidadAgua(Jugador& jugador){
 
 }
 
-
+/*
+ * pre: Se recibe la direccion de memoria de un Jugador.
+ * post: Aumenta la capacidad del almacen y disminuye los
+ * 		creditos.
+ */
 void comprarCapacidadAlmacen(Jugador& jugador){
 	int capacidad;
 		cout << "Ingrese cantidad de capacidad a comprar" << endl;
@@ -186,6 +240,11 @@ void comprarCapacidadAlmacen(Jugador& jugador){
 		}
 }
 
+/*
+ * pre: Se recibe la direccion de memoria de un Jugador,
+ * 		cultivosDesponibles es un arreglo de cultivos validos.
+ * post:
+ */
 void sembrarParcela(Jugador& jugador, Cultivo* cultivosDisponibles, int cantidadCultivosDisponibles) {
 
     system("clear");
@@ -246,6 +305,10 @@ void sembrarParcela(Jugador& jugador, Cultivo* cultivosDisponibles, int cantidad
 
 }
 
+/*
+ * pre: Se recibe la direccion de memoria de un Jugador.
+ * post: Realiza la secuencia de paso de turno en todas las parcelas.
+ */
 void actualizarTerreno(Parcela** terrenoJugador, unsigned int topeFila, unsigned int topeColumnas){
 
 	for(unsigned int i = 0; i < topeFila ; i++)
@@ -253,7 +316,10 @@ void actualizarTerreno(Parcela** terrenoJugador, unsigned int topeFila, unsigned
 			terrenoJugador[i][j].pasoDeTurno();
 }
 
-
+/*
+ * pre: Se recibe la direccion de memoria de un Jugador.
+ * post: Actualiza el campo del jugador.
+ */
 void actualizarCampo(Jugador& jugador){
 
 	Campo* campoJugador;
@@ -268,6 +334,11 @@ void actualizarCampo(Jugador& jugador){
 
 }
 
+/*
+ * pre: Se recibe la direccion de memoria de un Jugador.
+ * post: Se solicita el ingreso de cordenadas para regar una parcela
+ * 		en caso que la misma se pueda regar lo realiza.
+ */
 void regarCultivo(Jugador& jugador) {
 
 	int terreno;
@@ -312,11 +383,18 @@ void regarCultivo(Jugador& jugador) {
     }
 }
 
+/*
+ * pre: Se recibe un objeto jugador.
+ * post:Envia a destino un el cultivo que el jugador elija.
+ * 		Se actualizaran los creditos correspondientes.
+ */
 void enviarPedido(Jugador jugador){
 	int opcion;
+    Almacen* almacenJugador = jugador.obtenerAlmacen();
 
 	cout << "Su almacen contiene: " << endl;
-	for(int i = 1; i < jugador.obtenerAlmacen()->obtenerCantidadDeCosechas(); i++){
+    cout << "El jugador posee " << almacenJugador->obtenerCantidadDeCosechas() <<  endl;
+	for(unsigned int i = 1; i < jugador.obtenerAlmacen()->obtenerCantidadDeCosechas() + 1; i++){
 		cout << "	(" << i << "): Cultivo " << jugador.obtenerAlmacen()->obtenerElementoDePosicion(i).obtenerTipo()
 			<< ", Rentabilidad: " << jugador.obtenerAlmacen()->obtenerElementoDePosicion(i).obtenerRentabilidad()
 			<< endl;
@@ -334,8 +412,18 @@ void enviarPedido(Jugador jugador){
 	cout << "Su cultivo ha sido enviado" << endl;
 }
 
-
-
+/*
+ * pre: Se recibe la direccion de memoria de un Jugador, turno y
+ * 		cantidadCultivosDisponibles deben ser dos numeros enteros
+ * 		mayores a cero. Ademas se recibe un puntero a un arreglo
+ * 		de cultivos.
+ * post: Se realiza la secuencia del turno.
+ * 		"El jugador recibe agua y elige que acciones realizar.
+ * 		puede realizar tantas opciones como quiera hasta que elija
+ * 		pasar de turno. Una vez hecho esto se eliminan las unidades
+ * 		de agua que superen la capacidad del tanque.
+ * 		Finalmente se actualiza el campo."
+ */
 void procesarTurno(Jugador& jugador, int turno,
 		Cultivo* cultivosDisponibles, int cantidadCultivosDisponibles) {
 
@@ -413,7 +501,12 @@ void procesarTurno(Jugador& jugador, int turno,
 
             case OPCION_ENVIAR_PEDIDOS:
 
-            	enviarPedido(jugador);
+            	if(jugador.tieneCultivosEnAlmacen()){
+            		enviarPedido(jugador);
+            	}else{
+            		cout << "Su almacen esta vacio";
+            	}
+
 
                 break;
 
@@ -430,6 +523,13 @@ void procesarTurno(Jugador& jugador, int turno,
 
 
 }
+
+/*
+ * pre: Se recibe un Puntero a un arreglo de Jugadores y
+ * 		un entero con la cantidad de jugadores.
+ * post: Recorre todo el arreglo e imprime por pantalla
+ * 		el nombre del jugador ganador y sus creditos.
+ */
 void mostrarGanador(Jugador* jugadores, int cantidadJugadores) {
 
     int indiceJugadorGanador = 0;

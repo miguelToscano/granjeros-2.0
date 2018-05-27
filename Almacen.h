@@ -17,7 +17,7 @@ class Almacen {
 	private:
 
 		Lista<Cultivo> ListaDeCosechas;
-		int capacidadMaxima;
+		unsigned int capacidadMaxima;
 
 	public:
 
@@ -47,14 +47,14 @@ class Almacen {
 		/*	Pre : -
 		 * 	Post: Devuelve la capacidad máxima del almacén
 		 */
-		int obtenerCapacidadMaxima();
+		unsigned int obtenerCapacidadMaxima();
 
 		/*	Pre : -
 		 * 	Post: Devuelve la cantidad de cosechas del almacén
 		 */
-		int obtenerCantidadDeCosechas();
+		unsigned int obtenerCantidadDeCosechas();
 
-		/*	Pre : Recibe una posición (entero, positivo)
+		/*	Pre : Recibe una posición (entero, positivo) entre 1 y otenerCantidadDeCosechas
 		 * 	Post: Devuelve el cultivo correspondiente a esa posición
 		 */
 		Cultivo obtenerElementoDePosicion(unsigned int posicion);

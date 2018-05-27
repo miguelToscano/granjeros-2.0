@@ -56,6 +56,10 @@ void cargarAtributosIniciales(Jugador* jugadores, int cantidad, dificultad dific
 // Post: carga los cultivos en un arreglo global
 void cargarCultivos();
 
+// Pre: jugadores es un arreglo de jugadores y cantidades de jugadores
+//  	debe ser un numero entero positivo
+// Post: Imprime por consola la informacion de los jugadores necesaria
+//		para el desarrollo del juego.
 void mostrarInformacionJugadores(Jugador* jugadores, int cantidadJugadores);
 
 #endif

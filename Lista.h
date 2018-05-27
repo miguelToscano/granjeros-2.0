@@ -23,6 +23,12 @@ template<class T> class Lista {
         Lista();
 
         /*
+         * post: Lista que tiene los mismos elementos que otraLista.
+         *       La instancia resulta en una copia de otraLista.
+         */
+        Lista(Lista<T>& otraLista);
+
+        /*
          * post: indica si la Lista tiene algún elemento.
          */
         bool estaVacia();
@@ -99,7 +105,7 @@ template<class T> class Lista {
         /*
          * post: Devuelve el tamanio de la lista.
          */
-        int obtenerTamanio();
+        unsigned int obtenerTamanio();
 
         /*
          * post: Retorna un puntero del Nodo indicado en dicha posicion
@@ -137,6 +143,17 @@ Lista<T>::Lista() {
     this->primero = NULL;
     this->tamanio = 0;
     this->cursor = NULL;
+}
+
+template<class T> 
+Lista<T>::Lista(Lista<T>& otraLista) {
+
+    this->primero = NULL;
+    this->tamanio = 0;
+    this->cursor = NULL;
+
+    /* copia los elementos de otraLista */
+    this->agregar(otraLista);
 }
 
 template<class T> 
@@ -184,11 +201,13 @@ void Lista<T>::agregar(T elemento, unsigned int posicion) {
 
 }
 
-template<class T> void Lista<T>::agregar(Lista<T> &otraLista) {
+template<class T> 
+
+void Lista<T>::agregar(Lista<T> &otraLista) {
 
     otraLista.iniciarCursor();
     while (otraLista.avanzarCursor()) {
-//        this->agregar(otraLista.obtenerCursor());
+        //this->agregar(otraLista.obtenerCursor());
     }
 }
 
@@ -310,8 +329,7 @@ T Lista<T>::mostrarElemento(unsigned int posicion){
 }
 
 template < class T > 
-int Lista<T>::obtenerTamanio(){
-
+unsigned int Lista<T>::obtenerTamanio(){
 	return this->tamanio;
 }
 
@@ -327,6 +345,8 @@ void Lista<T>::eliminarElementos(){
 	    }
 	tamanio = 0;
 }
+
+
 
 
 #endif /* SRC_LISTA_H_ */

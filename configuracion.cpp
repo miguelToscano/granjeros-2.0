@@ -10,7 +10,7 @@ void ingresarCantidadJugadores(int& cantidadJugadores) {
         throw string("Error, cantidad de jugadores invalida");
     }
 
-    cin.clear();
+    //cin.clear();
 }
 
 void crearArregloJugadores(Jugador*& jugadores, int cantidad) {
@@ -130,7 +130,6 @@ void cargarCultivos(Cultivo*& cultivosDisponibles, int& cantidadCultivosDisponib
     ifstream archivoCultivos("Cultivos.txt");
     string lineaLeida;
     int contadorLineasLeidas = 0;
-
     if (!(archivoCultivos.is_open())) {
 
         throw string("No se pudo abrir el archivo de cultivos");

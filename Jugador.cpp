@@ -2,17 +2,6 @@
 
 using namespace std;
 
-Almacen* Jugador::obtenerAlmacen(){
-
-	return &almacen;
-}
-
-void Jugador::sumarCreditos(unsigned int creditos){
-
-	this->creditos += creditos;
-}
-
-
 Jugador :: Jugador() {
 	this->tanque.aumentarCapacidad(25);
     this->nombre = "Nombre no asignado";
@@ -294,11 +283,30 @@ bool Jugador::tieneTerrenos(){
 	return respuesta;
 }
 
+
 bool Jugador::tieneCultivosEnAlmacen(){
 	return !almacen.estaVacio();
 }
 
+Almacen* Jugador::obtenerAlmacen(){
+
+	return &(this->almacen);
+}
+
+void Jugador::sumarCreditos(unsigned int creditos){
+
+	this->creditos += creditos;
+	}
+
+
+
 Jugador::~Jugador(){
-	campoJugador.~Campo();
-	almacen.~Almacen();
+	cout <<"memoria Almacen ";
+		cout << &almacen;
+		almacen.~Almacen();
+
+	cout <<"campo de jugador " << &campoJugador;
+		campoJugador.~Campo();
+	cout<< "memoria jugador eliminada";
+
 }

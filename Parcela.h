@@ -194,6 +194,8 @@ class Parcela{
 		 * post: Cambia el estado de "ocupada" y "disponible" a falso.
 		 */
 		void sembrar();
+
+
 };
 
 

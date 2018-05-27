@@ -28,21 +28,36 @@ private:
 
 public:
 
+    /*
+     * post: Crea un jugador, con nombre "Nombre no asignado",
+     * 		una capacidad de agua del tanque de 25 unidades,
+     * 		una capacidad de almacen de 5 unidades,
+     * 		cero creditos, y cero unidades de riego.
+     */
     Jugador();
 
+    /*
+     * post: Imprime por pantalla toda la informacion del jugador.
+     */
     void imprimirInformacion();
 
-    void sumarCreditos(unsigned int creditos);
-
-    Almacen* obtenerAlmacen();
-
+    /*
+     * post: Devuelve la direccion de memoria, de la variable
+     * 		Campo del jugador
+     */
     Campo* devolverCampo();
 
+    /*
+     * post: Si tiene un campo lo imprime por consola, en caso de
+     * 		no tener se imprime un mensaje indicando eso.
+     */
     void mostrarCampo();
 
     /*
-     * pre:
-     * post:
+     * pre: El costo del terreno a comprar debe ser menor o igualç
+     * 		a los creditos del jugador.
+     * post:Agrega un terreno a la lista de terrenos del jugador,
+     * 		descuenta su costo, y actualiza los precios de los terrenos.
      */
     void comprarTerreno();
 
@@ -52,52 +67,83 @@ public:
      */
     void venderTerreno(int posicion);
 
-    // Pre: -
-    // Post: Pide el nombre del jugador y lo asigna a nombre
+    /*
+     * pre: -
+     * post: Pide el nombre del jugador y lo asigna a nombre.
+     */
     void ingresarNombre();
 
-    // Pre: -
-    // Post: asigna a nombre la cadena pasada como argumento
+    /*
+     * pre:
+     * post: Asigna a nombre la cadena pasada como argumento.
+     */
     void establecerNombre(std::string nombre);
 
-    // Pre: -
-    // Post: Devuelve el nombre del jugador
+    /*
+     * post: Devuelve un string con el nombre del jugador.
+     */
     std::string obtenerNombre();
 
-    // Pre: Esta funcion se debe llamar solo en la configuracion del juego, cuando se elige la dificultad del juego
-    // Post: Asigna un valor a filas segun la dificultad elegida
+    /*
+     * pre: Esta funcion se debe llamar solo en la configuracion
+     * 		del juego, cuando se elige la dificultad del juego.
+     * post: Asigna un valor a filas segun la dificultad elegida.
+     */
     void establecerFilas(int filas);
 
-    // Pre: Esta funcion se debe llamar solo en la configuracion del juego, cuando se elige la dificultad del juego
-    // Post: Asigna un valor a columnas segun la dificultad elegida
+    /*
+     * pre: Esta funcion se debe llamar solo en la configuracion
+     * 		del juego, cuando se elige la dificultad del juego
+     * post: Asigna un valor a columnas segun la dificultad elegida
+     */
     void establecerColumnas(int columnas);
 
-    // Pre: Las filas y columnas del jugador deben haber sido establecidas previamente
-    // Post: Asigna a creditos el valor segun las filas y columnas del jugador
+    /*
+     * pre: re: Las filas y columnas del jugador deben
+     * 		haber sido establecidas previamente.
+     * post: ost: Asigna a creditos el valor segun las
+     * 		filas y columnas del jugador
+     */
     void establecerCreditos();
 
-    // Pre: -
-    // Post: Devuelve la cantidad de creditos del jugador
+    /*
+     * post: Devuelve un entero con la cantidad de creditos
+     * 		del jugador.
+     */
     int obtenerCreditos();
 
+    /*
+     * post: Agrega un nuevo terreno a la lista de terrenos.
+     */
     void crearCampo();
 
-    // Pre: El argumento debe ser positivo
-    // Post: Redimensiona el arreglo de terrenos del jugador
-
-    // Pre: -
-    // Post: Devuelve la cantidad de terrenos del jugador (coincide
-    // con la primer dimension del arreglo de terrenos)
+    /*
+     * post: Devuelve la cantidad de terrenos del jugador
+     * (coincide con la primer dimension del arreglo de terrenos).
+     */
     int obtenerCantidadTerrenos();
 
-    // Pre: El argumento debe ser positivo
-    // Post: Asigna a unidadesRiego el valor pasado como argumento
+    /*
+     * pre: unidadesRiego debe ser un numero entero positivo.
+     * post: Asigna a unidadesRiego el valor pasado como argumento
+     */
     void establecerUnidadesRiego(int unidadesRiego);
 
-    // Pre: -
-    // Post: Devuelve el valor de unidadesRiego
+    /*
+     * post: Devuelve el valor de unidadesRiego
+     */
     int obtenerUnidadesRiego();
 
+    /*
+     * pre: Se debe pasar por referencia un Cultivo, el mismo debe
+     * 		se uno valido, no puede ser un Cultivo vacio, terreno
+     * 		debe ser un numero positivo mayor a cero y, fila y columna
+     * 		deben ser un numero entero entre 0 y la cantidad de
+     * 		filas y columnas segun la dificultad elegida.
+     * post: Coloca el cultivo en la direccion de las cordenas de la
+     * 		Parcela indicada, si se pudo realizar la operacion devuelve
+     * 		verdadero, sino falso.
+     */
     bool plantarSemilla(Cultivo& cultivo, int terreno, int fila, int columna);
 
     /*
@@ -161,29 +207,104 @@ public:
      */
     bool tieneTerrenos();
 
+    /*
+     * post: Llama a la funcion recibirAgua de su tanqueDeAgua.
+     */
     void recibirAgua();
 
-
+    /*
+     * post: Llama a la funcion desechar Exeso de agua de su
+     * 		tanqueDeAgua.
+     */
     void desecharExcesoDeAgua();
 
+    /*
+     * pre: Terreno debe ser un entero positivo y, fila y columna,
+     * 		deben ser numeros enteros entre cero y la  cantidad de filas
+     * 		y columnas segun la dificultad.
+     * post: Si la parcela de las coordenadas es valida para regar
+     * 		se cambio el estado de la parcela "regada" a verdadero,
+     * 		y se disminuyen la cantidad de unidades de riego corres-
+     * 		pondientes.
+     */
     void regarParcela(int terreno, int fila, int columna);
 
+    /*
+     * post: Obtiene la cantidad de filas que tienen los terrenos
+     * 		del jugador.
+     */
     int obtenerFilas();
 
+    /*
+     * post: Obtiene la cantidad de columnas que tienen los terrenos
+     * 		del jugador
+     */
     int obtenerColumnas();
 
+    /*
+     * post: Obtiene la cantidad de Agua que tiene el jugador.
+     */
     int obtenerCantidadAgua();
 
+    /*
+     * post: inicializa la cantidad de capacidad del tanque de agua
+     *		segun la dificultad.
+     */
     void inicializarCapacidadTanque();
 
+    /*
+     * pre: Terreno debe ser un entero positivo y, fila y columna,
+     * 		deben ser numeros enteros entre cero y la  cantidad de filas
+     * 		y columnas segun la dificultad.
+     * post: Devuelve verdadero si el jugador tiene las suficientes
+     * 		unidades de riego para regar la parcela ubicada en las
+     * 		coordenadas dadas.
+     */
     bool hayAguaDisponible(int terreno, int fila, int columna);
 
+    /*
+     * pre: Terreno debe ser un entero positivo y, fila y columna,
+     * 		deben ser numeros enteros entre cero y la  cantidad de filas
+     * 		y columnas segun la dificultad.
+     * post: Devuelve verdadero si se puede plantar en la parcela
+     * 		ubicada en las cordenadas dadas.
+     */
     bool sonCoordenadasValidasPlantar(int terreno, int fila, int columna);
 
+    /*
+     * pre: Terreno debe ser un entero positivo y, fila y columna,
+     * 		deben ser numeros enteros entre cero y la  cantidad de filas
+     * 		y columnas segun la dificultad.
+     * post: Devuelve verdadero si se puede plantar en la parcela
+     * 		ubicada en las cordenadas dadas.
+     */
     bool sonCoordenadasValidasRegar(int terreno, int fila, int columna);
 
+    /*
+     *
+     */
+    void enviarPedidos();
+
+    /*
+     * post: Devuelve verdadero si el jugador tiene cultivos en su Almacen
+     */
     bool tieneCultivosEnAlmacen();
 
+    /*
+     * pre: creditos debe ser un numero postivo mayor o
+     * 		igual a cero.
+     * post: Suma los creditos pasados por argumento.
+     */
+    void sumarCreditos(unsigned int creditos);
+
+    /*
+     * post: Devuelve la direccion de memoria del almacen.
+     */
+    Almacen* obtenerAlmacen();
+
+    /*
+     * post: Libera la memoria reservada del Jugador.
+     */
     ~Jugador();
 
 };
