@@ -12,6 +12,7 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include "Lista.h"
 
 static const char RUTA_DESTINOS[] = "destinos.txt";
 static const std::string DESTINO_INEXISTENTE = "DESTINO INVALIDO";
@@ -27,17 +28,21 @@ private:
 
 	int costoEnvio;
 
+	bool elegioUnDestino;
+
+
 	std::string nombreDestino;
 
 	/*	Pre : -
-	 * 	Post: Devuelve una línea correspondiente a los datos del cultivo buscado
+	 * 	Post: Devuelve una lista correspondiente a las lineas
+	 * 		con la informacion del cultivo deseado
 	 */
-	std::string leerInformacionDeArchivo();
+	void leerInformacionDeArchivo(Lista<std::string>& listaLineasDestino);
 
 	/*	Pre : Recibe una línea de información del archivo
 	 *	Post: Inicializa el destino con los valores de la línea actual leída (parseo)
 	 */
-	void guardarInformacionDeArchivo(std::string informacion);
+	bool guardarInformacionDeArchivo(Lista<std::string>& listaLineasDestino);
 
 
 public:
@@ -70,6 +75,11 @@ public:
 	 * 	Post: Devuelve el costo de envío hasta destino
 	 */
 	int mostrarCostoEnvio();
+
+	/*
+	 * post: Devuelve si se selecciono un destino para enviar.
+	 */
+	bool seSeleccionoUnPedido();
 
 	virtual ~Destino();
 

@@ -8,9 +8,11 @@
 #include <fstream>
 #include <iomanip>
 #include <ctime>
+#include "Grafo.h"
 
 #include "../src/configuracion.h"
 #include "../src/Campo.h"
+#include "../src/Dibujador.h"
 #include "../src/Jugador.h"
 #include "../src/Lista.h"
 #include "../src/Nodo.h"

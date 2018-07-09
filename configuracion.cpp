@@ -13,34 +13,38 @@ void ingresarCantidadJugadores(int& cantidadJugadores) {
     //cin.clear();
 }
 
-void crearJugadores(Lista<Jugador*>* listaJugadores, int cantidadJugadores) {
+void crearArregloJugadores(Jugador*& jugadores, int cantidad) {
 
-    Jugador* nuevoJugador = new Jugador;
-    string nombre;
+    if (jugadores != NULL) {
 
-    for (int i = 1; i <= cantidadJugadores; i++) {
+        throw string("Error, el arreglo de jugadores ya fue creado");
+    }
 
-        cout << "Ingrese el nombre del jugador " << i << ": ";
-        getline(cin, nombre);
+    jugadores = new Jugador[cantidad];
 
-        nuevoJugador->establecerNombre(nombre);
-        listaJugadores->agregarElemento(nuevoJugador);
+    if (jugadores == NULL) {
+
+        throw string("No se pudo alocar la memoria pedida");
     }
 }
 
-void cargarAtributosIniciales(Lista<Jugador*>* listaJugadores, dificultad dificultadElegida) {
+void ingresarNombres(Jugador* jugadores, int cantidad) {
 
-    listaJugadores->iniciarCursor();
+    if (jugadores == NULL) {
 
-    while (listaJugadores->avanzarCursor()) {
+        throw string("El arreglo de jugadores es invalido");
+    }
 
-        Jugador* jugadorActual = listaJugadores->obtenerCursor();
+    string nombre;
 
-        jugadorActual->establecerFilas(diccionarioFilas[dificultadElegida - 1]);
-        jugadorActual->establecerColumnas(diccionarioColumnas[dificultadElegida - 1]);
-        jugadorActual->crearCampo();
-        jugadorActual->establecerCreditos();
-        jugadorActual->inicializarCapacidadTanque();
+    cout << endl;
+
+    for (int i = 1; i <= cantidad; i++) {
+
+        cout << "Nombre jugador " << i << ": ";
+        cin >> nombre;
+        jugadores[i-1].establecerNombre(nombre);
+
     }
 }
 
@@ -87,6 +91,29 @@ void elegirDificultad(dificultad& nivelElegido) {
             && nivelElegido != DIFICULTAD_DIFICIL);
 }
 
+void cargarAtributosIniciales(Jugador* jugadores, int cantidad, dificultad dificultadElegida) {
+
+    if (dificultadElegida == NO_ASIGNADA) {
+
+        throw string("Nivel no asignado");
+    }
+
+    else if (jugadores == NULL) {
+
+        throw string("El arreglo de jugadores no fue creado");
+    }
+
+    for (int i = 0; i < cantidad; i ++) {
+
+        jugadores[i].establecerFilas(diccionarioFilas[dificultadElegida - 1]);
+        jugadores[i].establecerColumnas(diccionarioColumnas[dificultadElegida - 1]);
+        jugadores[i].crearCampo();
+        jugadores[i].establecerCreditos();
+        jugadores[i].inicializarCapacidadTanque();
+
+    }    
+}
+
 void mostrarInformacionJugadores(Jugador* jugadores, int cantidadJugadores) {
 
     cout << endl << setw(10) << "Jugador" << setw(20) << "Creditos" << setw(30)
@@ -100,13 +127,11 @@ void mostrarInformacionJugadores(Jugador* jugadores, int cantidadJugadores) {
     }
 }
 
-void cargarCultivos(Lista<Cultivo*>* listaCultivosDisponibles) {
+void cargarCultivos(Cultivo*& cultivosDisponibles, int& cantidadCultivosDisponibles) {
 
     ifstream archivoCultivos("Cultivos.txt");
     string lineaLeida;
     int contadorLineasLeidas = 0;
-    Cultivo* cultivo = new Cultivo;
-
     if (!(archivoCultivos.is_open())) {
 
         throw string("No se pudo abrir el archivo de cultivos");
@@ -119,11 +144,14 @@ void cargarCultivos(Lista<Cultivo*>* listaCultivosDisponibles) {
         getline(archivoCultivos, lineaLeida);
     }
 
-    int cantidadCultivosDisponibles = (contadorLineasLeidas / 6);
+    cantidadCultivosDisponibles = (contadorLineasLeidas / 6);
+
+    cultivosDisponibles = new Cultivo[cantidadCultivosDisponibles];
 
     // Vuelve al principio del archivo
     archivoCultivos.seekg(ios::beg);
 
+    // Variables para guardar los datos leidos
     char tipo;
 	int costoSemilla;
 	int tiempoCosecha;
@@ -131,6 +159,7 @@ void cargarCultivos(Lista<Cultivo*>* listaCultivosDisponibles) {
 	int tiempoDeRecuperacion;
 	int consumoDeAgua;
 
+    // Asignacion de los cultivos levantados del archivo   
     for (int i = 0; i < cantidadCultivosDisponibles; i++) {
 
         archivoCultivos >> tipo;
@@ -140,26 +169,41 @@ void cargarCultivos(Lista<Cultivo*>* listaCultivosDisponibles) {
         archivoCultivos >> tiempoDeRecuperacion;
         archivoCultivos >> consumoDeAgua;
 
-        cultivo->setearTipo(tipo);
-        cultivo->setearCosto(costoSemilla);
-        cultivo->setearTiempoCosecha(tiempoCosecha);
-        cultivo->setearRentabilidad(rentabilidad);
-        cultivo->setearTiempoDeRecuperacion(tiempoDeRecuperacion);
-        cultivo->setearConsumoDeAgua(consumoDeAgua);
+        cultivosDisponibles[i].setearTipo(tipo);
+        cultivosDisponibles[i].setearCosto(costoSemilla);
+        cultivosDisponibles[i].setearTiempoCosecha(tiempoCosecha);
+        cultivosDisponibles[i].setearRentabilidad(rentabilidad);
+        cultivosDisponibles[i].setearTiempoDeRecuperacion(tiempoDeRecuperacion);
+        cultivosDisponibles[i].setearConsumoDeAgua(consumoDeAgua);
 
-        listaCultivosDisponibles->agregarElemento(cultivo);
+        cout << endl << "Tipo: " << cultivosDisponibles[i].obtenerTipo() << endl
+        << "Costo semilla: " << cultivosDisponibles[i].obtenerCosto() << endl
+        << "Tiempo de cosecha: " << cultivosDisponibles[i].obtenerTiempoCosecha() << endl
+        << "Rentabilidad: " << cultivosDisponibles[i].obtenerRentabilidad() << endl
+        << "Tiempo de recuperacion: " << cultivosDisponibles[i].obtenerTiempoDeRecuperacion() << endl
+        << "Consumo de agua: " << cultivosDisponibles[i].obtenerConsumoDeAgua() << endl;
     }
+
+    cout << endl;
+
+    archivoCultivos.close();
 }
 
-void configurarJuego(Lista<Jugador*>* listaJugadores, Lista<Cultivo*>* listaCultivos) {
+void configurarJuego(Jugador*& jugadores, int& cantidadJugadores, Cultivo*& cultivosDisponibles, int& cantidadCultivosDisponibles) {
 
-    int cantidadJugadores = 0;
+    jugadores = NULL;
+    cantidadJugadores = 0;
 
     dificultad nivelElegido = NO_ASIGNADA;
 
-    cargarCultivos(listaCultivos);
+    cargarCultivos(cultivosDisponibles, cantidadCultivosDisponibles);
     ingresarCantidadJugadores(cantidadJugadores);
-    crearJugadores(listaJugadores, cantidadJugadores);
+    crearArregloJugadores(jugadores, cantidadJugadores);
+    ingresarNombres(jugadores, cantidadJugadores);
     elegirDificultad(nivelElegido);
-    cargarAtributosIniciales(listaJugadores, nivelElegido);
+    cargarAtributosIniciales(jugadores, cantidadJugadores, nivelElegido);
+    Dibujador dibujador;
+    for(int i = 0; i < cantidadJugadores; i++){
+    	dibujador.crearTerrenoInicial(&jugadores[i]);
+    }
 }

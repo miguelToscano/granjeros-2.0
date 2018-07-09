@@ -161,22 +161,7 @@ Parcela* Campo::obtenerPacela(int terreno, int fila, int columna){
 
 Campo::~Campo() {
 	if(!this->ListaDeTerrenos.estaVacia()){
-
 			while(!this->ListaDeTerrenos.estaVacia()){
-				/*
-				for(int fila = 0; fila < obtenerFilas(); fila++){
-
-						delete[] obtenerPacela(terreno, fila, 0);
-
-						delete[] ListaDeTerrenos.mostrarElemento(terreno);
-						terreno++;
-					//}
-				}
-
-				cout<<"elimino todos los terrenos";
-
-				cout<<"lista eliminada";
-			}*/
 			this->eliminarTerreno(this->ListaDeTerrenos.contarElementos());
 	}
 

@@ -40,6 +40,9 @@ void Parcela::reducirRecuperacion(){
 	recuperacion--;
 }
 
+void Parcela::noDisponible(){
+	disponible = false;
+}
 
 bool Parcela::estaSeca(){
 	return seca;
@@ -100,13 +103,16 @@ void Parcela::liberarParcela(){
 	desocuparParcela();
 	despudrirParcela();
 	noRegarParcela();
+	desSecarParcela();
 }
 
 void Parcela::pasoDeTurno(){
 	if(estaOcupada()){
 		if(!estaRegada()){
+			setearRecuperacion(obtenerRecuperacion());
 			liberarParcela();
 			bloquearParcela();
+			secarParcela();
 			cultivoParcela.setearTipo('S');
 		}else{
 			cultivoParcela.reducirTiempoCosecha();
@@ -123,7 +129,9 @@ void Parcela::pasoDeTurno(){
 			reducirRecuperacion();
 		}
 		if(obtenerRecuperacion() == 0){
+			liberarParcela();
 			disponible = true;
+			setearRecuperacion(0);
 		}
 
 	}

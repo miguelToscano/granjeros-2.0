@@ -175,7 +175,10 @@ class Parcela{
 		 */
 		void pasoDeTurno();
 
-
+		/*
+		 * post: cambia el estado de disponible a false.
+		 */
+		void noDisponible();
 
 		/*
 		 * post: Devuelve verdadero si la Parcela esta en tiempo de cosecha.

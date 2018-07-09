@@ -10,64 +10,73 @@
 using namespace std;
 
 Destino::Destino(char cultivoBuscado){
-	string informacion;
+	Lista<string> listaLineasDestino;
 	this->costoEnvio = 0;
 	this->cultivo = cultivoBuscado;
 	this->distancia = 0;
 	this->nombreDestino = DESTINO_INEXISTENTE;
-	informacion = leerInformacionDeArchivo();
-	guardarInformacionDeArchivo(informacion);
+	leerInformacionDeArchivo(listaLineasDestino);
+	this->elegioUnDestino = guardarInformacionDeArchivo(listaLineasDestino);
+
 }
 
-string Destino::leerInformacionDeArchivo(){
+void Destino::leerInformacionDeArchivo(Lista<string>& listaLineasDestino){
 	string lineaLeida;
-	bool encontrado = false;
 	ifstream archivo(RUTA_DESTINOS);
 
 	if(!archivo.is_open())
 		throw string("ERROR APERTURA DE ARCHIVO");
-	while(!archivo.eof() && !encontrado){
+	while(!archivo.eof()){
 
 		getline(archivo, lineaLeida);
 		size_t tamanio = lineaLeida.size();
 		if(lineaLeida[tamanio - 1] == this->cultivo){
-
-			encontrado = true;
+			listaLineasDestino.agregarElemento(lineaLeida);
 		}
 	}
 
 	archivo.close();
 
-	if(encontrado)
-		return lineaLeida;
-	else
-		return STRING_INVALIDO;
-
 }
 
-void Destino::guardarInformacionDeArchivo(const string informacion){
-	if(informacion != STRING_INVALIDO ){
+bool Destino::guardarInformacionDeArchivo(Lista<string>& listaLineasDestino){
+	string informacion;
+	cout << "A continuacion se mostrara por "
+			"pantalla los destinos, seleccionar"
+			" 's' para enviar a dicho destino o "
+			"n para continuar leyendo registros." << endl;
 
+	listaLineasDestino.iniciarCursor();
+	bool eleccion = true;
+	char seleccion;
+	while(eleccion && listaLineasDestino.avanzarCursor()){
 		string aux;
-
+		string informacion = listaLineasDestino.obtenerCursor();
 		this->nombreDestino = informacion.substr(0, informacion.find(','));
+		cout << "Desea enviar el cultivo a: "
+				<< nombreDestino << "?" << endl;
+		cin >> seleccion;
+		if(seleccion == 's'){
+			eleccion = false;
+			size_t posicionInicial = informacion.find(',') + 2;
+			size_t desplazamiento = informacion.find(',', posicionInicial) - posicionInicial;
 
-		size_t posicionInicial = informacion.find(',') + 2;
-		size_t desplazamiento = informacion.find(',', posicionInicial) - posicionInicial;
+			aux = informacion.substr(posicionInicial, desplazamiento);
 
-		aux = informacion.substr(posicionInicial, desplazamiento);
+			istringstream buffer(aux);
+			buffer >> this->distancia;
 
-		istringstream buffer(aux);
-		buffer >> this->distancia;
+			posicionInicial = posicionInicial + 2 + desplazamiento;
+			desplazamiento = informacion.find(',', posicionInicial) - posicionInicial;
 
-		posicionInicial = posicionInicial + 2 + desplazamiento;
-		desplazamiento = informacion.find(',', posicionInicial) - posicionInicial;
+			aux = informacion.substr(posicionInicial, desplazamiento);
 
-		aux = informacion.substr(posicionInicial, desplazamiento);
+			istringstream buffer2(aux);
+			buffer2 >> this->costoEnvio;
+		}
 
-		istringstream buffer2(aux);
-		buffer2 >> this->costoEnvio;
 	}
+	return !eleccion;
 }
 
 char Destino::mostrarCultivo(){
@@ -80,13 +89,16 @@ string Destino::mostrarNombreDestino(){
 }
 
 int Destino::mostrarDistancia(){
-
 	return this->distancia;
 }
 
 int Destino::mostrarCostoEnvio(){
 
 	return this->costoEnvio;
+}
+
+bool Destino::seSeleccionoUnPedido(){
+	return this->elegioUnDestino;
 }
 
 Destino::~Destino() {

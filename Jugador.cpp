@@ -208,6 +208,7 @@ void Jugador :: venderTerreno(int posicion) {
     this->creditos += static_cast<int>(precioVentaTerreno);
 
     this->campoJugador.eliminarTerreno(posicion);
+
 }
 
 bool Jugador :: plantarSemilla(Cultivo& cultivo, int terreno, int fila, int columna) {
@@ -243,6 +244,7 @@ bool Jugador :: cosechar(int terreno, int fila, int columna){
 	if(parcela->sePuedeCosechar()){
 		almacen.agregarCosechaAlmacen(parcela->cultivoParcela);
 		parcela->liberarParcela();
+		parcela->noDisponible();
 	}else{
 		respuesta = false;
 	}
@@ -290,8 +292,8 @@ bool Jugador::tieneCultivosEnAlmacen(){
 
 Almacen* Jugador::obtenerAlmacen(){
 
-	return &(this->almacen);
-}
+	return &almacen;
+	}
 
 void Jugador::sumarCreditos(unsigned int creditos){
 
@@ -301,12 +303,9 @@ void Jugador::sumarCreditos(unsigned int creditos){
 
 
 Jugador::~Jugador(){
-	cout <<"memoria Almacen ";
-		cout << &almacen;
-		almacen.~Almacen();
 
-	cout <<"campo de jugador " << &campoJugador;
-		campoJugador.~Campo();
-	cout<< "memoria jugador eliminada";
+	almacen.~Almacen();
+
+	campoJugador.~Campo();
 
 }

@@ -17,7 +17,7 @@ class Almacen {
 	private:
 
 		Lista<Cultivo> ListaDeCosechas;
-		unsigned int capacidadMaxima;
+		int capacidadMaxima;
 
 	public:
 
@@ -37,7 +37,12 @@ class Almacen {
 		 * 	Post: Elimina la cosecha del almacén devolviendo la ganancia de créditos
 		 * 		  calculada como rentabilidad - costoDeEnvio
 		 */
-		int despacharCosecha(Cultivo cosecha);
+		int despacharCosecha(Cultivo cosecha, int posAlmacen);
+
+		/*
+		 * post:elimina la cosecha en la ubicacion indicada
+		 */
+		void eliminarCosecha(int posicionAlmacen);
 
 		/*	Pre : Recibe un entero positivo de lugares a agregar
 		 * 	Post: Aumenta en cantidadDeLugares la capacidad del almacén
@@ -47,14 +52,14 @@ class Almacen {
 		/*	Pre : -
 		 * 	Post: Devuelve la capacidad máxima del almacén
 		 */
-		unsigned int obtenerCapacidadMaxima();
+		int obtenerCapacidadMaxima();
 
 		/*	Pre : -
 		 * 	Post: Devuelve la cantidad de cosechas del almacén
 		 */
-		unsigned int obtenerCantidadDeCosechas();
+		int obtenerCantidadDeCosechas();
 
-		/*	Pre : Recibe una posición (entero, positivo) entre 1 y otenerCantidadDeCosechas
+		/*	Pre : Recibe una posición (entero, positivo)
 		 * 	Post: Devuelve el cultivo correspondiente a esa posición
 		 */
 		Cultivo obtenerElementoDePosicion(unsigned int posicion);

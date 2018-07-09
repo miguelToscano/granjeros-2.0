@@ -29,27 +29,26 @@ bool Almacen::agregarCosechaAlmacen(Cultivo cosecha){
 	return fueAgregado;
 }
 
-int Almacen::despacharCosecha(Cultivo cosecha){
+void Almacen::eliminarCosecha(int posAlmacen){
+	ListaDeCosechas.eliminarElemento(posAlmacen);
+}
+
+int Almacen::despacharCosecha(Cultivo cosecha, int posAlmacen){
 
 	bool cosechaEncontrada = false;
+	int respuesta = 0;
 	int posicion = 1;
 	Destino destinoCosecha(cosecha.obtenerTipo());
 
-	if( destinoCosecha.mostrarNombreDestino() == DESTINO_INEXISTENTE )
-		throw string("ERROR: Semilla inexistente en destinos");
+	if(destinoCosecha.seSeleccionoUnPedido()){
+		ListaDeCosechas.eliminarElemento(posAlmacen);
+		respuesta = cosecha.obtenerRentabilidad() - destinoCosecha.mostrarCostoEnvio();
+		cout << "Se han agregado " << respuesta << " a sus creditos" << endl;
 
-	ListaDeCosechas.iniciarCursor();
-	while(ListaDeCosechas.avanzarCursor()){
-		if(ListaDeCosechas.obtenerCursor().obtenerTipo() == cosecha.obtenerTipo() && !cosechaEncontrada)
-			cosechaEncontrada = true;
-
-		posicion++;
+		cout << "Su cultivo ha sido enviado" << endl;
 	}
-	if( !cosechaEncontrada )
-		throw string("ERROR: Cosecha no pertenece al almacén");
 
-	ListaDeCosechas.eliminarElemento(posicion);
-	return (cosecha.obtenerRentabilidad() - destinoCosecha.mostrarCostoEnvio());
+	return respuesta;
 }
 
 void Almacen::aumentarCapacidad(unsigned int cantidadDeLugares){
@@ -57,21 +56,20 @@ void Almacen::aumentarCapacidad(unsigned int cantidadDeLugares){
 	this->capacidadMaxima += cantidadDeLugares;
 }
 
-unsigned int Almacen::obtenerCantidadDeCosechas(){
+int Almacen::obtenerCantidadDeCosechas(){
 
 	return ListaDeCosechas.obtenerTamanio();
 }
 
-unsigned int Almacen::obtenerCapacidadMaxima(){
+int Almacen::obtenerCapacidadMaxima(){
 
 	return capacidadMaxima;
 }
 
 Cultivo Almacen::obtenerElementoDePosicion(unsigned int posicion){
-
-	if(posicion < 1 || posicion > this->obtenerCantidadDeCosechas())
+	if(posicion < 1 || posicion > (unsigned int)this->obtenerCantidadDeCosechas()){
 		throw string("Posicion invalida de almacen");
-	
+	}
 	return this->ListaDeCosechas.mostrarElemento(posicion);
 }
 
@@ -82,7 +80,7 @@ bool Almacen::hayLugar(){
 
 bool Almacen::estaVacio(){
 
-	return (obtenerCantidadDeCosechas() == 0);
+	return obtenerCantidadDeCosechas() == 0;
 }
 
 Almacen::~Almacen(){

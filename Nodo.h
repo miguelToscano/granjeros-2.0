@@ -19,7 +19,7 @@ template<class T> class Nodo {
         Nodo(T dato) {
 
             this->dato = dato;
-            this->siguiente = 0;
+            this->siguiente = NULL;
         }
 
         /*
