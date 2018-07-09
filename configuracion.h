@@ -27,7 +27,7 @@ const int DIFICULTAD_DIFICIL = 3;
 // iniciales)
 // Pre: -
 // Post: Deja el juego listo para comenzar
-void configurarJuego(Jugador*& jugadores, int& cantidadJugadores, Cultivo*& cultivosDisponibles, int& cantidadCultivosDisponibles);
+void configurarJuego(Lista<Jugador*>* listaJugadores, Lista<Cultivo*>* listaCultivos);
 
 // Pre: -
 // Post: asigna lo ingresado por teclado por el usuario a la cantida de jugadores
@@ -36,11 +36,8 @@ void ingresarCantidadJugadores(int& cantidadJugadores);
 // Pre: El arreglo de jugadores debe estar inicializado en NULL para asegurar
 // que no hayan multiples creaciones del mismo arreglo
 // Post: Crea el arreglo segun la cantidad de jugadores pasada como argumento
-void crearArregloJugadores(Jugador*& jugadores, int cantidad);
+void crearJugadores(Lista<Jugador*>* listaJugadores, int cantidad);
 
-// Pre: El arreglo de jugadores debe ser distinto de NULL
-// Post: le deja asignado los nombres a cada jugador del arreglo
-void ingresarNombres(Jugador* jugadores, int cantidad);
 
 // Pre: nivelElegido debe ser NO_ASIGNADO para evitar multiples elecciones
 // de dificultad
@@ -50,11 +47,11 @@ void elegirDificultad(dificultad& nivelElegido);
 // Pre: El arreglo jugadores debe estar creado y la dificultadElegida tambien
 // Post: a cada jugador del arreglo le asigna los atributos que figuran en el archivo
 // consultado segun la dificultad elegida
-void cargarAtributosIniciales(Jugador* jugadores, int cantidad, dificultad dificultadElegida);
+void cargarAtributosIniciales(Lista<Jugador*>* listaJugadores, dificultad dificultadElegida);
 
 // Pre: El archivo de cultivos debe existir
 // Post: carga los cultivos en un arreglo global
-void cargarCultivos();
+void cargarCultivos(Lista<Cultivo*>* listaCultivosDisponibles);
 
 // Pre: jugadores es un arreglo de jugadores y cantidades de jugadores
 //  	debe ser un numero entero positivo
