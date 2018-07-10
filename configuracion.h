@@ -58,4 +58,10 @@ void cargarCultivos(Lista<Cultivo*>* listaCultivosDisponibles);
 //		para el desarrollo del juego.
 void mostrarInformacionJugadores(Lista<Jugador*>* jugadores);
 
+// Post: elimina el contenido apuntado por cada nodo de la lista
+void eliminarJugadores(Lista<Jugador*>* listaJugadores);
+
+// Post: elimina el contenido apuntado por cada nodo de la lista
+void eliminarCultivos(Lista<Cultivo*>* listaCultivos);
+
 #endif
