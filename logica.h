@@ -181,10 +181,8 @@ void enviarPedido(Jugador jugador, Lista<Grafo*>* listaGrafo);
  */
 void procesarTurno(Jugador* jugador, int turno, Lista<Cultivo*>* cultivosDisponibles, Lista<Grafo*>* listaGrafo);
 /*
- * pre: Se recibe un Puntero a un arreglo de Jugadores y
- * 		un entero con la cantidad de jugadores.
- * post: Recorre todo el arreglo e imprime por pantalla
- * 		el nombre del jugador ganador y sus creditos.
+ 
+ * post: Imprime el nombre del jugador con mas creditos. En caso que listaJugadores este vacia no imprime nada
  */
 void mostrarGanador(Lista<Jugador*>* jugadores);
 
