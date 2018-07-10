@@ -16,7 +16,7 @@ class Almacen {
 
 	private:
 
-		Lista<Cultivo>* ListaDeCosechas;
+		Lista<Cultivo> ListaDeCosechas;
 		int capacidadMaxima;
 
 	public:
@@ -74,12 +74,8 @@ class Almacen {
 		 */
 		bool estaVacio();
 
-		/*
-		 *  Destructor
-		 *
-		 */
-		~Almacen();
+		virtual ~Almacen();
 
 };
 
-#endif
+#endif /* ALMACEN_H_ */

@@ -387,10 +387,7 @@ void enviarPedido(Jugador* jugador, Lista<Grafo*>* listaGrafo){
 	jugador->sumarCreditos(creditosGanados);
 }
 
-
-
-void procesarTurno(Jugador& jugador, int turno,
-		Cultivo* cultivosDisponibles, int cantidadCultivosDisponibles, Lista<Grafo*>* listaGrafo) {
+void procesarTurno(Jugador& jugador, int turno, Lista<Cultivo*>* listaCultivos, Lista<Grafo*>* listaGrafo) {
 
     int opcion;
     system("clear");
@@ -400,7 +397,6 @@ void procesarTurno(Jugador& jugador, int turno,
     jugador.recibirAgua();
 
     while ((opcion = obtenerOpcion(jugador)) != OPCION_FINALIZAR_TURNO) {
-
 
         switch (opcion) {
 
@@ -490,9 +486,7 @@ void procesarTurno(Jugador& jugador, int turno,
     actualizarCampo(jugador);
     dibujador.pasoDeTurnoJugador(&jugador);
 
-
 }
-
 
 void mostrarGanador(Jugador* jugadores, int cantidadJugadores) {
 

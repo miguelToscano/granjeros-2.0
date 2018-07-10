@@ -38,7 +38,6 @@ void ingresarCantidadJugadores(int& cantidadJugadores);
 // Post: Crea el arreglo segun la cantidad de jugadores pasada como argumento
 void crearJugadores(Lista<Jugador*>* listaJugadores, int cantidad);
 
-
 // Pre: nivelElegido debe ser NO_ASIGNADO para evitar multiples elecciones
 // de dificultad
 // Post: Deja un valor de dificultad en nivelElegido

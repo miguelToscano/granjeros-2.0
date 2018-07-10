@@ -8,18 +8,17 @@ using namespace std;
 const int TURNOS = 10;
 
 int main() {
+
+    Lista<Jugador*> listaJugadores;
+    Lista<Cultivo*> listaCultivos;
 	Dibujador dibujo;
 	dibujo.crearTemplates();
-    int cantidadJugadores;
-    Jugador* jugadores = 0;
-    Cultivo* cultivosDisponibles = 0;
-    int cantidadCultivosDisponibles = 0;
 
-    configurarJuego(jugadores, cantidadJugadores, cultivosDisponibles, cantidadCultivosDisponibles);
+    configurarJuego(&listaJugadores, &listaCultivos);
 
     Lista<Grafo*> listaGrafos;
     cout << cantidadCultivosDisponibles;
-    for(int i = 0; i < cantidadCultivosDisponibles; i++){
+    for(int i = 0; i < listaCultivos.obtenerTamanio(); i++){
     	char tipoCultivo = ('A' + (char)i);
     	Lista<DestinosAristas> listaAristasAAgregar;
     	cearListaGrafo(tipoCultivo, &listaAristasAAgregar);
@@ -33,22 +32,26 @@ int main() {
     // Empiezan a jugar
     for (int turno = 1; turno <= TURNOS; turno++) {
 
-        for (int i = 0; i < cantidadJugadores; i++) {
+        listaJugadores.iniciarCursor();
 
-            procesarTurno(jugadores[i], turno, cultivosDisponibles, cantidadCultivosDisponibles, &listaGrafos);
+        while (listaJugadores.avanzarCursor()) {
+
+            Jugador* jugadorActual = listaJugadores.obtenerCursor();
+
+            procesarTurno(*jugadorActual, turno, &listaCultivos, &listaGrafos);
         }
     }
 
-    mostrarInformacionJugadores(jugadores, cantidadJugadores);    
+//    mostrarInformacionJugadores(jugadores, cantidadJugadores);    
 
-    mostrarGanador(jugadores, cantidadJugadores);
+//    mostrarGanador(jugadores, cantidadJugadores);
     dibujo.eliminarTemplates();
 
-    for(int i = 0; i < cantidadJugadores; i++){
-    	for(int j = jugadores[i].obtenerCantidadTerrenos(); j > 0 ; j--){
-    		dibujo.eliminarTerreno(&jugadores[i], j);
-    	}
-    }
+//    for(int i = 0; i < cantidadJugadores; i++){
+//    	for(int j = jugadores[i].obtenerCantidadTerrenos(); j > 0 ; j--){
+//    		dibujo.eliminarTerreno(&jugadores[i], j);
+//    	}
+//    }
 
     listaGrafos.iniciarCursor();
     while(listaGrafos.avanzarCursor()){

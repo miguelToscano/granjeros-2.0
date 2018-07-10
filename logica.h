@@ -181,7 +181,7 @@ void enviarPedido(Jugador jugador, Lista<Grafo*>* listaGrafo);
  * 		Finalmente se actualiza el campo."
  */
 void procesarTurno(Jugador& jugador, int turno,
-		Cultivo* cultivosDisponibles, int cantidadCultivosDisponibles, Lista<Grafo*>* listaGrafo);
+		Lista<Cultivo*>* listaCultivos, Lista<Grafo*>* listaGrafo);
 /*
  * pre: Se recibe un Puntero a un arreglo de Jugadores y
  * 		un entero con la cantidad de jugadores.

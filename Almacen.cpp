@@ -10,14 +10,11 @@
 using namespace std;
 
 Almacen::Almacen(){
-
-	this->ListaDeCosechas = new Lista<Cultivo>;
 	this->capacidadMaxima = 0;
 }
 
 Almacen::Almacen(const int N, const int M){
 
-	this->ListaDeCosechas = new Lista<Cultivo>;
 	this->capacidadMaxima = 2 * (N + M);
 }
 
@@ -26,15 +23,14 @@ bool Almacen::agregarCosechaAlmacen(Cultivo cosecha){
 	bool fueAgregado = false;
 	if(hayLugar()){
 
-		this->ListaDeCosechas->agregarElemento(cosecha);
+		this->ListaDeCosechas.agregarElemento(cosecha);
 		fueAgregado = true;
 	}
 	return fueAgregado;
 }
 
 void Almacen::eliminarCosecha(int posAlmacen){
-
-	ListaDeCosechas->eliminarElemento(posAlmacen);
+	ListaDeCosechas.eliminarElemento(posAlmacen);
 }
 
 int Almacen::despacharCosecha(Cultivo cosecha, int posAlmacen){
@@ -45,7 +41,7 @@ int Almacen::despacharCosecha(Cultivo cosecha, int posAlmacen){
 	Destino destinoCosecha(cosecha.obtenerTipo());
 
 	if(destinoCosecha.seSeleccionoUnPedido()){
-		ListaDeCosechas->eliminarElemento(posAlmacen);
+		ListaDeCosechas.eliminarElemento(posAlmacen);
 		respuesta = cosecha.obtenerRentabilidad() - destinoCosecha.mostrarCostoEnvio();
 		cout << "Se han agregado " << respuesta << " a sus creditos" << endl;
 
@@ -62,7 +58,7 @@ void Almacen::aumentarCapacidad(unsigned int cantidadDeLugares){
 
 int Almacen::obtenerCantidadDeCosechas(){
 
-	return ListaDeCosechas->obtenerTamanio();
+	return ListaDeCosechas.obtenerTamanio();
 }
 
 int Almacen::obtenerCapacidadMaxima(){
@@ -71,11 +67,10 @@ int Almacen::obtenerCapacidadMaxima(){
 }
 
 Cultivo Almacen::obtenerElementoDePosicion(unsigned int posicion){
-
-	if(posicion < 1 || posicion > (unsigned int)this->obtenerCantidadDeCosechas())
+	if(posicion < 1 || posicion > (unsigned int)this->obtenerCantidadDeCosechas()){
 		throw string("Posicion invalida de almacen");
-
-	return this->ListaDeCosechas->mostrarElemento(posicion);
+	}
+	return this->ListaDeCosechas.mostrarElemento(posicion);
 }
 
 bool Almacen::hayLugar(){
@@ -90,6 +85,6 @@ bool Almacen::estaVacio(){
 
 Almacen::~Almacen(){
 
-	delete this->ListaDeCosechas;
+	ListaDeCosechas.eliminarElementos();
 }
 
