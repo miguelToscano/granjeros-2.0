@@ -483,6 +483,7 @@ void procesarTurno(Jugador* jugador, int turno, Lista<Cultivo*>* cultivosDisponi
 
 }
 
+// Post: Imprime el nombre del ganador. En caso de que listaJugadores este vacia no imprime nada
 void mostrarGanador(Lista<Jugador*>* listaJugadores) {
 
     Jugador* ganador = NULL;
