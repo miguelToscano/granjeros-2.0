@@ -22,7 +22,7 @@ void crearJugadores(Lista<Jugador*>* listaJugadores, int cantidadJugadores) {
 		Jugador* nuevoJugador = new Jugador;
 
 		cout << "Ingrese el nombre del jugador " << i << ": ";
-        cin >> nombre;
+        	cin >> nombre;
 
         nuevoJugador->establecerNombre(nombre);
         listaJugadores->agregarElemento(nuevoJugador);
