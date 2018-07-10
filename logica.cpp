@@ -483,19 +483,21 @@ void procesarTurno(Jugador* jugador, int turno, Lista<Cultivo*>* cultivosDisponi
 
 }
 
+void mostrarGanador(Lista<Jugador*>* listaJugadores) {
 
-void mostrarGanador(Lista<Jugador*>* jugadores) {
+    Jugador* ganador = NULL;
 
-    Jugador* jugadorGanador = jugadores->mostrarElemento(1);
+    listaJugadores->iniciarCursor();
 
-    jugadores->iniciarCursor();
+    while (listaJugadores->avanzarCursor()) {
 
-    while(jugadores->avanzarCursor()){
+ 	Jugador* jugadorActual = listaJugadores->obtenerCursor();
 
-        if (jugadores->obtenerCursor()->obtenerCreditos() > jugadorGanador->obtenerCreditos())
+	if (ganador == NULL || jugadorActual->obtenerCreditos() > ganador->obtenerCreditos()) {
 
-            jugadorGanador = jugadores->obtenerCursor();
+ 	   ganador = jugadorActual;
+	}
     }
 
-    cout << endl << "El ganador es: " << jugadorGanador->obtenerNombre() << endl;
+    cout << endl << "El ganador es: " << ganador->obtenerNombre() << endl;
 }
