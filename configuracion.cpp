@@ -107,7 +107,7 @@ void cargarCultivos(Lista<Cultivo*>* listaCultivosDisponibles) {
     ifstream archivoCultivos("Cultivos.txt");
     string lineaLeida;
     int contadorLineasLeidas = 0;
-    Cultivo* cultivo = new Cultivo;
+    Cultivo* cultivo;
 
     if (!(archivoCultivos.is_open())) {
 
@@ -142,6 +142,8 @@ void cargarCultivos(Lista<Cultivo*>* listaCultivosDisponibles) {
         archivoCultivos >> tiempoDeRecuperacion;
         archivoCultivos >> consumoDeAgua;
 
+	cultivo = new Cultivo;
+	    
         cultivo->setearTipo(tipo);
         cultivo->setearCosto(costoSemilla);
         cultivo->setearTiempoCosecha(tiempoCosecha);
