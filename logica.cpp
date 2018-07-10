@@ -498,6 +498,9 @@ void mostrarGanador(Lista<Jugador*>* listaJugadores) {
  	   ganador = jugadorActual;
 	}
     }
-
-    cout << endl << "El ganador es: " << ganador->obtenerNombre() << endl;
+    
+    if (ganador != NULL) {
+	    
+        cout << endl << "El ganador es: " << ganador->obtenerNombre() << endl;
+    }
 }
