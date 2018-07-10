@@ -153,6 +153,29 @@ void cargarCultivos(Lista<Cultivo*>* listaCultivosDisponibles) {
     }
 }
 
+void eliminarJugadores(Lista<Jugador*>* listaJugadores) {
+
+   listaJugadores->iniciarCursor();
+	
+   while (listaJugadores->avanzarCursor()) {
+
+	 Jugador* jugadorActual = listaJugadores->obtenerCursor();
+	   
+	 delete jugadorActual;
+   }
+}
+
+void eliminarCultivos(Lista<Cultivo*>* listaCultivos) {
+
+    listaCultivos->iniciarCursor();
+	
+    while (listaCultivos->avanzarCursor()) {
+	
+	Cultivo* cultivoActual = listaCultivos->obtenerCursor();
+	    
+	delete cultivoActual;
+    }
+}
 void configurarJuego(Lista<Jugador*>* listaJugadores, Lista<Cultivo*>* listaCultivos) {
 
     int cantidadJugadores = 0;
