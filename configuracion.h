@@ -56,6 +56,6 @@ void cargarCultivos(Lista<Cultivo*>* listaCultivosDisponibles);
 //  	debe ser un numero entero positivo
 // Post: Imprime por consola la informacion de los jugadores necesaria
 //		para el desarrollo del juego.
-void mostrarInformacionJugadores(Jugador* jugadores, int cantidadJugadores);
+void mostrarInformacionJugadores(Lista<Jugador*>* jugadores);
 
 #endif

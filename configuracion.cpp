@@ -15,13 +15,14 @@ void ingresarCantidadJugadores(int& cantidadJugadores) {
 
 void crearJugadores(Lista<Jugador*>* listaJugadores, int cantidadJugadores) {
 
-    Jugador* nuevoJugador = new Jugador;
     string nombre;
 
-    for (int i = 1; i <= cantidadJugadores; i++) {
+    for (int i = 1; i < cantidadJugadores + 1; i++) {
 
-        cout << "Ingrese el nombre del jugador " << i << ": ";
-        getline(cin, nombre);
+		Jugador* nuevoJugador = new Jugador;
+
+		cout << "Ingrese el nombre del jugador " << i << ": ";
+        cin >> nombre;
 
         nuevoJugador->establecerNombre(nombre);
         listaJugadores->agregarElemento(nuevoJugador);
@@ -87,16 +88,17 @@ void elegirDificultad(dificultad& nivelElegido) {
             && nivelElegido != DIFICULTAD_DIFICIL);
 }
 
-void mostrarInformacionJugadores(Jugador* jugadores, int cantidadJugadores) {
+void mostrarInformacionJugadores(Lista<Jugador*>* jugadores) {
 
     cout << endl << setw(10) << "Jugador" << setw(20) << "Creditos" << setw(30)
          << "Unidades de riego" << endl << endl;
 
-    for (int i = 0; i < cantidadJugadores; i++) {
+    jugadores->iniciarCursor();
+    while(jugadores->avanzarCursor()){
 
-        cout << setw(10) << jugadores[i].obtenerNombre() << setw(20) <<
-            jugadores[i].obtenerCreditos() << setw(30) <<
-            jugadores[i].obtenerUnidadesRiego() << endl;
+        cout << setw(10) << jugadores->obtenerCursor()->obtenerNombre() << setw(20) <<
+            jugadores->obtenerCursor()->obtenerCreditos() << setw(30) <<
+            jugadores->obtenerCursor()->obtenerUnidadesRiego() << endl;
     }
 }
 

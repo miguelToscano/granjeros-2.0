@@ -9,42 +9,41 @@ const int TURNOS = 10;
 
 int main() {
 
-    Lista<Jugador*> listaJugadores;
-    Lista<Cultivo*> listaCultivos;
+    Lista<Jugador*>* listaJugadores = new Lista<Jugador*>;
+    Lista<Cultivo*>* listaCultivos = new Lista<Cultivo*>;
 	Dibujador dibujo;
 	dibujo.crearTemplates();
 
-    configurarJuego(&listaJugadores, &listaCultivos);
+    configurarJuego(listaJugadores, listaCultivos);
 
     Lista<Grafo*> listaGrafos;
-    cout << cantidadCultivosDisponibles;
-    for(int i = 0; i < listaCultivos.obtenerTamanio(); i++){
+    cout << listaCultivos->contarElementos();
+    for(int i = 0; i < listaCultivos->obtenerTamanio(); i++){
     	char tipoCultivo = ('A' + (char)i);
     	Lista<DestinosAristas> listaAristasAAgregar;
     	cearListaGrafo(tipoCultivo, &listaAristasAAgregar);
-    	Grafo* nuevoGrafo = new Grafo();
+    	Grafo* nuevoGrafo = new Grafo;
     	nuevoGrafo->agregarListaAristas(&listaAristasAAgregar);
     	nuevoGrafo->crearCaminosMinimos(1);
     	listaGrafos.agregarElemento(nuevoGrafo);
-    	listaAristasAAgregar.~Lista();
     }
 
     // Empiezan a jugar
     for (int turno = 1; turno <= TURNOS; turno++) {
 
-        listaJugadores.iniciarCursor();
+        listaJugadores->iniciarCursor();
 
-        while (listaJugadores.avanzarCursor()) {
+        while (listaJugadores->avanzarCursor()) {
 
-            Jugador* jugadorActual = listaJugadores.obtenerCursor();
+            Jugador* jugadorActual = listaJugadores->obtenerCursor();
 
-            procesarTurno(*jugadorActual, turno, &listaCultivos, &listaGrafos);
+            procesarTurno(jugadorActual, turno, listaCultivos, &listaGrafos);
         }
     }
 
-//    mostrarInformacionJugadores(jugadores, cantidadJugadores);    
+    mostrarInformacionJugadores(listaJugadores);
 
-//    mostrarGanador(jugadores, cantidadJugadores);
+    mostrarGanador(listaJugadores);
     dibujo.eliminarTemplates();
 
 //    for(int i = 0; i < cantidadJugadores; i++){
@@ -53,14 +52,8 @@ int main() {
 //    	}
 //    }
 
-    listaGrafos.iniciarCursor();
-    while(listaGrafos.avanzarCursor()){
-    	listaGrafos.obtenerCursor()->~Grafo();
-    	delete listaGrafos.obtenerCursor();
-    }
-    listaGrafos.~Lista();
-    delete[] cultivosDisponibles;
-    delete[] jugadores;
+    delete listaJugadores;
+    delete listaCultivos;
 
     return 0;
 }

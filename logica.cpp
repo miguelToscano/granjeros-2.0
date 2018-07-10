@@ -36,10 +36,10 @@ int obtenerOpcion(Jugador* jugador) {
 
 void validarTerreno(int* terreno, Jugador* jugador){
 	do{
-			cout << "Ingrese el numero de terreno: " << endl;
-			cin >> *terreno;
-			if(!jugador->esUnTerrenoValido(*terreno))
-				cout << "Terreno Invalido" << endl;
+		cout << "Ingrese el numero de terreno: " << endl;
+		cin >> *terreno;
+		if(!jugador->esUnTerrenoValido(*terreno))
+			cout << "Terreno Invalido" << endl;
 	}
 	while(!jugador->esUnTerrenoValido(*terreno));
 }
@@ -47,10 +47,10 @@ void validarTerreno(int* terreno, Jugador* jugador){
 
 void validarFila(int* fila, Jugador* jugador){
 	do{
-			cout << "Ingrese la fila" << endl;
-			cin >> *fila;
-			if(!jugador->esUnaFilaValida(*fila))
-				cout << "Fila Invalida" << endl;
+		cout << "Ingrese la fila" << endl;
+		cin >> *fila;
+		if(!jugador->esUnaFilaValida(*fila))
+			cout << "Fila Invalida" << endl;
 	}
 	while(!jugador->esUnaFilaValida(*fila));
 }
@@ -109,13 +109,12 @@ void cearListaGrafo(char tipoCultivo, Lista<DestinosAristas>* listaDestino){
 
 void validarColumna(int* columna, Jugador* jugador){
 	do{
-			cout << "Ingrese la columna" << endl;
-			cin >> *columna;
-			if(!jugador->esUnaColumnaValida(*columna)){
-				cout << "Columna Invalida" << endl;
-			}
-		}
-		while(!jugador->esUnaColumnaValida(*columna));
+		cout << "Ingrese la columna" << endl;
+		cin >> *columna;
+		if(!jugador->esUnaColumnaValida(*columna))
+			cout << "Columna Invalida" << endl;
+	}
+	while(!jugador->esUnaColumnaValida(*columna));
 }
 
 
@@ -131,7 +130,6 @@ void cosecharParcela(Jugador* jugador){
 	int terreno, fila, columna;
 
 	ingresarCoordenadas(&terreno, &fila, &columna, jugador);
-
 
 	if(jugador->cosechar(terreno, fila, columna)){
 		cout << "Parcela cosechada";
@@ -486,17 +484,18 @@ void procesarTurno(Jugador* jugador, int turno, Lista<Cultivo*>* cultivosDisponi
 }
 
 
-void mostrarGanador(Jugador* jugadores, int cantidadJugadores) {
+void mostrarGanador(Lista<Jugador*>* jugadores) {
 
-    int indiceJugadorGanador = 0;
+    Jugador* jugadorGanador = jugadores->mostrarElemento(1);
 
-    for (int i = 1; i < cantidadJugadores; i++) {
+    jugadores->iniciarCursor();
 
-        if (jugadores[i].obtenerCreditos() > jugadores[indiceJugadorGanador].obtenerCreditos()) {
+    while(jugadores->avanzarCursor()){
 
-            indiceJugadorGanador = i;
-        }
+        if (jugadores->obtenerCursor()->obtenerCreditos() > jugadorGanador->obtenerCreditos())
+
+            jugadorGanador = jugadores->obtenerCursor();
     }
 
-    cout << endl << "El ganador es: " << jugadores[indiceJugadorGanador].obtenerNombre() << endl;
+    cout << endl << "El ganador es: " << jugadorGanador->obtenerNombre() << endl;
 }
