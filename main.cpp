@@ -11,13 +11,13 @@ int main() {
 
     Lista<Jugador*>* listaJugadores = new Lista<Jugador*>;
     Lista<Cultivo*>* listaCultivos = new Lista<Cultivo*>;
-	Dibujador dibujo;
-	dibujo.crearTemplates();
+    Dibujador dibujo;
+    dibujo.crearTemplates();
 
     configurarJuego(listaJugadores, listaCultivos);
 
     Lista<Grafo*> listaGrafos;
-    cout << listaCultivos->contarElementos();
+  
     for(int i = 0; i < listaCultivos->obtenerTamanio(); i++){
     	char tipoCultivo = ('A' + (char)i);
     	Lista<DestinosAristas> listaAristasAAgregar;
