@@ -52,6 +52,7 @@ int main() {
 //    	}
 //    }
 
+    eliminarGrafos(&listaGrafos);
     eliminarJugadores(listaJugadores);
     eliminarCultivos(listaCultivos);
 	
