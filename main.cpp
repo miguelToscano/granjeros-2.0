@@ -42,16 +42,9 @@ int main() {
     }
 
     mostrarInformacionJugadores(listaJugadores);
-
     mostrarGanador(listaJugadores);
+	
     dibujo.eliminarTemplates();
-
-//    for(int i = 0; i < cantidadJugadores; i++){
-//    	for(int j = jugadores[i].obtenerCantidadTerrenos(); j > 0 ; j--){
-//    		dibujo.eliminarTerreno(&jugadores[i], j);
-//    	}
-//    }
-
     eliminarGrafos(&listaGrafos);
     eliminarJugadores(listaJugadores);
     eliminarCultivos(listaCultivos);
