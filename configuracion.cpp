@@ -178,6 +178,19 @@ void eliminarCultivos(Lista<Cultivo*>* listaCultivos) {
 	delete cultivoActual;
     }
 }
+
+void eliminarGrafos(Lista<Grafo*>* listaGrafos) {
+
+    listaGrafos->iniciarCursor();
+
+    while (listaGrafos->avanzarCursor()) {
+
+        Grafo* grafoActual = listaGrafos->obtenerCursor();
+
+        delete grafoActual;
+    }
+}
+
 void configurarJuego(Lista<Jugador*>* listaJugadores, Lista<Cultivo*>* listaCultivos) {
 
     int cantidadJugadores = 0;
