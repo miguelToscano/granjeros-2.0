@@ -64,4 +64,7 @@ void eliminarJugadores(Lista<Jugador*>* listaJugadores);
 // Post: elimina el contenido apuntado por cada nodo de la lista
 void eliminarCultivos(Lista<Cultivo*>* listaCultivos);
 
+// Post elimina lo apuntado por los nodos de la lista de grafos
+void eliminarGrafos(Lista<Grafo*>* listaGrafos);
+
 #endif
